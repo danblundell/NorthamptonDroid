@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/services"
+        android:title="@string/menu_services"
+        android:showAsAction="collapseActionView" />
+    <item android:id="@+id/contactUs"
+        android:title="@string/menu_contact_us"
+        android:showAsAction="collapseActionView" />
+</menu>
