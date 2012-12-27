@@ -27,6 +27,9 @@
 
     <string name="photo_album_name">Northampton</string>
     <string name="contact_type">Contact Us</string>
+    <string name="contact_name">Name</string>
+    <string name="contact_email">Email</string>
+    <string name="contact_phone">Telephone</string>
     <string name="contact_description">Your message...</string>
     <string name="contact_send_button">Send It</string>
 

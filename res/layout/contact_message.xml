@@ -3,8 +3,8 @@
     android:layout_height="fill_parent"
     android:background="@color/nbc_grey"
     android:padding="8dp" >
-    
-   <LinearLayout
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@drawable/round_corners"
@@ -12,52 +12,101 @@
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical" >
 
-	<LinearLayout
-	    android:id="@+id/contactSubjectLayout"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentTop="true"
-	    android:layout_margin="10dip"
-	    android:background="@color/nbc_grey_button_bg"
-	    android:clickable="true"
-	    android:orientation="vertical"
-	    android:padding="8dp" >
-	    
-		<TextView
-	        android:id="@+id/contactSubject"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="@string/contact_type"
-	        android:textColor="@color/actionBarText" />
+        <LinearLayout
+            android:id="@+id/contactSubjectLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dip"
+            android:background="@color/nbc_grey_button_bg"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="8dp" >
 
-	</LinearLayout>
+            <TextView
+                android:id="@+id/contactSubject"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/contact_type"
+                android:textColor="@color/actionBarText" />
+        </LinearLayout>
 
-   <EditText
-        android:id="@+id/contactMessageEditText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/contactSubjectLayout"
-        android:layout_margin="10dip"
-        android:background="@color/actionBarText"
-        android:gravity="top"
-        android:hint="@string/contact_description"
-        android:inputType="textMultiLine"
-        android:lines="5"
-        android:padding="8dp" >
-    </EditText>
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
 
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical" >
 
+                <EditText
+                    android:id="@+id/contactNameEditText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/contactSubjectLayout"
+                    android:layout_margin="10dip"
+                    android:background="@color/actionBarText"
+                    android:gravity="top"
+                    android:hint="@string/contact_name"
+                    android:inputType="textPersonName"
+                    android:padding="8dp" >
+                </EditText>
 
+                <EditText
+                    android:id="@+id/contactEmailEditText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/contactSubjectLayout"
+                    android:layout_margin="10dip"
+                    android:background="@color/actionBarText"
+                    android:gravity="top"
+                    android:hint="@string/contact_email"
+                    android:inputType="textEmailAddress"
+                    android:padding="8dp" >
+                </EditText>
 
-	<Button
-	    android:id="@+id/contactSubmitButton"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:text="@string/contact_send_button"
-	    android:layout_below="@id/contactMessageEditText"
-	    android:layout_margin="10dip"
-	    android:padding="10dip"
-	    android:background="@drawable/red_grad_background_nbc"
-        android:textColor="#FFFFFFFF" />
-</LinearLayout>
+                <EditText
+                    android:id="@+id/contactEmailEditText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/contactSubjectLayout"
+                    android:layout_margin="10dip"
+                    android:background="@color/actionBarText"
+                    android:gravity="top"
+                    android:hint="@string/contact_phone"
+                    android:inputType="phone"
+                    android:padding="8dp" >
+                </EditText>
+
+                <EditText
+                    android:id="@+id/contactMessageEditText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/contactNameEditText"
+                    android:layout_margin="10dip"
+                    android:background="@color/actionBarText"
+                    android:gravity="top"
+                    android:hint="@string/contact_description"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:padding="8dp" >
+                </EditText>
+
+                <Button
+                    android:id="@+id/contactSubmitButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/contactMessageEditText"
+                    android:layout_margin="10dip"
+                    android:background="@drawable/red_grad_background_nbc"
+                    android:padding="10dip"
+                    android:text="@string/contact_send_button"
+                    android:textColor="#FFFFFFFF" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 </RelativeLayout>
