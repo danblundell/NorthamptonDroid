@@ -4,9 +4,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ContactReason;
 import uk.gov.northampton.droid.ContactReasonsAdapter;
-import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.lib.ContactReasonsRetriever;
 import android.app.Activity;
 import android.content.Intent;
@@ -21,11 +21,12 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
-public class Contact extends Activity {
+public class Contact3 extends Activity {
 	
-	private ContactReasonsRetriever crr = new ContactReasonsRetriever();
 	private Spinner spinner;
 	private ContactReason selectedSubject;
+	private ContactReason selectedReason;
+	private ContactReason selectedType;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,17 +34,21 @@ public class Contact extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_select_reason);
 		
+		selectedSubject = (ContactReason) getIntent().getSerializableExtra("contactSubject");
+		selectedReason = (ContactReason) getIntent().getSerializableExtra("contactReason");
+		ArrayList<ContactReason> selectedSubjectType = selectedReason.getReasons();
 		spinner = (Spinner) findViewById(R.id.contact_reasons1_spinner);
 		Button nextBtn = (Button) findViewById(R.id.contact_reasons1_button);
 		
-		RetrieveContactReasonsTask sf = new RetrieveContactReasonsTask();
-		sf.execute();
+		//populate contents of the arraylist to the spinner
+		SpinnerAdapter mySpinnerAdapter = new ContactReasonsAdapter(selectedSubjectType, Contact3.this);
+		spinner.setAdapter(mySpinnerAdapter);
 		
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 		    	
-		    	selectedSubject = (ContactReason) spinner.getItemAtPosition(position);
+		    	selectedType = (ContactReason) spinner.getItemAtPosition(position);
 		    }
 
 		    @Override
@@ -58,11 +63,13 @@ public class Contact extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Log.d("Contact Activity","Next Button Clicked!");
-				if(selectedSubject != null){
+				Log.d("Contact Reason Activity","Next Button Clicked!");
+				if(selectedType != null){
 					//start next activity
-					Intent contactIntent = new Intent(v.getContext(),Contact2.class);
+					Intent contactIntent = new Intent(v.getContext(),ContactMessage.class);
 					contactIntent.putExtra("contactSubject", selectedSubject);
+					contactIntent.putExtra("contactReason", selectedReason);
+					contactIntent.putExtra("contactType", selectedType);
 					startActivity(contactIntent);
 				}
 				else{
@@ -71,27 +78,5 @@ public class Contact extends Activity {
 			}
 			
 		});
-	}
-	
-	private class RetrieveContactReasonsTask extends AsyncTask<InputStream, Void, ArrayList<ContactReason>>{
-
-		@Override
-		protected ArrayList<ContactReason> doInBackground(InputStream... params) {
-			//get xml file and process to array list of objects
-			Resources res = getResources();
-			InputStream is = res.openRawResource(R.raw.contacts);
-			return 	crr.retrieveContactReasons(is);
-		}
-		
-		@Override
-		protected void onPostExecute(final ArrayList<ContactReason> result){
-			
-			//sort results alphabetically
-			Collections.sort(result);
-			
-			//populate contents of the arraylist to the spinner
-			SpinnerAdapter mySpinnerAdapter = new ContactReasonsAdapter(result, Contact.this);
-			spinner.setAdapter(mySpinnerAdapter);
-		}
 	}
 }

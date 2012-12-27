@@ -97,7 +97,7 @@ public class ContactReasonHandler extends DefaultHandler{
 		}
 
 		public ArrayList<ContactReason> retrieveContactReasons() {
-			Log.d("PARSED",serviceAreaReasonList.get(5).getReasons().get(1).geteDesc());
+			//Log.d("PARSED",serviceAreaReasonList.get(5).getReasons().get(1).geteDesc());
 			return serviceAreaReasonList;
 		}
 
