@@ -28,6 +28,7 @@
         <activity android:name=".fragments.Contact"></activity>
         <activity android:name=".fragments.Contact2"></activity>
         <activity android:name=".fragments.Contact3"></activity>
+        <activity android:name=".fragments.ContactMessage"></activity>
         <activity android:name=".fragments.Services"></activity>
         <activity android:name=".lib.CustomWebViewActivity"></activity>
         <activity android:name=".fragments.ReportLocation"></activity>
