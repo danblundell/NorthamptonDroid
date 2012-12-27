@@ -32,7 +32,7 @@ public class ContactMessage extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.contact_select_reason);
+		setContentView(R.layout.contact_message);
 		
 	}
 }

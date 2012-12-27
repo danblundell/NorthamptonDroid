@@ -17,21 +17,17 @@
     <string name="next_button_text">Next</string>
     <string name="google_maps_api_key">0zRpJoy9wFbhc3GU0nme3VMH1HTGLQTmOMNWzww</string>
     <string name="social_feed_url">http://selfserve.northampton.gov.uk/mynbc/socialFeed.xml</string>
-    <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+    <string name="report_description">Describe the problem...</string>
+    <string name="report_photo_dialog_title">Add a photo of the problem</string>
+    <string-array name="report_photo_dialog_options">
+        <item>Use the Camera</item>
+        <item>Pick from Gallery</item>
     </string-array>
-        <string name="report_description">Describe the problem</string>
-        <string name="report_photo_dialog_title">Add a photo of the problem</string>
-        <string-array name="report_photo_dialog_options">
-            <item>Use the Camera</item>
-            <item>Pick from Gallery</item>
-        </string-array>
-        <string name="photo_album_name">Northampton</string>
+    <string name="report_send_button">Report It</string>
+
+    <string name="photo_album_name">Northampton</string>
+    <string name="contact_type">Contact Us</string>
+    <string name="contact_description">Your message...</string>
+    <string name="contact_send_button">Send It</string>
+
 </resources>

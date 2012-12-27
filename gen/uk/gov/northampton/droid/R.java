@@ -9,8 +9,7 @@ package uk.gov.northampton.droid;
 
 public final class R {
     public static final class array {
-        public static final int planets_array=0x7f0c0000;
-        public static final int report_photo_dialog_options=0x7f0c0001;
+        public static final int report_photo_dialog_options=0x7f0c0000;
     }
     public static final class attr {
         /**  Specified if we are forcing an action item overflow menu. 
@@ -860,45 +859,49 @@ containing a value of this type.
         public static final int abs__title=0x7f05001b;
         public static final int abs__titleDivider=0x7f05001c;
         public static final int abs__up=0x7f05000b;
-        public static final int contactUs=0x7f050044;
-        public static final int contact_reasons1_button=0x7f050029;
-        public static final int contact_reasons1_spinner=0x7f050028;
+        public static final int contactMessageEditText=0x7f05002a;
+        public static final int contactSubject=0x7f050029;
+        public static final int contactSubjectLayout=0x7f050028;
+        public static final int contactSubmitButton=0x7f05002b;
+        public static final int contactUs=0x7f050048;
+        public static final int contact_reasons1_button=0x7f05002d;
+        public static final int contact_reasons1_spinner=0x7f05002c;
         public static final int disableHome=0x7f050009;
-        public static final int drag=0x7f050032;
-        public static final int full_line_text=0x7f05003e;
-        public static final int googlemaps_select_location=0x7f050030;
+        public static final int drag=0x7f050036;
+        public static final int full_line_text=0x7f050042;
+        public static final int googlemaps_select_location=0x7f050034;
         public static final int homeAsUp=0x7f050006;
-        public static final int imageLayout=0x7f050036;
-        public static final int linearMapLayout=0x7f05002f;
+        public static final int imageLayout=0x7f05003a;
+        public static final int linearMapLayout=0x7f050033;
         public static final int listMode=0x7f050002;
-        public static final int mapview=0x7f050031;
-        public static final int menu_settings=0x7f050042;
-        public static final int message_text_view=0x7f05003c;
+        public static final int mapview=0x7f050035;
+        public static final int menu_settings=0x7f050046;
+        public static final int message_text_view=0x7f050040;
         public static final int normal=0x7f050001;
         public static final int pager=0x7f050027;
-        public static final int reportDescriptionEditText=0x7f050035;
-        public static final int reportImageButton=0x7f050037;
-        public static final int reportImageFullLayout=0x7f05002c;
-        public static final int reportImageFullScreen=0x7f05002d;
-        public static final int reportImagePreview=0x7f050038;
-        public static final int reportImageRemoveButton=0x7f05002e;
-        public static final int reportSubmitButton=0x7f050039;
-        public static final int reportType=0x7f050034;
-        public static final int reportTypeLayout=0x7f050033;
-        public static final int report_reasons_button=0x7f05002b;
-        public static final int report_reasons_spinner=0x7f05002a;
-        public static final int services=0x7f050043;
+        public static final int reportDescriptionEditText=0x7f050039;
+        public static final int reportImageButton=0x7f05003b;
+        public static final int reportImageFullLayout=0x7f050030;
+        public static final int reportImageFullScreen=0x7f050031;
+        public static final int reportImagePreview=0x7f05003c;
+        public static final int reportImageRemoveButton=0x7f050032;
+        public static final int reportSubmitButton=0x7f05003d;
+        public static final int reportType=0x7f050038;
+        public static final int reportTypeLayout=0x7f050037;
+        public static final int report_reasons_button=0x7f05002f;
+        public static final int report_reasons_spinner=0x7f05002e;
+        public static final int services=0x7f050047;
         public static final int showCustom=0x7f050008;
         public static final int showHome=0x7f050005;
         public static final int showTitle=0x7f050007;
-        public static final int socialProgressBar=0x7f05003a;
-        public static final int social_thumb_icon=0x7f05003b;
-        public static final int source_text_view=0x7f05003d;
+        public static final int socialProgressBar=0x7f05003e;
+        public static final int social_thumb_icon=0x7f05003f;
+        public static final int source_text_view=0x7f050041;
         public static final int tabMode=0x7f050003;
         public static final int useLogo=0x7f050004;
-        public static final int webViewLayout=0x7f05003f;
-        public static final int webViewProgressBar=0x7f050040;
-        public static final int webview=0x7f050041;
+        public static final int webViewLayout=0x7f050043;
+        public static final int webViewProgressBar=0x7f050044;
+        public static final int webview=0x7f050045;
         public static final int wrap_content=0x7f050000;
     }
     public static final class integer {
@@ -926,18 +929,19 @@ containing a value of this type.
         public static final int abs__screen_simple=0x7f030012;
         public static final int abs__screen_simple_overlay_action_mode=0x7f030013;
         public static final int activity_main=0x7f030014;
-        public static final int contact_select_reason=0x7f030015;
-        public static final int find_it_postcode=0x7f030016;
-        public static final int report_job_fullscreen_photo=0x7f030017;
-        public static final int report_job_map=0x7f030018;
-        public static final int report_job_submit=0x7f030019;
-        public static final int report_job_type=0x7f03001a;
-        public static final int sherlock_spinner_dropdown_item=0x7f03001b;
-        public static final int sherlock_spinner_item=0x7f03001c;
-        public static final int social=0x7f03001d;
-        public static final int social_feed_row=0x7f03001e;
-        public static final int spinner_single_text=0x7f03001f;
-        public static final int web_view=0x7f030020;
+        public static final int contact_message=0x7f030015;
+        public static final int contact_select_reason=0x7f030016;
+        public static final int find_it_postcode=0x7f030017;
+        public static final int report_job_fullscreen_photo=0x7f030018;
+        public static final int report_job_map=0x7f030019;
+        public static final int report_job_submit=0x7f03001a;
+        public static final int report_job_type=0x7f03001b;
+        public static final int sherlock_spinner_dropdown_item=0x7f03001c;
+        public static final int sherlock_spinner_item=0x7f03001d;
+        public static final int social=0x7f03001e;
+        public static final int social_feed_row=0x7f03001f;
+        public static final int spinner_single_text=0x7f030020;
+        public static final int web_view=0x7f030021;
     }
     public static final class menu {
         public static final int activity_main=0x7f0d0000;
@@ -979,14 +983,18 @@ containing a value of this type.
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f0a0009;
         public static final int app_name=0x7f0a000a;
+        public static final int contact_description=0x7f0a0020;
+        public static final int contact_send_button=0x7f0a0021;
+        public static final int contact_type=0x7f0a001f;
         public static final int google_maps_api_key=0x7f0a0019;
         public static final int menu_contact_us=0x7f0a000b;
         public static final int menu_services=0x7f0a000c;
         public static final int menu_settings=0x7f0a0010;
         public static final int next_button_text=0x7f0a0018;
-        public static final int photo_album_name=0x7f0a001d;
+        public static final int photo_album_name=0x7f0a001e;
         public static final int report_description=0x7f0a001b;
         public static final int report_photo_dialog_title=0x7f0a001c;
+        public static final int report_send_button=0x7f0a001d;
         public static final int select_button_text=0x7f0a0017;
         public static final int social_feed_url=0x7f0a001a;
         public static final int tab_contact=0x7f0a0016;
