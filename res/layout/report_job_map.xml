@@ -5,19 +5,28 @@
     android:orientation="vertical">
 
    <LinearLayout
-        android:id="@+id/linearMapLayout"
-        android:gravity="bottom"
-        android:layout_width="fill_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+       android:id="@+id/linearMapLayout"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:background="@color/actionBarText"
+       android:gravity="bottom"
+       android:orientation="horizontal" >
 
         <Button
-            android:text="@string/select_button_text"
-            android:layout_height="wrap_content"
+            android:id="@+id/googlemaps_select_location"
             android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
-            android:id="@+id/googlemaps_select_location" />
+            android:background="@drawable/red_grad_background_nbc"
+            android:padding="10dp"
+            android:text="@string/select_button_text"
+            android:textColor="#FFFFFFFF" />
+
     </LinearLayout>
 
     <com.google.android.maps.MapView
@@ -27,7 +36,8 @@
         android:enabled="true"
         android:clickable="true"
         android:apiKey="@string/google_maps_api_key" 
-        android:layout_above="@+id/linearMapLayout"/>
+        android:layout_above="@+id/linearMapLayout"
+        android:layout_marginBottom="8dp" />
     
     <ImageView android:id="@+id/drag"
     	android:layout_width="wrap_content"

@@ -15,6 +15,8 @@ import android.util.Log;
 
 import uk.gov.northampton.droid.ContactReason;
 import uk.gov.northampton.droid.ContactReasonHandler;
+import uk.gov.northampton.droid.ReportProblem;
+import uk.gov.northampton.droid.ReportProblemHandler;
 import uk.gov.northampton.droid.SocialEntry;
 import uk.gov.northampton.droid.SocialEntryHandler;
 
@@ -60,6 +62,25 @@ public class XmlParser {
 			xmlReader.parse(new InputSource(new StringReader(xml)));
 			Log.d("XML PARSE","PARSING");
 			return contactReasonHandler.retrieveContactReasons();
+		}catch(Exception e){
+			Log.d("XML PARSE","PARSING FAILED");
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public ArrayList<ReportProblem> parseProblemList(String xml){
+		try{
+			
+			XMLReader xmlReader = initializeReader();
+			ReportProblemHandler reportProblemHandler = new ReportProblemHandler();
+
+			//assign the handler
+			xmlReader.setContentHandler(reportProblemHandler);
+			//perform the sync parse
+			xmlReader.parse(new InputSource(new StringReader(xml)));
+			Log.d("XML PARSE","PARSING");
+			return reportProblemHandler.retrieveProblemReasons();
 		}catch(Exception e){
 			Log.d("XML PARSE","PARSING FAILED");
 			e.printStackTrace();

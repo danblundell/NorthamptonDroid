@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <service-areas>
     <version>1</version>
     <service-area>
@@ -91,6 +92,7 @@
     <service-area>
         <service-area-ext>Council Tax and Benefits</service-area-ext>
         <service-area-int>CouncilTaxandBenefits</service-area-int>
+        <sections>
         <section>
             <section-ext>Council Tax</section-ext>
             <section-int>CouncilTax</section-int>
@@ -247,10 +249,12 @@
                 </reason>
             </reasons>
         </section>
+        </sections>
     </service-area>
     <service-area>
         <service-area-ext>Environmental Services</service-area-ext>
         <service-area-int>WateRecyclingandtheEnvironment</service-area-int>
+        <sections>
         <section>
             <section-ext>Allotments</section-ext>
             <section-int>Allotments</section-int>
@@ -397,6 +401,7 @@
                 </reason>
             </reasons>
         </section>
+        </sections>
     </service-area>
     <service-area>
         <service-area-ext>Places of Interest</service-area-ext>

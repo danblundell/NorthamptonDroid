@@ -6,6 +6,7 @@ import uk.gov.northampton.droid.lib.HttpRetriever;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,13 @@ public class SocialFeedAdapter extends ArrayAdapter<SocialEntry> {
 
 			//icon
 			ImageView thumbImageView = (ImageView) view.findViewById(R.id.social_thumb_icon);
-			thumbImageView.setBackgroundResource(R.drawable.ic_launcher);
+			if(se.getTypeDesc().compareToIgnoreCase("lovenorthampton") == 0){
+				thumbImageView.setBackgroundResource(R.drawable.love_main);
+			} else{
+				thumbImageView.setBackgroundResource(R.drawable.gold_crest_main);
+			}
+			
+			
 		}
 		return view;
 	}

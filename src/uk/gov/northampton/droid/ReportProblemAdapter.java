@@ -19,23 +19,23 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-public class ContactReasonsAdapter extends BaseAdapter implements SpinnerAdapter {
+public class ReportProblemAdapter extends BaseAdapter implements SpinnerAdapter {
 
-	private ArrayList<ContactReason> contactDataItems;
+	private ArrayList<ReportProblem> problems;
 	private Activity context;
 
-	public ContactReasonsAdapter(ArrayList<ContactReason> content,Activity activity){
+	public ReportProblemAdapter(ArrayList<ReportProblem> content,Activity activity){
 		super();
 		this.context = activity;
-		this.contactDataItems = content;
+		this.problems = content;
 	}
 	
 	public int getCount(){
-		return contactDataItems.size();
+		return problems.size();
 	}
 	
-	public ContactReason getItem(int position){
-		return contactDataItems.get(position);
+	public ReportProblem getItem(int position){
+		return problems.get(position);
 	}
 	
 	public long getItemId(int position){
@@ -48,8 +48,8 @@ public class ContactReasonsAdapter extends BaseAdapter implements SpinnerAdapter
 		final LayoutInflater inflater = context.getLayoutInflater();
 		final View spinnerEntry = inflater.inflate(R.layout.spinner_single_text, null);
 		final TextView rowText = (TextView) spinnerEntry.findViewById(R.id.full_line_text);
-		final ContactReason currentEntry = contactDataItems.get(position);
-		rowText.setText(currentEntry.geteDesc());
+		final ReportProblem currentEntry = problems.get(position);
+		rowText.setText(currentEntry.getpDesc());
 		return spinnerEntry;
 	}
 

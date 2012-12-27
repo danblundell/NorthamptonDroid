@@ -1,8 +1,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="8dp" >
 
+        <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/round_corners"
+        android:orientation="vertical"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical" >
     <Spinner
     android:id="@+id/contact_reasons1_spinner"
     android:layout_width="fill_parent"
@@ -12,6 +20,10 @@
         android:id="@+id/contact_reasons1_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/red_grad_background_nbc"
+        android:textColor="#FFFFFFFF"
         android:text="@string/next_button_text"/>
+    
+    </LinearLayout>
 
 </LinearLayout>

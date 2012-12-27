@@ -48,7 +48,7 @@ public class SocialEntryHandler extends DefaultHandler{
 			else if (localName.equals("type")) {
 				se.type = getSource(buffer.toString());
 			}
-			else if (localName.equals("typeDesc")) {
+			else if (localName.equals("typedesc")) {
 				se.typeDesc = buffer.toString();
 			}
 			else if (localName.equals("heading")) {

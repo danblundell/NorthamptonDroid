@@ -17,8 +17,9 @@
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true"
 	    android:layout_margin="10dip"
-	    android:alpha="50"
 	    android:padding="10dip"
-	    android:text="remove" />
+	    android:text="Remove Photo"
+	    android:background="@drawable/red_grad_background_nbc"
+        android:textColor="#FFFFFFFF" />
 
 </RelativeLayout>

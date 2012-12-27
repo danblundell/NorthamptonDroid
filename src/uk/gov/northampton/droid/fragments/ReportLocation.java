@@ -13,6 +13,7 @@ import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.OverlayItem;
 
 import uk.gov.northampton.droid.R;
+import uk.gov.northampton.droid.ReportProblem;
 import uk.gov.northampton.droid.lib.ReportLocationItemizedOverlay;
 import android.content.Context;
 import android.content.Intent;
@@ -41,7 +42,7 @@ public class ReportLocation extends MapActivity{
 	private MapView mView;
 	private MyLocationOverlay mOverlay = null;
 	private GeoPoint mMarker = null;
-	private String jobType;
+	private ReportProblem rp;
 	private LocationManager locationManager;
 	private LocationListener bestProviderListener;
 	private LocationListener bestAvailableProviderListener;
@@ -54,7 +55,7 @@ public class ReportLocation extends MapActivity{
 		setContentView(R.layout.report_job_map);
 		
 		Intent intent = getIntent();
-		jobType = intent.getStringExtra("type");
+		rp = (ReportProblem) intent.getExtras().getSerializable("type");
 		
 		double lat = 51.751724;
 		double lng = -1.255285;
@@ -121,7 +122,7 @@ public class ReportLocation extends MapActivity{
 					submitMenuIntent.putExtra("lat", mMarker.getLatitudeE6() / 1E6);
 					submitMenuIntent.putExtra("lng", mMarker.getLongitudeE6() / 1E6);
 				}
-				submitMenuIntent.putExtra("type", jobType);
+				submitMenuIntent.putExtra("type", rp);
 				startActivity(submitMenuIntent);
 			}
 			

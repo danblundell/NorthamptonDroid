@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import uk.gov.northampton.droid.R;
+import uk.gov.northampton.droid.ReportProblem;
 import uk.gov.northampton.droid.lib.PhotoChooserDialogFragment;
 import android.app.Activity;
 import android.content.Intent;
@@ -60,8 +61,8 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		Intent intent = getIntent();
 		double lat = intent.getDoubleExtra("lat", 0);
 		double lng = intent.getDoubleExtra("lng", 0);
-		String type = intent.getStringExtra("type");
-		jobType.setText(type);
+		ReportProblem rp = (ReportProblem) intent.getExtras().getSerializable("type");
+		jobType.setText(rp.getpDesc());
 		jobPhoto.setVisibility(View.GONE);
 		
 		File storageDir = new File(

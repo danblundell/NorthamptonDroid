@@ -1,16 +1,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/nbc_grey"
     android:orientation="vertical" >
-    
-
 
     <ListView
         android:id="@id/android:list"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:drawSelectorOnTop="false" />
+        android:background="@color/nbc_grey"
+        android:clipToPadding="false"
+        android:drawSelectorOnTop="false"
+        android:padding="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp"
+        android:scrollbarStyle="outsideOverlay" />
 
     <!-- <ImageView
         android:id="@id/android:empty"
