@@ -19,7 +19,7 @@
 	    android:layout_margin="10dip"
 	    android:padding="10dip"
 	    android:text="Remove Photo"
-	    android:background="@drawable/red_grad_background_nbc"
+	    android:background="@drawable/nbc_button"
         android:textColor="#FFFFFFFF" />
 
 </RelativeLayout>

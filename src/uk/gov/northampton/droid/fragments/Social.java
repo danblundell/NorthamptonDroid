@@ -1,6 +1,11 @@
 package uk.gov.northampton.droid.fragments;
 
 import java.util.ArrayList;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockListFragment;
+
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.SocialEntry;
 import uk.gov.northampton.droid.SocialFeedAdapter;
@@ -22,7 +27,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 @SuppressLint("ParserError")
-public class Social extends ListFragment {
+public class Social extends SherlockListFragment {
 	
 	 private ArrayList<SocialEntry> feedList = new ArrayList<SocialEntry>();
 	 private SocialFeedRetriever sfr = new SocialFeedRetriever();

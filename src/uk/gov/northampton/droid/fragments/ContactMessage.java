@@ -1,29 +1,23 @@
 package uk.gov.northampton.droid.fragments;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
 
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ContactReason;
-import uk.gov.northampton.droid.ContactReasonsAdapter;
 import uk.gov.northampton.droid.lib.ContactHttpSender;
-import uk.gov.northampton.droid.lib.ContactReasonsRetriever;
 import android.app.Activity;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-public class ContactMessage extends Activity {
+public class ContactMessage extends SherlockActivity {
 	
 	private Spinner spinner;
 	private ContactReason selectedSubject;
@@ -35,13 +29,22 @@ public class ContactMessage extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_message);
+		ActionBar ab = getSupportActionBar();
+		ab.setTitle(getString(R.string.contact_type));
 		
-		TextView subjectTV = (TextView) findViewById(R.id.contactSubject);
+		ImageView step1 = (ImageView) findViewById(R.id.contactProgress1ImageView);
+		step1.setImageResource(R.drawable.progress_step_done);
+		ImageView step2 = (ImageView) findViewById(R.id.contactProgress2ImageView);
+		step2.setImageResource(R.drawable.progress_step_done);
+		ImageView step3 = (ImageView) findViewById(R.id.contactProgress3ImageView);
+		step3.setImageResource(R.drawable.progress_step_done);
+		ImageView step4 = (ImageView) findViewById(R.id.contactProgress4ImageView);
+		step4.setImageResource(R.drawable.progress_step_done);
+		
 		Button sendBtn = (Button) findViewById(R.id.contactSubmitButton);
 		selectedSubject = (ContactReason) getIntent().getSerializableExtra("contactSubject");
 		selectedReason = (ContactReason) getIntent().getSerializableExtra("contactReason");
 		selectedType = (ContactReason) getIntent().getSerializableExtra("contactType");
-		subjectTV.setText(selectedType.geteDesc());
 		
 		sendBtn.setOnClickListener(new Button.OnClickListener(){
 
@@ -63,7 +66,7 @@ public class ContactMessage extends Activity {
 		protected String doInBackground(String... params) {
 			//get httpsender and send data
 			ContactHttpSender chs = new ContactHttpSender("myNBC","12345","dblundell@northampton.gov.uk","07580529666",selectedSubject.getiDesc(),selectedReason.getiDesc(),selectedType.getiDesc(),"NN1 1DE","Dan Blundell","Test message");
-			String result = chs.send("http://172.17.11.167:8080/mycouncil/CreateContact");
+			String result = chs.send(getString(R.string.mycouncil_url) + getString(R.string.contact_url));
 			//String result = "Done";
 			return 	result;
 		}

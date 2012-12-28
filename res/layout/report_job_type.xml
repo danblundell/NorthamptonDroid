@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/nbc_grey"
@@ -12,6 +12,24 @@
         android:orientation="vertical"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical" >
+        
+        <LinearLayout
+            android:id="@+id/reportTitleLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:background="@drawable/round_corners_grey"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="8dp" >
+
+            <TextView
+                android:id="@+id/reportTypeTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/report_type_title"
+                android:textColor="@color/actionBarText" />
+        </LinearLayout>
 
     <Spinner
     android:id="@+id/report_reasons_spinner"
@@ -19,15 +37,19 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dip" />
     
+    
+    
+    </LinearLayout>
+
     <Button
         android:id="@+id/report_reasons_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/red_grad_background_nbc"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dip"
+        android:background="@drawable/nbc_button"
         android:text="@string/select_button_text"
         android:textColor="#ffffffff"
-        android:layout_margin="10dip" />
-    
-    </LinearLayout>
+        android:textStyle="bold" />
 
-</LinearLayout>
+</RelativeLayout>

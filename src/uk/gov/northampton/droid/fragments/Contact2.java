@@ -1,27 +1,26 @@
 package uk.gov.northampton.droid.fragments;
 
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
 
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ContactReason;
 import uk.gov.northampton.droid.ContactReasonsAdapter;
 import uk.gov.northampton.droid.lib.ContactReasonsRetriever;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
-public class Contact2 extends Activity {
+public class Contact2 extends SherlockActivity {
 	
 	private ContactReasonsRetriever crr = new ContactReasonsRetriever();
 	private Spinner spinner;
@@ -33,10 +32,21 @@ public class Contact2 extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_select_reason);
+		ActionBar ab = getSupportActionBar();
+		ab.setTitle(getString(R.string.contact_type));
 		
 		selectedSubject = (ContactReason) getIntent().getSerializableExtra("contactSubject");
 		ArrayList<ContactReason> selectedSubjectReasons = selectedSubject.getReasons();
 		spinner = (Spinner) findViewById(R.id.contact_reasons1_spinner);
+		
+		ImageView step1 = (ImageView) findViewById(R.id.contactProgress1ImageView);
+		step1.setImageResource(R.drawable.progress_step_done);
+		ImageView step2 = (ImageView) findViewById(R.id.contactProgress2ImageView);
+		step2.setImageResource(R.drawable.progress_step_done);
+		
+		TextView title = (TextView) findViewById(R.id.contact_reasons_title);
+		title.setText(getString(R.string.contact_reason_title));
+		
 		Button nextBtn = (Button) findViewById(R.id.contact_reasons1_button);
 		
 		//populate contents of the arraylist to the spinner

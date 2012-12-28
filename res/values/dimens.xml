@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="baseline_eight">8dp</dimen>
+    <dimen name="baseline_three_quarts">32dp</dimen>
+    <dimen name="baseline_half">24dp</dimen>
+    <dimen name="baseline_full">48dp</dimen>
+    <dimen name="baseline_padding">8dp</dimen>
+    <dimen name="text_size_title">16sp</dimen>
+    <dimen name="text_size_main_title">24sp</dimen>
+    <dimen name="baseline">16dp</dimen>
+</resources>

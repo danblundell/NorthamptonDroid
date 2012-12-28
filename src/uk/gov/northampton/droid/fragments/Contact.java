@@ -4,6 +4,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+
 import uk.gov.northampton.droid.ContactReason;
 import uk.gov.northampton.droid.ContactReasonsAdapter;
 import uk.gov.northampton.droid.R;
@@ -18,10 +21,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
-public class Contact extends Activity {
+public class Contact extends SherlockActivity {
 	
 	private ContactReasonsRetriever crr = new ContactReasonsRetriever();
 	private Spinner spinner;
@@ -33,7 +39,18 @@ public class Contact extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_select_reason);
 		
+		ActionBar ab = getSupportActionBar();
+		ab.setTitle(getString(R.string.contact_type));
+		
+		
 		spinner = (Spinner) findViewById(R.id.contact_reasons1_spinner);
+		
+		ImageView step1 = (ImageView) findViewById(R.id.contactProgress1ImageView);
+		step1.setImageResource(R.drawable.progress_step_done);
+
+		TextView title = (TextView) findViewById(R.id.contact_reasons_title);
+		title.setText(getString(R.string.contact_subject_title));
+		
 		Button nextBtn = (Button) findViewById(R.id.contact_reasons1_button);
 		
 		RetrieveContactReasonsTask sf = new RetrieveContactReasonsTask();

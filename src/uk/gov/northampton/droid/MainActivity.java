@@ -1,6 +1,7 @@
 package uk.gov.northampton.droid;
 
 import uk.gov.northampton.droid.fragments.*;
+import uk.gov.northampton.droid.lib.PostCodeDialogFragment;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -17,7 +18,7 @@ import android.util.Log;
 
 import com.actionbarsherlock.view.*;
 
-public class MainActivity extends SherlockFragmentActivity implements ActionBar.TabListener {
+public class MainActivity extends SherlockFragmentActivity implements ActionBar.TabListener, PostCodeDialogFragment.PostCodeDialogListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
@@ -151,5 +152,12 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
 			android.support.v4.app.FragmentTransaction ft) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void onFinishPostCodeDialog(String postCode) {
+		if(postCode != null){
+			Log.d("New PostCode", postCode);
+		}
 	}
 }

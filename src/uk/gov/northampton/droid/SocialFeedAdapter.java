@@ -34,8 +34,20 @@ public class SocialFeedAdapter extends ArrayAdapter<SocialEntry> {
 		}
 
 		SocialEntry se = socialDataItems.get(position);
-
+		Log.d("POSITION",""+position);
+		Log.d("LENGTH",""+socialDataItems.size());
+		if(position == 0){
+			view.setBackgroundResource(R.drawable.round_corners_top);
+		}
+		else if(position == (socialDataItems.size() - 1)){
+			view.setBackgroundResource(R.drawable.round_corners_bottom);
+		}
+		else{
+			view.setBackgroundColor(context.getResources().getColor(R.color.actionBarText));
+		}
+		
 		if(se != null){
+			
 
 			//message
 			TextView messageTextView = (TextView) view.findViewById(R.id.message_text_view);

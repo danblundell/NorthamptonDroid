@@ -3,8 +3,8 @@
         
         <gradient
             android:angle="90"
-            android:startColor="#FF6c0a2b"
-            android:endColor="#FFA52449"
+            android:startColor="#FFA52449"
+            android:endColor="#FF6c0a2b"
             android:type="linear" />
         
         <stroke android:width="1dp" android:color="@color/nbc_red_border"/>

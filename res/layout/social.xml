@@ -27,12 +27,12 @@
         android:scaleType="center" />-->
         
             <ProgressBar
-        android:id="@+id/socialProgressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:indeterminate="true" />
+                android:id="@+id/socialProgressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:indeterminate="true" />
 
 </LinearLayout>

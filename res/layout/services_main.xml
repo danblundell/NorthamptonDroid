@@ -14,23 +14,48 @@
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical" >
 
-        <TextView
-            android:id="@+id/findit_main_title"
+        <!--
+        <LinearLayout
+            android:id="@+id/contactSelectLayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginBottom="@dimen/baseline"
+            android:layout_marginBottom="@dimen/baseline_half"
+            android:background="@drawable/round_corners_grey"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:minHeight="22dp"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:showDividers="end" >
+
+            <TextView
+                android:id="@+id/contactSubjectTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/contact_subject_title"
+                android:textColor="@color/actionBarText" />
+
+        </LinearLayout>
+        -->
+
+        <TextView
+            android:id="@+id/services_main_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="@dimen/baseline_half"
             android:background="@drawable/title_border"
             android:gravity="center_vertical"
             android:minHeight="@dimen/baseline_full"
             android:paddingBottom="@dimen/baseline_padding"
             android:paddingRight="@dimen/baseline_padding"
             android:paddingTop="@dimen/baseline_padding"
-            android:text="@string/findit_main_title"
+            android:text="@string/contact_subject_title"
             android:textSize="@dimen/text_size_main_title" />
 
         <Button
-            android:id="@+id/findit_button"
+            android:id="@+id/services_main_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

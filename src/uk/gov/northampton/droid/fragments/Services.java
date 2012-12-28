@@ -1,5 +1,6 @@
 package uk.gov.northampton.droid.fragments;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 
 import uk.gov.northampton.droid.R;
@@ -18,9 +19,9 @@ public class Services extends SherlockActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
-		TextView textView = new TextView(this);
-        textView.setGravity(Gravity.CENTER);
-        textView.setText(R.string.tab_services);
+		setContentView(R.layout.services_main);
+		ActionBar ab = getSupportActionBar();
+		ab.setTitle(R.string.services_main_title);
 	}
 	
 }
