@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class Services extends SherlockActivity {
+public class Settings extends SherlockActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

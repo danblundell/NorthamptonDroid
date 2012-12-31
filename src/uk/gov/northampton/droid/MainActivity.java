@@ -87,8 +87,8 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
     		Intent intent = new Intent();
     	if(item.getItemId() == R.id.contactUs){
     		intent.setClass(this, Contact.class);
-    	}else if(item.getItemId() == R.id.services){
-    		intent.setClass(this, Services.class);
+    	}else if(item.getItemId() == R.id.settings){
+    		intent.setClass(this, Settings.class);
     	}
     	if(intent.getClass() != null){
     		startActivity(intent);
