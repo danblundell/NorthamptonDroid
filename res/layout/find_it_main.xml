@@ -14,21 +14,6 @@
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical" >
 
-        <TextView
-            android:id="@+id/findit_main_title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="@dimen/baseline"
-            android:background="@drawable/title_border"
-            android:gravity="center_vertical"
-            android:minHeight="@dimen/baseline_full"
-            android:paddingBottom="@dimen/baseline_padding"
-            android:paddingRight="@dimen/baseline_padding"
-            android:paddingTop="@dimen/baseline_padding"
-            android:text="@string/findit_main_title"
-            android:textSize="@dimen/text_size_main_title" />
-
         <Button
             android:id="@+id/findit_button"
             android:layout_width="fill_parent"

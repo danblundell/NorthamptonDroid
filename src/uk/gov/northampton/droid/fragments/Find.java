@@ -25,7 +25,7 @@ public class Find extends SherlockFragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.find_it_postcode, container, false);
+        View v = inflater.inflate(R.layout.find_it_main, container, false);
         
         Button nextBtn = (Button) v.findViewById(R.id.findit_button);
         nextBtn.setOnClickListener(new Button.OnClickListener() {
