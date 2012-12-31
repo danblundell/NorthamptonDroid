@@ -1,5 +1,7 @@
 package uk.gov.northampton.droid.fragments;
 
+import java.util.ArrayList;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 
@@ -11,7 +13,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -19,7 +23,11 @@ import android.widget.TextView;
 
 public class ContactMessage extends SherlockActivity {
 	
-	private Spinner spinner;
+	private EditText name;
+	private EditText email;
+	private EditText phone;
+	private EditText message;
+	private Button sendBtn;
 	private ContactReason selectedSubject;
 	private ContactReason selectedReason;
 	private ContactReason selectedType;
@@ -41,31 +49,68 @@ public class ContactMessage extends SherlockActivity {
 		ImageView step4 = (ImageView) findViewById(R.id.contactProgress4ImageView);
 		step4.setImageResource(R.drawable.progress_step_done);
 		
-		Button sendBtn = (Button) findViewById(R.id.contactSubmitButton);
+		//get extras from previous intent
 		selectedSubject = (ContactReason) getIntent().getSerializableExtra("contactSubject");
 		selectedReason = (ContactReason) getIntent().getSerializableExtra("contactReason");
 		selectedType = (ContactReason) getIntent().getSerializableExtra("contactType");
 		
-		sendBtn.setOnClickListener(new Button.OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Log.d("CONTACT","Sending Message!");
-				SendMessageTask sm = new SendMessageTask();
-				sm.execute();
-			}
-			
-		});
+		this.findAllViewsById();
+		sendBtn.setOnClickListener(SendMessageListener);
 		
+	}
+	
+	private OnClickListener SendMessageListener = new OnClickListener(){
+		public void onClick(View v){
+			// TODO Auto-generated method stub
+			Log.d("CONTACT","Sending Message!");
+			boolean send = validateForm();
+			if(send){
+				SendMessageTask sm = new SendMessageTask();
+
+				sm.execute(
+						selectedSubject.getiDesc(),
+						selectedReason.getiDesc(),
+						selectedType.getiDesc(),
+						name.getText().toString(),
+						message.getText().toString(),
+						email.getText().toString(),
+						phone.getText().toString()
+				);
+			}
+		}
+	};
+	
+	private void findAllViewsById(){
+		name = (EditText) findViewById(R.id.contactNameEditText);
+		email = (EditText) findViewById(R.id.contactEmailEditText);
+		phone = (EditText) findViewById(R.id.contactPhoneEditText);
+		message = (EditText) findViewById(R.id.contactMessageEditText);
+		sendBtn = (Button) findViewById(R.id.contactSubmitButton);
 	}
 	
 	private class SendMessageTask extends AsyncTask<String, Integer, String>{
 
 		@Override
 		protected String doInBackground(String... params) {
+
+			//disable button
+			if(sendBtn.isClickable()){
+				sendBtn.setClickable(false);
+			}
+
 			//get httpsender and send data
-			ContactHttpSender chs = new ContactHttpSender("myNBC","12345","dblundell@northampton.gov.uk","07580529666",selectedSubject.getiDesc(),selectedReason.getiDesc(),selectedType.getiDesc(),"NN1 1DE","Dan Blundell","Test message");
+			ContactHttpSender chs = new ContactHttpSender(
+					getString(R.string.data_source),
+					"12345",
+					params[5],
+					params[6],
+					params[0],
+					params[1],
+					params[2],
+					"NN1 1DE",
+					params[3],
+					params[4]
+			);
 			String result = chs.send(getString(R.string.mycouncil_url) + getString(R.string.contact_url));
 			//String result = "Done";
 			return 	result;
@@ -83,6 +128,49 @@ public class ContactMessage extends SherlockActivity {
 				Log.d("CONTACT PE",result);
 			}
 			//otherwise, error.
+			if(!sendBtn.isClickable()){
+				sendBtn.setClickable(true);
+			}
 		}
 	}
+	
+	private boolean validateForm(){
+		if(validateName() && validateEmail() && validatePhone() && validateMessge()){
+			return true;
+		}
+		return false;
+	}
+
+	private boolean validateMessge() {
+		String m = message.getText().toString();
+		if(!m.isEmpty()){
+			return true;
+		}
+		return false;
+	}
+
+	private boolean validatePhone() {
+		String p  = phone.getText().toString();
+		if(!p.isEmpty()){
+			return true;
+		}
+		return false;
+	}
+
+	private boolean validateEmail() {
+		String e = email.getText().toString();
+		if(!e.isEmpty()){
+			return true;
+		}
+		return false;
+	}
+
+	private boolean validateName() {
+		String n = name.getText().toString();
+		if(!n.isEmpty()){
+			return true;
+		}
+		return false;
+	}
+	
 }

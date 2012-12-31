@@ -28,7 +28,6 @@
             android:id="@+id/contactProgress"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_marginBottom="@dimen/baseline_eight"
             android:background="@drawable/progress_line"
             android:baselineAligned="false"

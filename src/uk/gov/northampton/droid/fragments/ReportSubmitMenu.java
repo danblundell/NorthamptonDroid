@@ -8,6 +8,7 @@ import java.util.Date;
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ReportProblem;
 import uk.gov.northampton.droid.lib.PhotoChooserDialogFragment;
+import uk.gov.northampton.droid.lib.ReportHttpSender;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -42,6 +43,14 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	private File imageFile;
 	private String currentPhotoPath;
 	
+	private EditText jobDesc;
+	private String pLat;
+	private String pLng;
+	private String pNumber;
+	private String pDesc;
+	private String pEmail;
+	private String pPhone;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +59,11 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		
 		setContentView(R.layout.report_job_submit);
 		getAlbumName();
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar ab = getSupportActionBar();
+		ab.setTitle(getString(R.string.report_type_title));
 		mView = (View) findViewById(R.id.reportTypeLayout);
 		TextView jobType = (TextView) findViewById(R.id.reportType);
-		EditText jobDescription = (EditText) findViewById(R.id.reportDescriptionEditText);
+		jobDesc = (EditText) findViewById(R.id.reportDescriptionEditText);
 		addPhoto = (ImageButton) findViewById(R.id.reportImageButton);
 		jobPhoto = (ImageView) findViewById(R.id.reportImagePreview);
 		Button jobSubmit = (Button) findViewById(R.id.reportSubmitButton);
@@ -61,8 +71,13 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		Intent intent = getIntent();
 		double lat = intent.getDoubleExtra("lat", 0);
 		double lng = intent.getDoubleExtra("lng", 0);
+		pLat = String.valueOf(lat);
+		pLng = String.valueOf(lng);
 		ReportProblem rp = (ReportProblem) intent.getExtras().getSerializable("type");
 		jobType.setText(rp.getpDesc());
+		pNumber = String.valueOf(rp.getpNum());
+		pEmail = "dblundell@northampton.gov.uk";
+		pPhone = "07580529666";
 		jobPhoto.setVisibility(View.GONE);
 		
 		File storageDir = new File(
@@ -74,39 +89,33 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		
 		Log.d("File Directory", storageDir.getAbsolutePath());
 
-		addPhoto.setOnClickListener( new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				Log.d("Image Button","Clicked!");
-				//load dialog
-				showPhotoOptions();
-			}
-		});
+		addPhoto.setOnClickListener(AddPhotoListener);
 		
-		jobPhoto.setOnClickListener( new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				Log.d("Image View","Clicked!");
-				Intent removePhotoIntent = new Intent(mView.getContext(),ReportImageFullScreen.class);
-				removePhotoIntent.putExtra("photo", currentPhotoPath);
-				startActivity(removePhotoIntent);
-			}
-		});
-		
-		jobSubmit.setOnClickListener( new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				Log.d("Submit Button","Clicked!");
-				//load dialog
-			}
-		});
+		jobPhoto.setOnClickListener(FullScreenImageListener);
+		jobSubmit.setOnClickListener(ReportButtonListener);
 		
 		//Toast.makeText(this, "Lat: " + lat + " / Lng: " + lng, Toast.LENGTH_LONG).show();
 		
 	}
+	
+	private OnClickListener AddPhotoListener = new OnClickListener(){
+		@Override
+		public void onClick(View v) {
+			Log.d("Image Button","Clicked!");
+			//load dialog
+			showPhotoOptions();
+		}
+	};
+	
+	private OnClickListener FullScreenImageListener = new OnClickListener(){
+		@Override
+		public void onClick(View v) {
+			Log.d("Image View","Clicked!");
+			Intent removePhotoIntent = new Intent(mView.getContext(),ReportImageFullScreen.class);
+			removePhotoIntent.putExtra("photo", currentPhotoPath);
+			startActivity(removePhotoIntent);
+		}
+	};
 	
 	private String getAlbumName() {
 		Log.d("Album Name", getString(R.string.photo_album_name));
@@ -214,5 +223,65 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 				
 		}
 
+	}
+	
+	private OnClickListener ReportButtonListener = new OnClickListener(){
+
+		@Override
+		public void onClick(View arg0) {
+			
+			pDesc = jobDesc.getText().toString();
+			
+			ReportSubmitTask rst = new ReportSubmitTask();
+			rst.execute(
+					pDesc,
+					pEmail,
+					"",
+					"false",
+					pLat,
+					pLng,
+					"Problem Location",
+					pPhone,
+					pNumber
+			);
+		}
+		
+	};
+	
+	private class ReportSubmitTask extends AsyncTask<String, Void, String>{
+
+		@Override
+		protected String doInBackground(String... params) {
+			//make http request
+			Log.d("SUBMITTING REPORT","DO IN BG");
+			ReportHttpSender rs = new ReportHttpSender();
+			rs.setDataSource(getString(R.string.data_source));
+			rs.setDesc(params[0]);
+			rs.setDeviceID("12345");
+			rs.setEmail(params[1]);
+			rs.setImage(params[2]);
+			rs.setIncludesImage(params[3]);
+			rs.setLat(params[4]);
+			rs.setLng(params[5]);
+			rs.setLocation(params[6]);
+			rs.setPhone(params[7]);
+			rs.setProblemNumber(params[8]);
+			String result = rs.send(getString(R.string.mycouncil_url) + getString(R.string.report_url));
+			return result;
+		}
+		
+		@Override
+		protected void onPostExecute(final String result){
+			Log.d("SUBMITTING REPORT","OPE");
+				//pass to confirmation intent
+			if(result!=null){
+				Log.d("RESULT",result);
+			}else{
+				Log.d("ERROR","Empty Response");
+			}
+				//or error
+				
+		}
+		
 	}
 }

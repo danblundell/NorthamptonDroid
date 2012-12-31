@@ -63,7 +63,6 @@ public class ReportLocation extends MapActivity{
 
 		mView = (MapView) findViewById(R.id.mapview);
 		Button selectLocation = (Button) findViewById(R.id.googlemaps_select_location);
-		
 		mView.setBuiltInZoomControls(true);
 		mController = mView.getController();
 		mController.setCenter(p);

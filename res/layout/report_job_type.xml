@@ -10,14 +10,116 @@
         android:layout_height="fill_parent"
         android:background="@drawable/round_corners"
         android:orientation="vertical"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical" >
+        android:padding="@dimen/baseline_eight" >
+
+        <LinearLayout
+                    android:id="@+id/reportProgress"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/baseline_eight"
+                    android:background="@drawable/progress_line"
+                    android:baselineAligned="false"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:id="@+id/reportProgress1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/reportProgress1ImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/contact_subject_step"
+                            android:paddingTop="@dimen/baseline"
+                            android:scrollbars="none"
+                            android:src="@drawable/progress_step" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/report_type_step" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/reportProgress2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/reportProgress2ImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/contact_reason_step"
+                            android:paddingTop="@dimen/baseline"
+                            android:scrollbars="none"
+                            android:src="@drawable/progress_step" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/report_location_step" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/reportProgress3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/reportProgress3ImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/contact_type_step"
+                            android:paddingTop="@dimen/baseline"
+                            android:scrollbars="none"
+                            android:src="@drawable/progress_step" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/report_details_step" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/reportProgress4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/reportProgress4ImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/contact_details_step"
+                            android:paddingTop="@dimen/baseline"
+                            android:scrollbars="none"
+                            android:src="@drawable/progress_step" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/report_confirmation_step" />
+                    </LinearLayout>
+                </LinearLayout>
         
         <LinearLayout
             android:id="@+id/reportTitleLayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dip"
+            android:layout_marginBottom="@dimen/baseline_eight"
             android:background="@drawable/round_corners_grey"
             android:clickable="true"
             android:orientation="vertical"
@@ -32,12 +134,9 @@
         </LinearLayout>
 
     <Spinner
-    android:id="@+id/report_reasons_spinner"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dip" />
-    
-    
+        android:id="@+id/report_reasons_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
     
     </LinearLayout>
 
