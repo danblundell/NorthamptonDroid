@@ -6,6 +6,7 @@
 		* Add settings activity
 		* Store app preferences (name / email / tel / postcode)
 		* Add routines to listen for changes to app preferences
+		* Write confirmation xml parser 
 		
 	* Social
 		* Cache xml in Bundle
@@ -20,7 +21,9 @@
 		* Add resized Image to http request
 		* Add validation to input fields
 		* Cache selected values in Bundle
+		* Add confirmation activity
 		
 	* Contact
 		* Cache input / selected values
 		* Add validation to input fields
+		* Add confirmation activity
