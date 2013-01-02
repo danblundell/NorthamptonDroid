@@ -9,8 +9,11 @@ import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ContactReason;
 import uk.gov.northampton.droid.lib.ContactHttpSender;
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -55,6 +58,7 @@ public class ContactMessage extends SherlockActivity {
 		selectedType = (ContactReason) getIntent().getSerializableExtra("contactType");
 		
 		this.findAllViewsById();
+		this.updateUIFromPreferences();
 		sendBtn.setOnClickListener(SendMessageListener);
 		
 	}
@@ -86,6 +90,14 @@ public class ContactMessage extends SherlockActivity {
 		phone = (EditText) findViewById(R.id.contactPhoneEditText);
 		message = (EditText) findViewById(R.id.contactMessageEditText);
 		sendBtn = (Button) findViewById(R.id.contactSubmitButton);
+	}
+	
+	private void updateUIFromPreferences(){
+		Context context = getApplicationContext();
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+		name.setText(sharedPrefs.getString(Settings.NBC_NAME, getString(R.string.contact_name)));
+		email.setText(sharedPrefs.getString(Settings.NBC_EMAIL, getString(R.string.contact_email)));
+		phone.setText(sharedPrefs.getString(Settings.NBC_TEL, getString(R.string.contact_phone)));
 	}
 	
 	private class SendMessageTask extends AsyncTask<String, Integer, String>{

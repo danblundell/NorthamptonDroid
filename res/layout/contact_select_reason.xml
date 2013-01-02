@@ -172,7 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/contactProgress"
             android:layout_marginBottom="@dimen/baseline_half"
-            android:background="@drawable/title_border"
+            android:background="@drawable/sub_title_border"
             android:gravity="center_vertical"
             android:minHeight="@dimen/baseline_full"
             android:paddingBottom="@dimen/baseline_padding"
@@ -187,6 +187,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/contact_reasons_title"
             android:layout_marginBottom="@dimen/baseline_half"
+            android:background="@drawable/spinner_ab_default_nbc"
             android:minHeight="44dip"
             android:prompt="@string/contact_subject_step" />
 

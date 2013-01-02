@@ -10,13 +10,16 @@ import uk.gov.northampton.droid.ReportProblem;
 import uk.gov.northampton.droid.lib.PhotoChooserDialogFragment;
 import uk.gov.northampton.droid.lib.ReportHttpSender;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
@@ -52,6 +55,8 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	private String pPhone;
 	
 	
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -61,7 +66,6 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		getAlbumName();
 		ActionBar ab = getSupportActionBar();
 		ab.setTitle(getString(R.string.report_type_title));
-		mView = (View) findViewById(R.id.reportTypeLayout);
 		TextView jobType = (TextView) findViewById(R.id.reportType);
 		jobDesc = (EditText) findViewById(R.id.reportDescriptionEditText);
 		addPhoto = (ImageButton) findViewById(R.id.reportImageButton);
@@ -96,6 +100,16 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		
 		//Toast.makeText(this, "Lat: " + lat + " / Lng: " + lng, Toast.LENGTH_LONG).show();
 		
+	}
+	
+	private void findAllViewsById(){
+		
+	}
+	
+	private void updateUIFromPreferences(){
+		Context context = getApplicationContext();
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+		pEmail = sharedPrefs.getString(Settings.NBC_EMAIL, null);
 	}
 	
 	private OnClickListener AddPhotoListener = new OnClickListener(){

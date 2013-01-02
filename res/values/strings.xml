@@ -35,16 +35,16 @@
     <string name="report_location_step">Location</string>
     <string name="report_details_step">Details</string>
     <string name="report_confirmation_step">Done</string>
-    <string name="report_notifications_title">Notify me by</string>
+    <string name="report_notifications_title">Send me a reciept</string>
     <string name="report_notifications_sms_toggle_label">SMS</string>
     <string name="report_notifications_email_toggle_label">Email</string>
     <string name="report_submit_button_text">Report It</string>
 
     <string name="photo_album_name">Northampton</string>
-    <string name="contact_subject_title">Select a Service</string>
-    <string name="contact_reason_title">Select a Department</string>
-    <string name="contact_type_title">Select a Reason</string>
-    <string name="contact_details_title">Enter your Details</string>
+    <string name="contact_subject_title">Select a service</string>
+    <string name="contact_reason_title">Select a department</string>
+    <string name="contact_type_title">Select a reason</string>
+    <string name="contact_details_title">Enter your details</string>
     <string name="contact_confirmation_title">Done!</string>
     <string name="contact_subject_step">Service</string>
     <string name="contact_reason_step">Dept</string>
@@ -56,7 +56,7 @@
     <string name="contact_name">Name</string>
     <string name="contact_email">Email</string>
     <string name="contact_phone">Telephone</string>
-    <string name="contact_description">Your message...</string>
+    <string name="contact_description">Your message</string>
     <string name="contact_send_button">Send It</string>
     <string name="contact_url">CreateContact</string>
     <string name="findit_main_title">Find It</string>
