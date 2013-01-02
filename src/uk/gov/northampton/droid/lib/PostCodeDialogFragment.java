@@ -94,7 +94,8 @@ public class PostCodeDialogFragment extends DialogFragment {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int opt) {
-				dListener.onFinishPostCodeDialog(pc.toString());
+				String postCodeOut = returnPostCode();
+				dListener.onFinishPostCodeDialog(postCodeOut);
 				dialog.dismiss();
 			}
 			
@@ -124,12 +125,10 @@ public class PostCodeDialogFragment extends DialogFragment {
 		@Override
 		public void onItemSelected(AdapterView<?> parentView, View v, int position,
 				long id) {
-			Log.d("POSTCODE SELECTION", parentView.getItemAtPosition(position).toString());
 			if(pc.size() > this.loc){
 				pc.remove(this.loc);
 			}
 			pc.add(this.loc,parentView.getItemAtPosition(position).toString());	
-			Log.d("POSTCODE CHANGED", pc.toString());
 		}
 
 		@Override
@@ -139,6 +138,15 @@ public class PostCodeDialogFragment extends DialogFragment {
 		}
 		
 		
+	}
+	
+	private String returnPostCode(){
+		StringBuilder sb = new StringBuilder();
+		for (String s : this.pc)
+		{
+		    sb.append(s);
+		}
+		return sb.toString();
 	}
 
 }

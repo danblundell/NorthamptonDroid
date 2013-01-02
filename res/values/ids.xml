@@ -1,0 +1,4 @@
+<resources>
+    <item type="id" name="nbc_setting_value"/>
+    <item type="id" name="nbc_setting_title"/>
+</resources>

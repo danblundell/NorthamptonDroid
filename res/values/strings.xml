@@ -103,6 +103,7 @@
         <item>Z</item>
     </string-array>
 	<string name="settings_title">Settings</string>
+	<string name="settings_yourDetails_title">YOUR DETAILS</string>
 	<string name="settings_name">Name</string>
 	<string name="settings_email">Email</string>
 	<string name="settings_telephone">Telephone</string>
