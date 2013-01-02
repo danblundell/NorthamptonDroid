@@ -29,7 +29,7 @@
         <activity android:name=".fragments.Contact2"></activity>
         <activity android:name=".fragments.Contact3"></activity>
         <activity android:name=".fragments.ContactMessage"></activity>
-        <activity android:name="uk.gov.northampton.droid.fragments.Settings"></activity>
+        <activity android:name=".fragments.Settings"></activity>
         <activity android:name=".lib.CustomWebViewActivity"></activity>
         <activity android:name=".fragments.ReportLocation"></activity>
         <activity android:name=".fragments.ReportSubmitMenu"></activity>
