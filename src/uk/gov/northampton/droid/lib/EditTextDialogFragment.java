@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -63,11 +64,11 @@ public class EditTextDialogFragment extends DialogFragment {
 		this.viewId = viewId;
 	}
 	
-	private void setInputType(int inputType) {
+	public void setInputType(int inputType) {
 		this.inputType = inputType;
 	}
 	
-	private int getInputType() {
+	public int getInputType() {
 		return inputType;
 	}
 
@@ -94,18 +95,23 @@ public class EditTextDialogFragment extends DialogFragment {
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		final EditText editText = new EditText(getActivity());
-		//editText.setInputType(this.getInputType());
+		Log.d("INPUT TYPE",""+this.inputType);
+		editText.setInputType(this.inputType);
 		editText.setFocusable(true);
 		editText.requestFocus();
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(this.getTitle());
 		builder.setMessage(this.getMsg());
 		builder.setView(editText);
+		
 		builder.setPositiveButton("Set", new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int opt) {
 				out = editText.getText().toString();
+				if(out.length() == 0){
+					opt = DialogInterface.BUTTON_NEGATIVE;
+				}
 				dListener.onFinishEditTextDialog(opt, out, viewId);
 				dialog.dismiss();
 			}

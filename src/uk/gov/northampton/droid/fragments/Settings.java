@@ -5,25 +5,20 @@ import uk.gov.northampton.droid.lib.EditTextDialogFragment;
 import uk.gov.northampton.droid.lib.EditTextDialogFragment.EditTextDialogListener;
 import uk.gov.northampton.droid.lib.PostCodeDialogFragment;
 import uk.gov.northampton.droid.lib.PostCodeDialogFragment.PostCodeDialogListener;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class Settings extends SherlockFragmentActivity implements PostCodeDialogListener, EditTextDialogListener {
@@ -82,8 +77,17 @@ public class Settings extends SherlockFragmentActivity implements PostCodeDialog
 	}
 	
 	private void populateViews() {
+		name.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 		name.setOnClickListener(editTextViewListener);
+
+		email.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+		email.setOnClickListener(editTextViewListener);
+		
+		phone.setInputType(InputType.TYPE_CLASS_PHONE);
+		phone.setOnClickListener(editTextViewListener);
+		
 		postCode.setOnClickListener(editPostCodeListener);
+		
 		saveButton.setOnClickListener(saveChangesListener);
 		cancelButton.setOnClickListener(cancelChangesListener);
 	}
@@ -107,7 +111,7 @@ public class Settings extends SherlockFragmentActivity implements PostCodeDialog
 	}
 
 	public OnClickListener editTextViewListener = new OnClickListener(){
-
+		
 		@Override
 		public void onClick(View v) {
 			TextView tv = (TextView) v;
