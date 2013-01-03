@@ -27,7 +27,7 @@
         <item>Pick from Gallery</item>
     </string-array>
     <string name="report_url">CreateCall</string>
-    <string name="mycouncil_url">http://192.168.0.9:8080/mycouncil/</string>
+    <string name="mycouncil_url">http://172.17.11.167:8080/mycouncil/</string>
     <string name="report_type_step">Type</string>
     <string name="report_details_title">Details</string>
     <string name="report_image_addPhoto_description">Add a photo</string>
@@ -102,6 +102,12 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
+    <string name="conf_details_title">Done</string>
+    <string name="conf_step1">Service</string>
+    <string name="conf_step2">Dept</string>
+    <string name="conf_step3">Reason</string>
+    <string name="conf_step4">Details</string>
+    <string name="conf_step5">Done</string>
 	<string name="settings_title">Settings</string>
 	<string name="settings_yourDetails_title">YOUR DETAILS</string>
 	<string name="settings_name">Name</string>

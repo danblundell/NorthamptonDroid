@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 
+import uk.gov.northampton.droid.Confirmation;
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ContactReason;
+import uk.gov.northampton.droid.lib.ConfirmationRetriever;
 import uk.gov.northampton.droid.lib.ContactHttpSender;
 import android.app.Activity;
 import android.content.Context;
@@ -23,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ContactMessage extends SherlockActivity {
 	
@@ -138,6 +141,9 @@ public class ContactMessage extends SherlockActivity {
 			//if successful, forward to confirmation screen
 			if(result != null){
 				Log.d("CONTACT PE",result);
+				ConfirmationRetriever cr = new ConfirmationRetriever();
+				Confirmation conf = cr.retrieveConfirmation(result);
+				Toast.makeText(getApplicationContext(), "Case Ref: " + conf.getCallNumber(), Toast.LENGTH_LONG).show();
 			}
 			//otherwise, error.
 			if(!sendBtn.isClickable()){

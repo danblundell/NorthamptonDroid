@@ -13,6 +13,8 @@ import org.xml.sax.XMLReader;
 
 import android.util.Log;
 
+import uk.gov.northampton.droid.Confirmation;
+import uk.gov.northampton.droid.ConfirmationHandler;
 import uk.gov.northampton.droid.ContactReason;
 import uk.gov.northampton.droid.ContactReasonHandler;
 import uk.gov.northampton.droid.ReportProblem;
@@ -81,6 +83,25 @@ public class XmlParser {
 			xmlReader.parse(new InputSource(new StringReader(xml)));
 			Log.d("XML PARSE","PARSING");
 			return reportProblemHandler.retrieveProblemReasons();
+		}catch(Exception e){
+			Log.d("XML PARSE","PARSING FAILED");
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Confirmation parseConfirmationXml(String xml){
+		try{
+			
+			XMLReader xmlReader = initializeReader();
+			ConfirmationHandler confirmationHandler = new ConfirmationHandler();
+
+			//assign the handler
+			xmlReader.setContentHandler(confirmationHandler);
+			//perform the sync parse
+			xmlReader.parse(new InputSource(new StringReader(xml)));
+			Log.d("XML PARSE","PARSING");
+			return confirmationHandler.retrieveConfirmation();
 		}catch(Exception e){
 			Log.d("XML PARSE","PARSING FAILED");
 			e.printStackTrace();

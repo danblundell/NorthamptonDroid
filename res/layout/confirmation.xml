@@ -1,0 +1,225 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/nbc_grey"
+    android:orientation="vertical"
+    android:padding="8dp" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/round_corners"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical" >
+
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical" >
+
+            <LinearLayout
+                android:id="@+id/confProgresswrapper"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/confProgress"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/baseline_eight"
+                    android:background="@drawable/progress_line"
+                    android:baselineAligned="false"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:id="@+id/confProgress1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/confProgress1ImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/conf_step1"
+                            android:paddingTop="@dimen/baseline"
+                            android:scrollbars="none"
+                            android:src="@drawable/progress_step" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/conf_step1" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/confProgress2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/confProgress2ImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/conf_step2"
+                            android:paddingTop="@dimen/baseline"
+                            android:scrollbars="none"
+                            android:src="@drawable/progress_step" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/conf_step2" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/confProgress3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/confProgress3ImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/conf_step3"
+                            android:paddingTop="@dimen/baseline"
+                            android:scrollbars="none"
+                            android:src="@drawable/progress_step" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/conf_step3" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/confProgress4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/confProgress4ImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/conf_step4"
+                            android:paddingTop="@dimen/baseline"
+                            android:scrollbars="none"
+                            android:src="@drawable/progress_step" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/conf_step4" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/confProgress5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/confProgress5ImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/conf_step5"
+                            android:paddingTop="@dimen/baseline"
+                            android:scrollbars="none"
+                            android:src="@drawable/progress_step" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/conf_step5" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:scrollbarStyle="outsideOverlay"
+                    android:scrollbars="vertical" >
+
+                    <TextView
+                        android:id="@+id/conf_details_title"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="@dimen/baseline"
+                        android:background="@drawable/sub_title_border"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/baseline_full"
+                        android:paddingBottom="@dimen/baseline_padding"
+                        android:paddingRight="@dimen/baseline_padding"
+                        android:paddingTop="@dimen/baseline_padding"
+                        android:text="@string/conf_details_title"
+                        android:textSize="@dimen/text_size_main_title" />
+
+                    <TextView
+                        android:id="@+id/conf_description_TextView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/conf_details_title"
+                        android:layout_marginBottom="@dimen/baseline"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/baseline_full"
+                        android:paddingBottom="@dimen/baseline_padding"
+                        android:paddingRight="@dimen/baseline_padding"
+                        android:paddingTop="@dimen/baseline_padding"
+                        android:text="@string/conf_details_title" />
+
+                    <TextView
+                        android:id="@+id/conf_case_ref_TextView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/conf_description_TextView"
+                        android:gravity="center_horizontal"
+                        android:minHeight="@dimen/baseline_full"
+                        android:paddingBottom="@dimen/baseline_padding"
+                        android:paddingRight="@dimen/baseline_padding"
+                        android:paddingTop="@dimen/baseline_padding"
+                        android:text="@string/conf_details_title"
+                        android:textColor="@color/nbc_red"
+                        android:textSize="@dimen/text_size_main_title" />
+
+                    <TextView
+                        android:id="@+id/conf_description_bottom_TextView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/conf_case_ref_TextView"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/baseline_full"
+                        android:paddingBottom="@dimen/baseline_padding"
+                        android:paddingRight="@dimen/baseline_padding"
+                        android:paddingTop="@dimen/baseline_padding"
+                        android:text="@string/conf_details_title" />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+
+</LinearLayout>
