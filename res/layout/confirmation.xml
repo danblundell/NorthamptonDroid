@@ -195,11 +195,13 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/conf_description_TextView"
+                        android:focusable="true"
                         android:gravity="center_horizontal"
                         android:minHeight="@dimen/baseline_full"
                         android:paddingBottom="@dimen/baseline_padding"
                         android:paddingRight="@dimen/baseline_padding"
                         android:paddingTop="@dimen/baseline_padding"
+                        android:textIsSelectable="true"
                         android:text="@string/conf_details_title"
                         android:textColor="@color/nbc_red"
                         android:textSize="@dimen/text_size_main_title" />

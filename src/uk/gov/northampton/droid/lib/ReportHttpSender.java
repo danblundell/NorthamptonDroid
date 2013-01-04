@@ -1,11 +1,14 @@
 package uk.gov.northampton.droid.lib;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
@@ -13,6 +16,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import android.net.Uri;
+import android.util.Base64;
 import android.util.Log;
 
 public class ReportHttpSender {
@@ -29,12 +33,13 @@ public class ReportHttpSender {
 	private String email;
 	private String phone;
 	private String image;
+	private String imageData;
 	
 	public ReportHttpSender(){
 		super();
 	}
 	
-	public ReportHttpSender(String dataSource, String includesImage, String deviceID, String problemNumber, String lat, String lng, String desc, String location, String email, String phone, String image){
+	public ReportHttpSender(String dataSource, String includesImage, String deviceID, String problemNumber, String lat, String lng, String desc, String location, String email, String phone, String image, String imageData){
 		super();
 		this.dataSource = dataSource;
 		this.includesImage = includesImage;
@@ -47,8 +52,17 @@ public class ReportHttpSender {
 		this.email = email;
 		this.phone = phone;
 		this.image = image;
+		this.imageData = imageData;
 	}
 	
+	public String getImageData() {
+		return imageData;
+	}
+
+	public void setImageData(String imageData) {
+		this.imageData = imageData;
+	}
+
 	public DefaultHttpClient getClient() {
 		return client;
 	}
@@ -163,6 +177,13 @@ public class ReportHttpSender {
 		postRequest.addHeader("ProblemPhone",this.phone); 
 		postRequest.addHeader("UTF-8",this.image);
 		
+		try {
+			HttpEntity imageStr = new StringEntity(this.imageData);
+			postRequest.setEntity(imageStr);
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try{
 			Log.d("HTTPSENDER",postRequest.getAllHeaders()[0].toString());

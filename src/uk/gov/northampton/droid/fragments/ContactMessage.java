@@ -12,6 +12,7 @@ import uk.gov.northampton.droid.lib.ConfirmationRetriever;
 import uk.gov.northampton.droid.lib.ContactHttpSender;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -143,7 +144,10 @@ public class ContactMessage extends SherlockActivity {
 				Log.d("CONTACT PE",result);
 				ConfirmationRetriever cr = new ConfirmationRetriever();
 				Confirmation conf = cr.retrieveConfirmation(result);
-				Toast.makeText(getApplicationContext(), "Case Ref: " + conf.getCallNumber(), Toast.LENGTH_LONG).show();
+				Intent confIntent = new Intent(getApplicationContext(),ConfirmationActivity.class);
+				confIntent.putExtra("result", conf);
+				startActivity(confIntent);
+				//Toast.makeText(getApplicationContext(), "Case Ref: " + conf.getCallNumber(), Toast.LENGTH_LONG).show();
 			}
 			//otherwise, error.
 			if(!sendBtn.isClickable()){

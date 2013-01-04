@@ -35,7 +35,10 @@ public class ConfirmationHandler extends DefaultHandler{
 		public void endElement(String uri, String localName, String qName)throws SAXException {
 
 			if (localName.equals("result")) {
-				boolean success = Boolean.parseBoolean(buffer.toString());
+				boolean success = false;
+				if(buffer.toString().equalsIgnoreCase("success")){
+					success = true;
+				}
 				conf.setSuccess(success);
 			}
 			else if (localName.equals("callNumber")) {
