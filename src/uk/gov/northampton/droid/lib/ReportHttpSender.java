@@ -33,13 +33,13 @@ public class ReportHttpSender {
 	private String email;
 	private String phone;
 	private String image;
-	private String imageData;
+	private byte[] imageData;
 	
 	public ReportHttpSender(){
 		super();
 	}
 	
-	public ReportHttpSender(String dataSource, String includesImage, String deviceID, String problemNumber, String lat, String lng, String desc, String location, String email, String phone, String image, String imageData){
+	public ReportHttpSender(String dataSource, String includesImage, String deviceID, String problemNumber, String lat, String lng, String desc, String location, String email, String phone, String image, byte[] imageData){
 		super();
 		this.dataSource = dataSource;
 		this.includesImage = includesImage;
@@ -55,11 +55,11 @@ public class ReportHttpSender {
 		this.imageData = imageData;
 	}
 	
-	public String getImageData() {
+	public byte[] getImageData() {
 		return imageData;
 	}
 
-	public void setImageData(String imageData) {
+	public void setImageData(byte[] imageData) {
 		this.imageData = imageData;
 	}
 
@@ -175,15 +175,9 @@ public class ReportHttpSender {
 		postRequest.addHeader("ProblemLocation",this.location);
 		postRequest.addHeader("ProblemEmail",this.email);
 		postRequest.addHeader("ProblemPhone",this.phone); 
-		postRequest.addHeader("UTF-8",this.image);
 		
-		try {
-			HttpEntity imageStr = new StringEntity(this.imageData);
-			postRequest.setEntity(imageStr);
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		HttpEntity imageBytes = new ByteArrayEntity(this.imageData);
+		postRequest.setEntity(imageBytes);
 		
 		try{
 			Log.d("HTTPSENDER",postRequest.getAllHeaders()[0].toString());

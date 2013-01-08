@@ -330,7 +330,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 			rs.setDeviceID("12345");
 			rs.setEmail(params[1]);
 			rs.setImage(params[2]);
-			rs.setImageData(encodedImage);
+			rs.setImageData(b);
 			rs.setIncludesImage(params[3]);
 			rs.setLat(params[4]);
 			rs.setLng(params[5]);
