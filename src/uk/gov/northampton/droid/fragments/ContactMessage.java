@@ -43,7 +43,7 @@ public class ContactMessage extends SherlockActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.contact_message);
+		setContentView(R.layout.contact_2_message);
 		ActionBar ab = getSupportActionBar();
 		ab.setTitle(getString(R.string.contact_type));
 		

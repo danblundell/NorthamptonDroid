@@ -21,6 +21,9 @@
     <color name="actionBarText">#ffffffff</color>
     <color name="nbc_red">#ffA52449</color>
     <color name="nbc_red_border">#ffAA1E48</color>
+    <color name="progress_current">#ffAA1E48</color>
+    <color name="progress_done">#ff5A6C71</color>
+    <color name="progress">#ffD1D3D4</color>
     <color name="nbc_grey">#ffD1D3D4</color>
     <color name="nbc_grey_transparent">#aaD1D3D4</color>
     <color name="nbc_box_shadow">#ff2D2F30</color>

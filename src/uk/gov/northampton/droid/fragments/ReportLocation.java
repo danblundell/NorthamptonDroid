@@ -52,7 +52,7 @@ public class ReportLocation extends MapActivity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.report_job_map);
+		setContentView(R.layout.report_2_map);
 		
 		Intent intent = getIntent();
 		rp = (ReportProblem) intent.getExtras().getSerializable("type");

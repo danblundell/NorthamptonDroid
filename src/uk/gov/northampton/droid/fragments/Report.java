@@ -60,7 +60,7 @@ public class Report extends SherlockFragment implements OnItemSelectedListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		
-		View view = inflater.inflate(R.layout.report_job_type, container, false);
+		View view = inflater.inflate(R.layout.report_1_type, container, false);
 		findAllViewsById(view);
 		getProblemList();
 		setAllListeners();

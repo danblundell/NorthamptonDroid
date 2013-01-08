@@ -28,7 +28,7 @@ public class PostCodeAlertDialog extends AlertDialog {
 
 	@Override
 	public void setView(View view) {
-		view = getLayoutInflater().inflate(R.layout.report_job_type, null);
+		view = getLayoutInflater().inflate(R.layout.report_1_type, null);
 		super.setView(view);
 	}
 	

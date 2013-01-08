@@ -37,7 +37,7 @@ public class Contact extends SherlockActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.contact_select_reason);
+		setContentView(R.layout.contact_1_reason);
 		
 		ActionBar ab = getSupportActionBar();
 		ab.setTitle(getString(R.string.contact_type));

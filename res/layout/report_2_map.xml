@@ -23,7 +23,7 @@
             android:layout_weight="1"
             android:background="@drawable/nbc_button"
             android:padding="10dp"
-            android:text="@string/select_button_text"
+            android:text="@string/next_button_text"
             android:textColor="#FFFFFFFF"
             android:textStyle="bold" />
 

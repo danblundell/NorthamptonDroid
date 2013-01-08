@@ -77,7 +77,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.report_job_submit);
+		setContentView(R.layout.report_3_submit);
 
 		ActionBar ab = getSupportActionBar();
 		ab.setTitle(getString(R.string.report_type_title));
@@ -102,7 +102,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	}
 	
 	private void findAllViewsById(){
-		jobType = (TextView) findViewById(R.id.reportType);
+		jobType = (TextView) findViewById(R.id.report_desc_title_TextView);
 		jobDesc = (EditText) findViewById(R.id.reportDescriptionEditText);
 		addPhoto = (ImageButton) findViewById(R.id.reportImageButton);
 		jobPhoto = (ImageView) findViewById(R.id.reportImagePreview);

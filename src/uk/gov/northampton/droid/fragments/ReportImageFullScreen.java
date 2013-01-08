@@ -33,7 +33,7 @@ public class ReportImageFullScreen extends SherlockFragmentActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.report_job_fullscreen_photo);
+		setContentView(R.layout.report_4_full_photo);
 		
 		ActionBar actionBar = getSupportActionBar();
 

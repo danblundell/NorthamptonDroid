@@ -31,15 +31,15 @@ public class SocialFeedAdapter extends ArrayAdapter<SocialEntry> {
 		}
 
 		SocialEntry se = socialDataItems.get(position);
-		if(position == 0){
-			view.setBackgroundResource(R.drawable.round_corners_top);
-		}
-		else if(position == (socialDataItems.size() - 1)){
-			view.setBackgroundResource(R.drawable.round_corners_bottom);
-		}
-		else{
-			view.setBackgroundColor(context.getResources().getColor(R.color.actionBarText));
-		}
+//		if(position == 0){
+//			view.setBackgroundResource(R.drawable.round_corners_top);
+//		}
+//		else if(position == (socialDataItems.size() - 1)){
+//			view.setBackgroundResource(R.drawable.round_corners_bottom);
+//		}
+//		else{
+//			view.setBackgroundColor(context.getResources().getColor(R.color.actionBarText));
+//		}
 		
 		if(se != null){
 			
@@ -55,9 +55,9 @@ public class SocialFeedAdapter extends ArrayAdapter<SocialEntry> {
 			//icon
 			ImageView thumbImageView = (ImageView) view.findViewById(R.id.social_thumb_icon);
 			if(se.getTypeDesc().compareToIgnoreCase("lovenorthampton") == 0){
-				thumbImageView.setBackgroundResource(R.drawable.love_main);
+				thumbImageView.setImageResource(R.drawable.love_main);
 			} else{
-				thumbImageView.setBackgroundResource(R.drawable.gold_crest_main);
+				thumbImageView.setImageResource(R.drawable.gold_crest_main);
 			}
 			
 			
