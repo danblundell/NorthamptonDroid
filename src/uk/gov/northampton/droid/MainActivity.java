@@ -18,7 +18,7 @@ import android.util.Log;
 
 import com.actionbarsherlock.view.*;
 
-public class MainActivity extends SherlockFragmentActivity implements ActionBar.TabListener, PostCodeDialogFragment.PostCodeDialogListener {
+public class MainActivity extends SherlockFragmentActivity implements ActionBar.TabListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
@@ -152,12 +152,5 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
 			android.support.v4.app.FragmentTransaction ft) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void onFinishPostCodeDialog(String postCode) {
-		if(postCode != null){
-			Log.d("New PostCode", postCode);
-		}
 	}
 }

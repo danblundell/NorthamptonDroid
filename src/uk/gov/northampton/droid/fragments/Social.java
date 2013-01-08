@@ -2,7 +2,12 @@ package uk.gov.northampton.droid.fragments;
 
 import java.util.ArrayList;
 
+import com.actionbarsherlock.ActionBarSherlock.OnCreateOptionsMenuListener;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.SocialEntry;
@@ -27,6 +32,7 @@ public class Social extends SherlockListFragment {
 	 private ArrayList<SocialEntry> feedList = new ArrayList<SocialEntry>();
 	 private SocialFeedRetriever sfr = new SocialFeedRetriever();
 	 private ProgressBar pb;
+	 private ActionBar ab;
 	 
 	 private static final String SOCIAL_FEED_LIST_KEY = "SOCIAL_FEED_LIST_KEY";
 	
@@ -45,7 +51,9 @@ public class Social extends SherlockListFragment {
 		String socialFeedUrl = getString(R.string.social_feed_url);
 		RetrieveSocialFeedTask sf = new RetrieveSocialFeedTask();
 		sf.execute(socialFeedUrl);
-		}		
+		}
+		
+		ab = getSherlockActivity().getSupportActionBar();
 	}
 
 	@Override
@@ -117,7 +125,6 @@ public class Social extends SherlockListFragment {
 		outState.putSerializable(SOCIAL_FEED_LIST_KEY, feedList);
 		super.onSaveInstanceState(outState);
 		
-	}
-		
+	}	
 
 }

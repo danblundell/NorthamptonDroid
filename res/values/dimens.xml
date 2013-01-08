@@ -9,4 +9,5 @@
     <dimen name="text_size_main_title">24sp</dimen>
     <dimen name="baseline">16dp</dimen>
     <dimen name="photo_button_height">80dp</dimen>
+    <dimen name="baseline_four">4dp</dimen>
 </resources>

@@ -218,18 +218,9 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	
 	private File createImageFile() throws IOException {
 	    // Create an image file name
-		
-	    String timeStamp = 
-	        new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-	    Log.i("CIF", timeStamp);
+	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 	    String imageFileName = JPEG_FILE_PREFIX + timeStamp + "_" + JPEG_FILE_SUFFIX;
-	    Log.i("CIF", imageFileName);
-	    Log.i("CIF", "STORAGEDIR" + storageDir);
-	    Log.i("CIF", "Full file dir" + storageDir + imageFileName);
 	    File image = new File(storageDir,imageFileName);
-	    
-	    Log.d("Path: ", image.getAbsolutePath());
-	    
 	    currentPhotoPath = image.getAbsolutePath();
 	    return image;
 	}

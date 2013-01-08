@@ -9,7 +9,8 @@
         android:layout_height="fill_parent"
         android:background="@drawable/round_corners"
         android:orientation="vertical"
-        android:padding="@dimen/baseline_eight"
+        android:paddingBottom="@dimen/baseline_eight"
+        android:paddingTop="@dimen/baseline_eight"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical" >
 
@@ -47,14 +48,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/contact_subject_step"
-                            android:paddingTop="@dimen/baseline"
+                            android:paddingTop="@dimen/baseline_four"
                             android:scrollbars="none"
                             android:src="@drawable/progress_step" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/report_type_step" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -70,14 +67,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/contact_reason_step"
-                            android:paddingTop="@dimen/baseline"
+                            android:paddingTop="@dimen/baseline_four"
                             android:scrollbars="none"
                             android:src="@drawable/progress_step" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/report_location_step" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -93,14 +85,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/contact_type_step"
-                            android:paddingTop="@dimen/baseline"
+                            android:paddingTop="@dimen/baseline_four"
                             android:scrollbars="none"
                             android:src="@drawable/progress_step" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/report_details_step" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -116,16 +103,18 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/contact_details_step"
-                            android:paddingTop="@dimen/baseline"
+                            android:paddingTop="@dimen/baseline_four"
                             android:scrollbars="none"
                             android:src="@drawable/progress_step" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/report_confirmation_step" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/reportMainLinearLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/baseline_eight" >
 
                 <TextView
                     android:id="@+id/reportType"
@@ -137,25 +126,43 @@
                     android:paddingTop="@dimen/baseline_eight"
                     android:text="@string/report_details_title"
                     android:textSize="@dimen/text_size_title" />
+                
+				<LinearLayout
+				    android:id="@+id/reportDescriptionHorizontalLayout"
+				    android:layout_width="fill_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_marginBottom="@dimen/baseline_eight"
+				    android:orientation="horizontal"
+				    android:baselineAligned="true" >
+
+				<LinearLayout
+				    android:id="@+id/reportDescriptionLinearLayout"
+				    android:layout_width="0dp"
+				    android:layout_height="fill_parent"
+				    android:layout_weight="2"
+				    android:orientation="horizontal" >
 
                 <EditText
                     android:id="@+id/reportDescriptionEditText"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/baseline"
                     android:gravity="top"
                     android:hint="@string/report_description"
                     android:inputType="textMultiLine"
                     android:maxLines="5"
-                    android:minLines="2"
-                    android:padding="8dp" >
+                    android:minLines="4"
+                    android:padding="@dimen/baseline_eight"
+                    android:textSize="@dimen/text_size_title" >
+
                 </EditText>
+</LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/imageLayout"
-                    android:layout_width="fill_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/baseline_eight"
+                    android:layout_weight="1"
                     android:background="@color/actionBarText"
                     android:orientation="vertical" >
 
@@ -178,8 +185,9 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/pin"
                         android:visibility="gone" />
-                </LinearLayout>
 
+                </LinearLayout>
+	</LinearLayout>
                 <TextView
                     android:id="@+id/report_notifications_TextView"
                     android:layout_width="fill_parent"
@@ -192,6 +200,7 @@
                     android:textSize="@dimen/text_size_title" />
 
                 <LinearLayout
+                    android:id="@+id/report_notification_email_LinearLayout"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -217,6 +226,7 @@
                 </LinearLayout>
 
                <LinearLayout
+                   android:id="@+id/report_notifications_sms_LinearLayout"
                    android:layout_width="fill_parent"
                    android:layout_height="wrap_content"
                    android:layout_gravity="center_horizontal"
@@ -249,6 +259,7 @@
                     android:text="@string/report_submit_button_text"
                     android:textColor="#FFFFFFFF"
                     android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
