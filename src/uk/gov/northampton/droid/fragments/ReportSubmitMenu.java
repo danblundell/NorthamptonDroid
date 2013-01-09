@@ -93,8 +93,10 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		
 		if(savedInstanceState != null){
 			currentPhotoPath = savedInstanceState.getString(REPORT_PHOTO_LOCATION);
-			Log.i("SAVED IMAGE LOC",currentPhotoPath);
-			getImageThumbnail();
+			if(currentPhotoPath != null){
+				Log.i("SAVED IMAGE LOC",currentPhotoPath);
+				getImageThumbnail();
+			}
 		}
 
 		storageDir = getAlbumName();
@@ -353,7 +355,10 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		Log.i("SAVING INSTANCE", "BUNDLE SAVING");
-		outState.putString(REPORT_PHOTO_LOCATION, currentPhotoPath);
+		if(currentPhotoPath != null){
+			Log.i("SAVING INSTANCE", currentPhotoPath);
+			outState.putString(REPORT_PHOTO_LOCATION, currentPhotoPath);
+		}
 		super.onSaveInstanceState(outState);
 	}
 	

@@ -925,7 +925,7 @@ containing a value of this type.
         public static final int contactProgress5ImageView=0x7f050044;
         public static final int contactProgresswrapper=0x7f050048;
         public static final int contactSubmitButton=0x7f05004e;
-        public static final int contactUs=0x7f05009a;
+        public static final int contactUs=0x7f05009b;
         public static final int contact_details_title=0x7f050049;
         public static final int contact_reasons1_button=0x7f050047;
         public static final int contact_reasons1_spinner=0x7f050046;
@@ -934,14 +934,15 @@ containing a value of this type.
         public static final int drag=0x7f050066;
         public static final int findit_button=0x7f05004f;
         public static final int full_line_text=0x7f050057;
+        public static final int full_line_text_padded=0x7f050094;
         public static final int googlemaps_select_location=0x7f050064;
         public static final int homeAsUp=0x7f050006;
         public static final int imageLayout=0x7f05006f;
         public static final int linearMapLayout=0x7f050063;
         public static final int listMode=0x7f050002;
-        public static final int main_busy=0x7f050098;
+        public static final int main_busy=0x7f050099;
         public static final int mapview=0x7f050065;
-        public static final int menu_settings=0x7f050097;
+        public static final int menu_settings=0x7f050098;
         public static final int message_text_view=0x7f050091;
         public static final int nbc_setting_title=0x7f050011;
         public static final int nbc_setting_value=0x7f050010;
@@ -954,7 +955,7 @@ containing a value of this type.
         public static final int postcode_5_spinner=0x7f050054;
         public static final int postcode_6_spinner=0x7f050055;
         public static final int postcode_7_spinner=0x7f050056;
-        public static final int refresh=0x7f050099;
+        public static final int refresh=0x7f05009a;
         public static final int reportDescriptionEditText=0x7f05006e;
         public static final int reportDescriptionHorizontalLayout=0x7f05006c;
         public static final int reportDescriptionLinearLayout=0x7f05006d;
@@ -989,7 +990,7 @@ containing a value of this type.
         public static final int report_type_RelativeLayout=0x7f050058;
         public static final int services_main_button=0x7f05007e;
         public static final int services_main_title=0x7f05007d;
-        public static final int settings=0x7f05009b;
+        public static final int settings=0x7f05009c;
         public static final int settings_email_LinearLayout=0x7f050084;
         public static final int settings_email_TextView=0x7f050085;
         public static final int settings_email_set_TextView=0x7f050086;
@@ -1015,9 +1016,9 @@ containing a value of this type.
         public static final int source_text_view=0x7f050092;
         public static final int tabMode=0x7f050003;
         public static final int useLogo=0x7f050004;
-        public static final int webViewLayout=0x7f050094;
-        public static final int webViewProgressBar=0x7f050095;
-        public static final int webview=0x7f050096;
+        public static final int webViewLayout=0x7f050095;
+        public static final int webViewProgressBar=0x7f050096;
+        public static final int webview=0x7f050097;
         public static final int wrap_content=0x7f050000;
     }
     public static final class integer {
@@ -1063,7 +1064,8 @@ containing a value of this type.
         public static final int social=0x7f030024;
         public static final int social_feed_row=0x7f030025;
         public static final int spinner_single_text=0x7f030026;
-        public static final int web_view=0x7f030027;
+        public static final int spinner_single_text_padded=0x7f030027;
+        public static final int web_view=0x7f030028;
     }
     public static final class menu {
         public static final int activity_main=0x7f0d0000;

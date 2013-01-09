@@ -43,6 +43,16 @@ public class ReportProblemAdapter extends BaseAdapter implements SpinnerAdapter 
 		
 	}
 	
+	
+	
+	@Override
+	public View getDropDownView(int position, View convertView, ViewGroup parent) {
+		View view = (View) convertView.inflate(context, R.layout.spinner_single_text_padded,null);
+		TextView text = (TextView) view.findViewById(R.id.full_line_text_padded);
+		text.setText(problems.get(position).getpDesc());
+		return view;
+	}
+
 	public View getView(int position, View convertView, ViewGroup parent){
 		
 		final LayoutInflater inflater = context.getLayoutInflater();
