@@ -39,12 +39,12 @@ public class Contact2 extends SherlockActivity {
 		ArrayList<ContactReason> selectedSubjectReasons = selectedSubject.getReasons();
 		spinner = (Spinner) findViewById(R.id.contact_reasons1_spinner);
 		
-		ImageView step1 = (ImageView) findViewById(R.id.contactProgress1ImageView);
-		step1.setImageResource(R.drawable.progress_step_done);
-		ImageView step2 = (ImageView) findViewById(R.id.contactProgress2ImageView);
-		step2.setImageResource(R.drawable.progress_step_done);
+		ImageView step1 = (ImageView) findViewById(R.id.contact_step_1);
+		step1.setImageResource(R.drawable.progress_line_done);
+		ImageView step2 = (ImageView) findViewById(R.id.contact_step_2);
+		step2.setImageResource(R.drawable.progress_line_current);
 		
-		TextView title = (TextView) findViewById(R.id.contact_reasons_title);
+		TextView title = (TextView) findViewById(R.id.contact_reasons_title_TextView);
 		title.setText(getString(R.string.contact_reason_title));
 		
 		Button nextBtn = (Button) findViewById(R.id.contact_reasons1_button);

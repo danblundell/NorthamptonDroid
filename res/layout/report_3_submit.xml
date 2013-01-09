@@ -1,76 +1,78 @@
-                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/round_corners"
-            android:orientation="vertical"
-            android:scrollbarStyle="outsideOverlay"
-            android:scrollbars="vertical" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/actionBarText"
+    android:orientation="vertical"
+    android:scrollbarStyle="outsideOverlay"
+    android:scrollbars="vertical" >
 
-        <ScrollView
-            android:id="@+id/report_details_ScrollView"
+    <ScrollView
+        android:id="@+id/report_details_ScrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/actionBarText"
+        android:padding="@dimen/baseline"
+        android:scrollbarStyle="outsideOverlay" >
+
+        <LinearLayout
+            android:id="@+id/reportProgresswrapper"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/baseline"
-            android:scrollbarStyle="outsideOverlay" >
+            android:orientation="vertical" >
 
             <LinearLayout
-                android:id="@+id/reportProgresswrapper"
+                android:id="@+id/report_progress_LinearLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/baseline"
+                android:background="@color/actionBarText"
+                android:minHeight="@dimen/baseline_eight"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/report_step_1"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="@dimen/baseline"
+                    android:layout_weight="1"
+                    android:src="@drawable/progress_line_done" />
+
+                <ImageView
+                    android:id="@+id/report_step_2"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="@dimen/baseline"
+                    android:layout_weight="1"
+                    android:src="@drawable/progress_line_done" />
+
+                <ImageView
+                    android:id="@+id/report_step_3"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="@dimen/baseline"
+                    android:layout_weight="1"
+                    android:src="@drawable/progress_line_current" />
+
+                <ImageView
+                    android:id="@+id/report_step_4"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/progress_line" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/reportMainLinearLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
-
-                <LinearLayout
-                    android:id="@+id/report_progress_LinearLayout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/baseline"
-                    android:background="@color/actionBarText"
-                    android:minHeight="@dimen/baseline_eight"
-                    android:orientation="horizontal" >
-
-                    <ImageView
-                        android:id="@+id/report_step_1"
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_marginRight="@dimen/baseline"
-                        android:layout_weight="1"
-                        android:src="@drawable/progress_line_done" />
-
-                    <ImageView
-                        android:id="@+id/report_step_2"
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_marginRight="@dimen/baseline"
-                        android:layout_weight="1"
-                        android:src="@drawable/progress_line_done" />
-
-                    <ImageView
-                        android:id="@+id/report_step_3"
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_marginRight="@dimen/baseline"
-                        android:layout_weight="1"
-                        android:src="@drawable/progress_line_current" />
-
-                    <ImageView
-                        android:id="@+id/report_step_4"
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/progress_line" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/reportMainLinearLayout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
 
                 <TextView
                     android:id="@+id/report_desc_title_TextView"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/baseline_eight"
+                    android:paddingBottom="@dimen/baseline_eight"
                     android:text="@string/report_details_title"
                     android:textColor="@color/nbc_red_border"
                     android:textSize="@dimen/text_size_main_title" />
@@ -83,69 +85,67 @@
                     android:paddingBottom="@dimen/baseline_eight"
                     android:text="@string/report_details_title_desc"
                     android:textSize="@dimen/text_size_main_subtext" />
-                
-				<LinearLayout
-				    android:id="@+id/reportDescriptionHorizontalLayout"
-				    android:layout_width="fill_parent"
-				    android:layout_height="wrap_content"
-				    android:layout_marginBottom="@dimen/baseline_eight"
-				    android:orientation="horizontal"
-				    android:baselineAligned="true" >
-
-				<LinearLayout
-				    android:id="@+id/reportDescriptionLinearLayout"
-				    android:layout_width="0dp"
-				    android:layout_height="fill_parent"
-				    android:layout_weight="2"
-				    android:orientation="horizontal" >
-
-                <EditText
-                    android:id="@+id/reportDescriptionEditText"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/baseline"
-                    android:gravity="top"
-                    android:hint="@string/report_description"
-                    android:inputType="textMultiLine"
-                    android:maxLines="5"
-                    android:minLines="4"
-                    android:textSize="@dimen/text_size_title" >
-
-                </EditText>
-</LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/imageLayout"
-                    android:layout_width="0dp"
+                    android:id="@+id/reportDescriptionHorizontalLayout"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/baseline_eight"
-                    android:layout_weight="1"
-                    android:background="@color/actionBarText"
-                    android:orientation="vertical" >
+                    android:baselineAligned="true"
+                    android:orientation="horizontal" >
 
-                    <ImageButton
-                        android:id="@+id/reportImageButton"
-                        android:layout_width="fill_parent"
-                        android:layout_height="@dimen/photo_button_height"
-                        android:background="@color/nbc_grey"
-                        android:clickable="true"
-                        android:contentDescription="@string/report_image_addPhoto_description"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_device_access_camera" />
+                    <LinearLayout
+                        android:id="@+id/reportDescriptionLinearLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"
+                        android:orientation="horizontal" >
 
-                    <ImageView
-                        android:id="@+id/reportImagePreview"
-                        android:layout_width="fill_parent"
-                        android:layout_height="@dimen/photo_button_height"
-                        android:adjustViewBounds="false"
-                        android:clickable="true"
-                        android:contentDescription="@string/report_image_description"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/pin"
-                        android:visibility="gone" />
+                        <EditText
+                            android:id="@+id/reportDescriptionEditText"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/baseline"
+                            android:gravity="top"
+                            android:hint="@string/report_description"
+                            android:inputType="textMultiLine"
+                            android:maxLines="5"
+                            android:minLines="4"
+                            android:textSize="@dimen/text_size_title" >
+                        </EditText>
+                    </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/imageLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/baseline_eight"
+                        android:layout_weight="1"
+                        android:background="@color/actionBarText"
+                        android:orientation="vertical" >
+
+                        <ImageButton
+                            android:id="@+id/reportImageButton"
+                            android:layout_width="fill_parent"
+                            android:layout_height="@dimen/photo_button_height"
+                            android:background="@color/nbc_grey"
+                            android:clickable="true"
+                            android:contentDescription="@string/report_image_addPhoto_description"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_device_access_camera" />
+
+                        <ImageView
+                            android:id="@+id/reportImagePreview"
+                            android:layout_width="fill_parent"
+                            android:layout_height="@dimen/photo_button_height"
+                            android:adjustViewBounds="false"
+                            android:clickable="true"
+                            android:contentDescription="@string/report_image_description"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/pin"
+                            android:visibility="gone" />
+                    </LinearLayout>
                 </LinearLayout>
-	</LinearLayout>
 
                 <TextView
                     android:id="@+id/report_notifications_TextView"
@@ -165,7 +165,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginBottom="@dimen/baseline_eight"
                     android:orientation="horizontal" >
-                    
+
                     <TextView
                         android:id="@+id/report_notifications_email_TextView"
                         android:layout_width="0dp"
@@ -181,25 +181,24 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical|center_horizontal"
                         android:text="@string/report_notifications_email_toggle_label" />
-
                 </LinearLayout>
 
-               <LinearLayout
-                   android:id="@+id/report_notifications_sms_LinearLayout"
-                   android:layout_width="fill_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_gravity="center_horizontal"
-                   android:layout_marginBottom="@dimen/baseline_eight"
-                   android:gravity="center_vertical"
-                   android:orientation="horizontal" >
-                    
-                   <TextView
-                       android:id="@+id/report_notifications_sms_TextView"
-                       android:layout_width="0dp"
-                       android:layout_height="wrap_content"
-                       android:layout_weight="3"
-                       android:gravity="center_vertical"
-                       android:text="@string/settings_telephone_add" />
+                <LinearLayout
+                    android:id="@+id/report_notifications_sms_LinearLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/baseline_eight"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/report_notifications_sms_TextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:text="@string/settings_telephone_add" />
 
                     <ToggleButton
                         android:id="@+id/report_notifications_sms_ToggleButton"
@@ -218,7 +217,8 @@
                     android:text="@string/report_submit_button_text"
                     android:textColor="#FFFFFFFF"
                     android:textStyle="bold" />
-                </LinearLayout>
             </LinearLayout>
-        </ScrollView>
-    </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -47,14 +47,14 @@ public class ContactMessage extends SherlockActivity {
 		ActionBar ab = getSupportActionBar();
 		ab.setTitle(getString(R.string.contact_type));
 		
-		ImageView step1 = (ImageView) findViewById(R.id.contactProgress1ImageView);
-		step1.setImageResource(R.drawable.progress_step_done);
-		ImageView step2 = (ImageView) findViewById(R.id.contactProgress2ImageView);
-		step2.setImageResource(R.drawable.progress_step_done);
-		ImageView step3 = (ImageView) findViewById(R.id.contactProgress3ImageView);
-		step3.setImageResource(R.drawable.progress_step_done);
-		ImageView step4 = (ImageView) findViewById(R.id.contactProgress4ImageView);
-		step4.setImageResource(R.drawable.progress_step_done);
+		ImageView step1 = (ImageView) findViewById(R.id.contact_step_1);
+		step1.setImageResource(R.drawable.progress_line_done);
+		ImageView step2 = (ImageView) findViewById(R.id.contact_step_2);
+		step2.setImageResource(R.drawable.progress_line_done);
+		ImageView step3 = (ImageView) findViewById(R.id.contact_step_3);
+		step3.setImageResource(R.drawable.progress_line_done);
+		ImageView step4 = (ImageView) findViewById(R.id.contact_step_4);
+		step4.setImageResource(R.drawable.progress_line_current);
 		
 		//get extras from previous intent
 		selectedSubject = (ContactReason) getIntent().getSerializableExtra("contactSubject");
@@ -144,7 +144,7 @@ public class ContactMessage extends SherlockActivity {
 				Log.d("CONTACT PE",result);
 				ConfirmationRetriever cr = new ConfirmationRetriever();
 				Confirmation conf = cr.retrieveConfirmation(result);
-				Intent confIntent = new Intent(getApplicationContext(),ConfirmationActivity.class);
+				Intent confIntent = new Intent(getApplicationContext(),ContactConfirmation.class);
 				confIntent.putExtra("result", conf);
 				startActivity(confIntent);
 				//Toast.makeText(getApplicationContext(), "Case Ref: " + conf.getCallNumber(), Toast.LENGTH_LONG).show();

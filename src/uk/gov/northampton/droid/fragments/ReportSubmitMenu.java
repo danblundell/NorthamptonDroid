@@ -174,6 +174,9 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 			    getString(R.string.photo_album_name)
 			);
 		Log.d("STORAGE DIR RETURNING", dir.getAbsolutePath());
+		if(!dir.exists()){
+			dir.mkdirs();
+		}
         return dir;
 	}
 	
@@ -341,7 +344,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 				Log.d("REPORT PE",result);
 				ConfirmationRetriever cr = new ConfirmationRetriever();
 				Confirmation conf = cr.retrieveConfirmation(result);
-				Intent confIntent = new Intent(getApplicationContext(),ConfirmationActivity.class);
+				Intent confIntent = new Intent(getApplicationContext(),ReportConfirmation.class);
 				confIntent.putExtra("result", conf);
 				startActivity(confIntent);
 			}

@@ -45,10 +45,10 @@ public class Contact extends SherlockActivity {
 		
 		spinner = (Spinner) findViewById(R.id.contact_reasons1_spinner);
 		
-		ImageView step1 = (ImageView) findViewById(R.id.contactProgress1ImageView);
-		step1.setImageResource(R.drawable.progress_step_done);
+		ImageView step1 = (ImageView) findViewById(R.id.contact_step_1);
+		step1.setImageResource(R.drawable.progress_line_current);
 
-		TextView title = (TextView) findViewById(R.id.contact_reasons_title);
+		TextView title = (TextView) findViewById(R.id.contact_reasons_title_TextView);
 		title.setText(getString(R.string.contact_subject_title));
 		
 		Button nextBtn = (Button) findViewById(R.id.contact_reasons1_button);

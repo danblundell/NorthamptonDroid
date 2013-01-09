@@ -1,207 +1,110 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/nbc_grey"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/actionBarText"
     android:orientation="vertical"
-    android:padding="8dp" >
+    android:padding="@dimen/baseline"
+    android:scrollbarStyle="outsideOverlay"
+    android:scrollbars="vertical" >
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/contact_progress_LinearLayout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/round_corners"
-        android:orientation="vertical"
-        android:padding="8dp"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical" >
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/baseline"
+        android:background="@color/actionBarText"
+        android:minHeight="@dimen/baseline_eight"
+        android:orientation="horizontal" >
 
-        <!--
-        <LinearLayout
-            android:id="@+id/contactSelectLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="@dimen/baseline_half"
-            android:background="@drawable/round_corners_grey"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:minHeight="22dp"
-            android:orientation="vertical"
-            android:padding="8dp"
-            android:showDividers="end" >
+        <ImageView
+            android:id="@+id/contact_step_1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="@dimen/baseline"
+            android:layout_weight="1"
+            android:contentDescription="@string/conf_step1"
+            android:src="@drawable/progress_line_current" />
 
-            <TextView
-                android:id="@+id/contactSubjectTextView"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/contact_subject_title"
-                android:textColor="@color/actionBarText" />
+        <ImageView
+            android:id="@+id/contact_step_2"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="@dimen/baseline"
+            android:layout_weight="1"
+            android:contentDescription="@string/conf_step2"
+            android:src="@drawable/progress_line" />
 
-        </LinearLayout>
-        -->
+        <ImageView
+            android:id="@+id/contact_step_3"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="@dimen/baseline"
+            android:layout_weight="1"
+            android:contentDescription="@string/conf_step3"
+            android:src="@drawable/progress_line" />
 
-        <LinearLayout
-            android:id="@+id/contactProgress"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="@dimen/baseline_eight"
-            android:background="@drawable/progress_line"
-            android:baselineAligned="false"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal" >
+        <ImageView
+            android:id="@+id/contact_step_4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="@dimen/baseline"
+            android:layout_weight="1"
+            android:contentDescription="@string/conf_step4"
+            android:src="@drawable/progress_line" />
 
-            <LinearLayout
-                android:id="@+id/contactProgress1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" >
+        <ImageView
+            android:id="@+id/contact_step_5"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/conf_step5"
+            android:src="@drawable/progress_line" />
 
-                <ImageView
-                    android:id="@+id/contactProgress1ImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/contact_subject_step"
-                    android:paddingTop="@dimen/baseline"
-                    android:scrollbars="none"
-                    android:src="@drawable/progress_step" />
+    </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/contact_subject_step" />
-            </LinearLayout>
+    <TextView
+        android:id="@+id/contact_reasons_title_TextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contact_progress_LinearLayout"
+        android:layout_marginBottom="@dimen/baseline_eight"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/baseline_padding"
+        android:text="@string/contact_subject_title"
+        android:textColor="@color/nbc_red_border"
+        android:textSize="@dimen/text_size_main_title" />
 
-            <LinearLayout
-                android:id="@+id/contactProgress2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" >
+    <TextView
+        android:id="@+id/contact_reasons_title_desc_TextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contact_reasons_title_TextView"
+        android:layout_marginBottom="@dimen/baseline"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/baseline_eight"
+        android:text="@string/conf_details_title"
+        android:textSize="@dimen/text_size_main_subtext" />
 
-                <ImageView
-                    android:id="@+id/contactProgress2ImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/contact_reason_step"
-                    android:paddingTop="@dimen/baseline"
-                    android:scrollbars="none"
-                    android:src="@drawable/progress_step" />
+    <Spinner
+        android:id="@+id/contact_reasons1_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contact_reasons_title_desc_TextView"
+        android:layout_marginBottom="@dimen/baseline_half"
+        android:background="@drawable/spinner_ab_default_nbc"
+        android:minHeight="44dip"
+        android:prompt="@string/contact_subject_step" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/contact_reason_step" />
-            </LinearLayout>
+    <Button
+        android:id="@+id/contact_reasons1_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/nbc_button"
+        android:minHeight="48dp"
+        android:text="@string/next_button_text"
+        android:textColor="#FFFFFFFF"
+        android:textSize="@dimen/text_size_title"
+        android:textStyle="bold" />
 
-            <LinearLayout
-                android:id="@+id/contactProgress3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:id="@+id/contactProgress3ImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/contact_type_step"
-                    android:paddingTop="@dimen/baseline"
-                    android:scrollbars="none"
-                    android:src="@drawable/progress_step" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/contact_type_step" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/contactProgress4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:id="@+id/contactProgress4ImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/contact_details_step"
-                    android:paddingTop="@dimen/baseline"
-                    android:scrollbars="none"
-                    android:src="@drawable/progress_step" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/contact_details_step" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/contactProgress5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:id="@+id/contactProgress5ImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/contact_confirmation_step"
-                    android:paddingTop="@dimen/baseline"
-                    android:scrollbars="none"
-                    android:src="@drawable/progress_step" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/contact_confirmation_step" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/contact_reasons_title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/contactProgress"
-            android:layout_marginBottom="@dimen/baseline_half"
-            android:background="@drawable/sub_title_border"
-            android:gravity="center_vertical"
-            android:minHeight="@dimen/baseline_full"
-            android:paddingBottom="@dimen/baseline_padding"
-            android:paddingRight="@dimen/baseline_padding"
-            android:paddingTop="@dimen/baseline_padding"
-            android:text="@string/contact_subject_title"
-            android:textSize="@dimen/text_size_main_title" />
-
-        <Spinner
-            android:id="@+id/contact_reasons1_spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/contact_reasons_title"
-            android:layout_marginBottom="@dimen/baseline_half"
-            android:background="@drawable/spinner_ab_default_nbc"
-            android:minHeight="44dip"
-            android:prompt="@string/contact_subject_step" />
-
-        <Button
-            android:id="@+id/contact_reasons1_button"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/nbc_button"
-            android:minHeight="48dp"
-            android:text="@string/next_button_text"
-            android:textColor="#FFFFFFFF"
-            android:textSize="@dimen/text_size_title"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

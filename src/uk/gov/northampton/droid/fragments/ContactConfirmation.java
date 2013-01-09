@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ConfirmationActivity extends SherlockActivity {
+public class ContactConfirmation extends SherlockActivity {
 	
 	private TextView callNumber;
 	private TextView callDescription;
@@ -28,7 +28,7 @@ public class ConfirmationActivity extends SherlockActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.confirmation);
+		setContentView(R.layout.contact_3_confirmation);
 		ActionBar ab = getSupportActionBar();
 		ab.setTitle(R.string.conf_details_title);
 		
