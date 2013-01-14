@@ -130,8 +130,17 @@
 	<string name="settings_postcode_update">update your post code</string>
 	<string name="findit_type_title">Find</string>
 	<string name="findit_type_title_desc">Select an option</string>
+	<string name="findit_bin_collection_day">Bin Collection Day</string>
+	<string name="findit_bin_collection_address_text">Select your address</string>
+	<string name="findit_bin_collection_find_text">Find my collection day</string>
+	<string name="findit_bin_collection_day_text">Your collection day is</string>
+	<string name="findit_bin_collection_bin_text">Your next collection will be</string>
+	<string name="findit_bin_collection_time_text">Remember to put out your bins by</string>
+	<string name="findit_bin_collection_recycling_text">We will collect all of your recycling every week.</string>
+	<string name="findit_bin_collection_wheelie_text">Your collections alternate between Black and Brown wheelie bins.</string>
+	<string name="findit_bin_collection_reminder_button_text">Set a Reminder</string>
 	<string-array name="findit_type_array">
-	    <item>Bin Collection Day</item>
+	    <item>@string/findit_bin_collection_day</item>
 	</string-array>
 	    <string name="report_confirmation_done_Button">Done</string>
 </resources>

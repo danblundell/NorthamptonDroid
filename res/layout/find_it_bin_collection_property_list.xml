@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/find_bin_collection_RelativeLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/actionBarText"
@@ -8,11 +9,11 @@
     android:scrollbars="vertical" >
 
     <LinearLayout
-        android:id="@+id/findit_progress_LinearLayout"
+        android:id="@+id/findit_bin_collection_progress_LinearLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_marginBottom="@dimen/baseline"
-        android:background="@color/actionBarText"
         android:minHeight="@dimen/baseline_eight"
         android:orientation="horizontal" >
 
@@ -22,7 +23,7 @@
             android:layout_height="fill_parent"
             android:layout_marginRight="@dimen/baseline"
             android:layout_weight="1"
-            android:src="@drawable/progress_line_current" />
+            android:src="@drawable/progress_line_done" />
 
         <ImageView
             android:id="@+id/findit_step_2"
@@ -30,7 +31,7 @@
             android:layout_height="fill_parent"
             android:layout_marginRight="@dimen/baseline"
             android:layout_weight="1"
-            android:src="@drawable/progress_line" />
+            android:src="@drawable/progress_line_current" />
 
         <ImageView
             android:id="@+id/findit_step_3"
@@ -41,48 +42,46 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/findit_type_LinearLayout"
+        android:id="@+id/findit_bin_collection_LinearLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/findit_progress_LinearLayout"
-        android:background="@color/actionBarText"
+        android:layout_below="@id/findit_bin_collection_progress_LinearLayout"
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/finditTypeTitle"
+            android:id="@+id/findit_bin_collection_title_TextView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/baseline_eight"
             android:paddingBottom="@dimen/baseline_eight"
-            android:text="@string/findit_type_title"
+            android:text="@string/findit_bin_collection_day"
             android:textColor="@color/nbc_red_border"
             android:textSize="@dimen/text_size_main_title" />
 
         <TextView
-            android:id="@+id/finditTypeTitleDesc"
+            android:id="@+id/findit_bin_collection_title_desc_TextView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/baseline"
             android:paddingBottom="@dimen/baseline_eight"
-            android:text="@string/findit_type_title_desc"
+            android:text="@string/findit_bin_collection_address_text"
             android:textSize="@dimen/text_size_main_subtext" />
 
         <Spinner
-            android:id="@+id/findit_reasons_spinner"
+            android:id="@+id/findit_properties_spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/findit_button"
+        android:id="@+id/findit_bin_collection_props_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
         android:background="@drawable/nbc_button"
         android:padding="10dp"
-        android:text="@string/next_button_text"
+        android:text="@string/findit_bin_collection_find_text"
         android:textColor="#FFFFFFFF"
         android:textStyle="bold" />
 

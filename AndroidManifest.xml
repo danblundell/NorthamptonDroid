@@ -36,6 +36,7 @@
         <activity android:name=".fragments.ReportSubmitMenu"></activity>
         <activity android:name=".fragments.ReportImageFullScreen"></activity>
         <activity android:name=".fragments.ReportConfirmation"></activity>
+        <activity android:name=".fragments.FindBinCollectionPropertyList"></activity>
     </application>
 
 </manifest>
