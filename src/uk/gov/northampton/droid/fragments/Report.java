@@ -2,8 +2,12 @@ package uk.gov.northampton.droid.fragments;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
 
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ReportProblem;
@@ -29,7 +33,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
-public class Report extends SherlockFragment implements OnItemSelectedListener {
+public class Report extends SherlockFragment implements OnItemSelectedListener{
 	
 	private ReportProblemsRetriever rpr = new ReportProblemsRetriever();
 	private ArrayList<ReportProblem> reportProblemList;
@@ -59,7 +63,6 @@ public class Report extends SherlockFragment implements OnItemSelectedListener {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-		
 		View view = inflater.inflate(R.layout.report_1_type, container, false);
 		findAllViewsById(view);
 		getProblemList();
@@ -121,6 +124,5 @@ public class Report extends SherlockFragment implements OnItemSelectedListener {
 		SpinnerAdapter mySpinnerAdapter = new ReportProblemAdapter(reportProblemList, getActivity());
 		spinner.setAdapter(mySpinnerAdapter);
 		spinner.setOnItemSelectedListener(this);
-	}
-	
+	}	
 }

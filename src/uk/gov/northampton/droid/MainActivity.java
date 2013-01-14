@@ -1,59 +1,47 @@
 package uk.gov.northampton.droid;
 
 import uk.gov.northampton.droid.fragments.*;
-import uk.gov.northampton.droid.lib.PostCodeDialogFragment;
+import uk.gov.northampton.droid.lib.PostCodeDialogFragment.PostCodeDialogListener;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-
-
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Window;
 
 import com.actionbarsherlock.view.*;
 
-public class MainActivity extends SherlockFragmentActivity implements ActionBar.TabListener {
+public class MainActivity extends SherlockFragmentActivity implements ActionBar.TabListener, PostCodeDialogListener {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
-     * sections. We use a {@link android.support.v4.app.FragmentPagerAdapter} derivative, which will
-     * keep every loaded fragment in memory. If this becomes too memory intensive, it may be best
-     * to switch to a {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     ViewPager mViewPager;
+    SharedPreferences sharedPrefs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_main);
-        // Create the adapter that will return a fragment for each of the three primary sections
-        // of the app.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        setSupportProgressBarIndeterminateVisibility(false);
 
-        // Set up the action bar.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setHorizontalFadingEdgeEnabled(true);
         mViewPager.setFadingEdgeLength(25);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        // When swiping between different sections, select the corresponding tab.
-        // We can also use ActionBar.Tab#select() to do this if we have a reference to the
-        // Tab.
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -61,13 +49,8 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
             }
         });
 
-        // For each of the sections in the app, add a tab to the action bar.
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-            // Create a tab with text corresponding to the page title defined by the adapter.
-            // Also specify this Activity object, which implements the TabListener interface, as the
-            // listener for when this tab is selected.
-            actionBar.addTab(
-                    actionBar.newTab()
+            actionBar.addTab(actionBar.newTab()
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
@@ -79,18 +62,15 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
     	inflater.inflate(R.menu.overflow, m);
     	return true;
     }
-    
-    
 
-    @Override
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-    		Intent intent = new Intent();
+    	Intent intent = new Intent();
     	if(item.getItemId() == R.id.contactUs){
     		intent.setClass(this, Contact.class);
+    		startActivity(intent);
     	}else if(item.getItemId() == R.id.settings){
     		intent.setClass(this, Settings.class);
-    	}
-    	if(intent.getClass() != null){
     		startActivity(intent);
     	}
 		return super.onOptionsItemSelected(item);
@@ -122,11 +102,9 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
-            	case 0: return getString(R.string.tab_social).toUpperCase();
-                case 1: return getString(R.string.tab_report).toUpperCase();
-                case 2: return getString(R.string.tab_find).toUpperCase();
-                case 3: return getString(R.string.tab_services).toUpperCase();
-                case 4: return getString(R.string.tab_contact).toUpperCase();
+            	case 0: return getString(R.string.tab_social);
+                case 1: return getString(R.string.tab_report);
+                case 2: return getString(R.string.tab_find);
             }
             return null;
         }
@@ -135,8 +113,6 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
 	@Override
 	public void onTabSelected(Tab tab,
 			android.support.v4.app.FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		// When the given tab is selected, switch to the corresponding page in the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
 	}
 
@@ -152,5 +128,16 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
 			android.support.v4.app.FragmentTransaction ft) {
 		// TODO Auto-generated method stub
 		
+	}	
+	
+	@Override
+	public void onFinishPostCodeDialog(String postCode) {
+		if(postCode != null){
+			sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			Editor editor = sharedPrefs.edit();
+			editor.putString(Settings.NBC_POST_CODE, postCode);
+			editor.commit();
+		}
+		Log.i("FIND IT","New Post Code: " + postCode);
 	}
 }

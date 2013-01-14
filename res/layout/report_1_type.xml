@@ -91,8 +91,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/nbc_button"
+        android:padding="10dp"
         android:text="@string/next_button_text"
-        android:textColor="#ffffffff"
+        android:textColor="#FFFFFFFF"
         android:textStyle="bold" />
 
 </RelativeLayout>

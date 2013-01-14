@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -38,9 +39,9 @@ public class Social extends SherlockListFragment {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
+		
 		if(savedInstanceState != null){
 			feedList = (ArrayList<SocialEntry>) savedInstanceState.getSerializable(SOCIAL_FEED_LIST_KEY);
 			Log.d("SOCIAL FEED","Using saved instance");
@@ -48,12 +49,16 @@ public class Social extends SherlockListFragment {
 		}
 		else{
 			Log.d("SOCIAL NEW","Using new instance");
-		String socialFeedUrl = getString(R.string.social_feed_url);
-		RetrieveSocialFeedTask sf = new RetrieveSocialFeedTask();
-		sf.execute(socialFeedUrl);
+			retrieveSocialFeed();
 		}
 		
 		ab = getSherlockActivity().getSupportActionBar();
+	}
+	
+	public void retrieveSocialFeed(){
+		String socialFeedUrl = getString(R.string.social_feed_url);
+		RetrieveSocialFeedTask sf = new RetrieveSocialFeedTask();
+		sf.execute(socialFeedUrl);
 	}
 
 	@Override

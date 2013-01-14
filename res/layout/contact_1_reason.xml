@@ -91,7 +91,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/contact_reasons_title_desc_TextView"
         android:layout_marginBottom="@dimen/baseline_half"
-        android:background="@drawable/spinner_ab_default_nbc"
         android:minHeight="44dip"
         android:prompt="@string/contact_subject_step" />
 

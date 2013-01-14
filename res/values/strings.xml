@@ -124,4 +124,9 @@
 	<string name="settings_email_update">update your email address</string>
 	<string name="settings_telephone_update">update your telephone number</string>
 	<string name="settings_postcode_update">update your post code</string>
+	<string name="findit_type_title">Find</string>
+	<string name="findit_type_title_desc">Select an option</string>
+	<string-array name="findit_type_array">
+	    <item>Bin Collection Day</item>
+	</string-array>
 </resources>

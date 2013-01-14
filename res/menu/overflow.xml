@@ -1,8 +1,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/refresh"
-        android:title="Refresh"
-        android:icon="@drawable/ic_action_refresh"
-        android:showAsAction="ifRoom" />
     <item android:id="@+id/contactUs"
         android:title="@string/menu_contact_us"
         android:icon="@drawable/ic_action_mail_add"

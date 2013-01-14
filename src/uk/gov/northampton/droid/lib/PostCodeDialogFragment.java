@@ -3,7 +3,6 @@ package uk.gov.northampton.droid.lib;
 
 import java.util.ArrayList;
 
-import uk.gov.northampton.droid.ContactReason;
 import uk.gov.northampton.droid.R;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,7 +10,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -49,9 +47,9 @@ public class PostCodeDialogFragment extends DialogFragment {
 		
 		//set up two adapters
 		ArrayAdapter<CharSequence> numbers = ArrayAdapter.createFromResource(getActivity(),
-		        R.array.postcode_digits, android.R.layout.simple_spinner_item);
+		        R.array.postcode_digits, R.layout.postcode_single_text_spinner_selected);
 		ArrayAdapter<CharSequence> letters = ArrayAdapter.createFromResource(getActivity(),
-		        R.array.postcode_letters, android.R.layout.simple_spinner_item);
+		        R.array.postcode_letters, R.layout.postcode_single_text_spinner_selected);
 		
 		//set custom drop down views
 		letters.setDropDownViewResource(R.layout.postcode_single_text_spinner);

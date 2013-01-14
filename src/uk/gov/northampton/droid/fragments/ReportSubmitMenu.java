@@ -39,6 +39,9 @@ import android.widget.ToggleButton;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.Window;
 
 public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoChooserDialogFragment.PhotoChooserDialogListener {
 
@@ -77,7 +80,9 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.report_3_submit);
+		setSupportProgressBarIndeterminateVisibility(false);
 
 		ActionBar ab = getSupportActionBar();
 		ab.setTitle(getString(R.string.report_type_title));
@@ -89,6 +94,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		addPhoto.setOnClickListener(AddPhotoListener);
 		jobPhoto.setOnClickListener(FullScreenImageListener);
 		jobSubmit.setOnClickListener(ReportButtonListener);
+
 		updateUI();
 		
 		if(savedInstanceState != null){
@@ -103,6 +109,14 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		
 	}
 	
+	@Override
+	protected void onResume() {
+		if(!jobSubmit.isEnabled()){
+			jobSubmit.setEnabled(true);
+		}
+		super.onResume();
+	}
+
 	private void findAllViewsById(){
 		jobType = (TextView) findViewById(R.id.report_desc_title_TextView);
 		jobDesc = (EditText) findViewById(R.id.reportDescriptionEditText);
@@ -131,7 +145,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		pType = rp.getpDesc();
 		pNumber = String.valueOf(rp.getpNum());
 	}
-	
+
 	private void updateUI(){
 		updateFromIntent();
 		updateFromPreferences();
@@ -290,7 +304,11 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	private OnClickListener ReportButtonListener = new OnClickListener(){
 
 		@Override
-		public void onClick(View arg0) {
+		public void onClick(View v) {
+			setBusy(true);
+			if(v.isEnabled()){
+				v.setEnabled(false);
+			}
 			
 			pDesc = jobDesc.getText().toString();
 			ReportSubmitTask rst = new ReportSubmitTask();
@@ -309,10 +327,15 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		
 	};
 	
+	private void setBusy(Boolean b){
+		setSupportProgressBarIndeterminateVisibility(b);
+	}
+	
 	private class ReportSubmitTask extends AsyncTask<String, Void, String>{
 
 		@Override
 		protected String doInBackground(String... params) {
+			
 			//make http request
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();  
 			pThumbnailImage.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object   
@@ -340,6 +363,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		@Override
 		protected void onPostExecute(final String result){
 			Log.d("SUBMITTING REPORT","OPE");
+			setBusy(false);
 			if(result != null){
 				Log.d("REPORT PE",result);
 				ConfirmationRetriever cr = new ConfirmationRetriever();

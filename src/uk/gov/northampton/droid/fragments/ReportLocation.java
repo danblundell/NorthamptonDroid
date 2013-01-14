@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Window;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
@@ -51,7 +52,6 @@ public class ReportLocation extends MapActivity{
 		
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
 		setContentView(R.layout.report_2_map);
 		
 		Intent intent = getIntent();

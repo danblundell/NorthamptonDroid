@@ -3,7 +3,9 @@ package uk.gov.northampton.droid.fragments;
 import java.util.ArrayList;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 
+import uk.gov.northampton.droid.MainActivity;
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ContactReason;
 import uk.gov.northampton.droid.ContactReasonsAdapter;
@@ -20,7 +22,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-public class Contact2 extends SherlockActivity {
+public class Contact2<CurrentActivity> extends SherlockActivity {
 	
 	private ContactReasonsRetriever crr = new ContactReasonsRetriever();
 	private Spinner spinner;
@@ -66,6 +68,8 @@ public class Contact2 extends SherlockActivity {
 		    }
 
 		});
+		
+		
 		
 		nextBtn.setOnClickListener(new Button.OnClickListener(){
 
