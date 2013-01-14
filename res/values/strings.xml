@@ -104,7 +104,11 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
-    <string name="conf_details_title">Done</string>
+    <string name="conf_details_title">Thank You</string>
+    <string name="conf_details_desc_contact_top">Your reference number is</string>
+    <string name="conf_details_desc_report_top">Your reference number is</string>
+    <string name="conf_details_desc_contact_bottom">We aim to respond to your enquiry by the</string>
+    <string name="conf_details_desc_report_bottom">We aim to resolve this problem by the</string>
     <string name="conf_step1">Service</string>
     <string name="conf_step2">Dept</string>
     <string name="conf_step3">Reason</string>
@@ -129,4 +133,5 @@
 	<string-array name="findit_type_array">
 	    <item>Bin Collection Day</item>
 	</string-array>
+	    <string name="report_confirmation_done_Button">Done</string>
 </resources>
