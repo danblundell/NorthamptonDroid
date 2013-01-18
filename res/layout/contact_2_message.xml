@@ -1,0 +1,187 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contact_message_RelativeLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/actionBarText"
+    android:orientation="vertical" >
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:background="@color/actionBarText"
+        android:padding="@dimen/baseline"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical" >
+
+        <LinearLayout
+            android:id="@+id/contact_message_LinearLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/contact_progress_LinearLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/baseline"
+                android:background="@color/actionBarText"
+                android:minHeight="@dimen/baseline_eight"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/contact_step_1"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="@dimen/baseline"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/conf_step1"
+                    android:src="@drawable/progress_line_done" />
+
+                <ImageView
+                    android:id="@+id/contact_step_2"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="@dimen/baseline"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/conf_step2"
+                    android:src="@drawable/progress_line_done" />
+
+                <ImageView
+                    android:id="@+id/contact_step_3"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="@dimen/baseline"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/conf_step3"
+                    android:src="@drawable/progress_line_done" />
+
+                <ImageView
+                    android:id="@+id/contact_step_4"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="@dimen/baseline"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/conf_step4"
+                    android:src="@drawable/progress_line_current" />
+
+                <ImageView
+                    android:id="@+id/contact_step_5"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/conf_step5"
+                    android:src="@drawable/progress_line" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/contact_message_main_LinearLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical" >
+
+                <TextView
+                    android:id="@+id/contact_details_title_TextView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="@dimen/baseline_eight"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="@dimen/baseline_padding"
+                    android:text="@string/contact_details_step"
+                    android:textColor="@color/nbc_red_border"
+                    android:textSize="@dimen/text_size_main_title" />
+
+                <TextView
+                    android:id="@+id/contact_details_title_desc_TextView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/contact_details_title_TextView"
+                    android:layout_marginBottom="@dimen/baseline_eight"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="@dimen/baseline_padding"
+                    android:text="@string/contact_details_title"
+                    android:textSize="@dimen/text_size_main_subtext" />
+
+                <EditText
+                    android:id="@+id/contactMessageEditText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/contact_details_title_desc_TextView"
+                    android:layout_marginBottom="@dimen/baseline_eight"
+                    android:ems="10"
+                    android:gravity="top"
+                    android:hint="@string/contact_description"
+                    android:inputType="textAutoCorrect|textMultiLine"
+                    android:lines="5"
+                    android:minHeight="48dip"
+                    android:minLines="3"
+                    android:padding="8dp"
+                    android:textSize="@dimen/text_size_title" >
+
+                    <requestFocus />
+                </EditText>
+
+                <EditText
+                    android:id="@+id/contactNameEditText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/contactMessageEditText"
+                    android:layout_marginBottom="@dimen/baseline_eight"
+                    android:gravity="center_vertical"
+                    android:hint="@string/contact_name"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dip"
+                    android:padding="8dp"
+                    android:textSize="@dimen/text_size_title" >
+                </EditText>
+
+                <EditText
+                    android:id="@+id/contactEmailEditText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/contactNameEditText"
+                    android:layout_marginBottom="@dimen/baseline_eight"
+                    android:gravity="center_vertical"
+                    android:hint="@string/contact_email"
+                    android:inputType="textEmailAddress"
+                    android:minHeight="48dip"
+                    android:padding="8dp"
+                    android:textSize="@dimen/text_size_title" >
+                </EditText>
+
+                <EditText
+                    android:id="@+id/contactPhoneEditText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/contactEmailEditText"
+                    android:layout_marginBottom="@dimen/baseline"
+                    android:gravity="center_vertical"
+                    android:hint="@string/contact_phone"
+                    android:inputType="phone"
+                    android:minHeight="48dip"
+                    android:padding="8dp"
+                    android:textSize="@dimen/text_size_title" >
+                </EditText>
+
+                <Button
+                    android:id="@+id/contactSubmitButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/contactPhoneEditText"
+                    android:layout_marginBottom="@dimen/baseline"
+                    android:background="@drawable/nbc_button"
+                    android:padding="@dimen/baseline_eight"
+                    android:text="@string/contact_send_button"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

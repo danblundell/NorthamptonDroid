@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Window;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
@@ -13,6 +14,7 @@ import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.OverlayItem;
 
 import uk.gov.northampton.droid.R;
+import uk.gov.northampton.droid.ReportProblem;
 import uk.gov.northampton.droid.lib.ReportLocationItemizedOverlay;
 import android.content.Context;
 import android.content.Intent;
@@ -41,7 +43,7 @@ public class ReportLocation extends MapActivity{
 	private MapView mView;
 	private MyLocationOverlay mOverlay = null;
 	private GeoPoint mMarker = null;
-	private String jobType;
+	private ReportProblem rp;
 	private LocationManager locationManager;
 	private LocationListener bestProviderListener;
 	private LocationListener bestAvailableProviderListener;
@@ -50,11 +52,10 @@ public class ReportLocation extends MapActivity{
 		
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
-		setContentView(R.layout.report_job_map);
+		setContentView(R.layout.report_2_map);
 		
 		Intent intent = getIntent();
-		jobType = intent.getStringExtra("type");
+		rp = (ReportProblem) intent.getExtras().getSerializable("type");
 		
 		double lat = 51.751724;
 		double lng = -1.255285;
@@ -62,7 +63,6 @@ public class ReportLocation extends MapActivity{
 
 		mView = (MapView) findViewById(R.id.mapview);
 		Button selectLocation = (Button) findViewById(R.id.googlemaps_select_location);
-		
 		mView.setBuiltInZoomControls(true);
 		mController = mView.getController();
 		mController.setCenter(p);
@@ -121,7 +121,7 @@ public class ReportLocation extends MapActivity{
 					submitMenuIntent.putExtra("lat", mMarker.getLatitudeE6() / 1E6);
 					submitMenuIntent.putExtra("lng", mMarker.getLongitudeE6() / 1E6);
 				}
-				submitMenuIntent.putExtra("type", jobType);
+				submitMenuIntent.putExtra("type", rp);
 				startActivity(submitMenuIntent);
 			}
 			

@@ -10,10 +10,10 @@
 		<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 		<uses-permission android:name="android.permission.CAMERA" />
 		<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-		<uses-feature android:name="android.hardware.camera" required="false" />
+		<uses-feature android:name="android.hardware.camera" android:required="false" />
 		
     <application
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/northampton_crest"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <uses-library android:name="com.google.android.maps" />
@@ -26,11 +26,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".fragments.Contact"></activity>
-        <activity android:name=".fragments.Services"></activity>
+        <activity android:name=".fragments.Contact2"></activity>
+        <activity android:name=".fragments.Contact3"></activity>
+        <activity android:name=".fragments.ContactMessage"></activity>
+        <activity android:name=".fragments.ContactConfirmation"></activity>
+        <activity android:name=".fragments.Settings"></activity>
         <activity android:name=".lib.CustomWebViewActivity"></activity>
-        <activity android:name=".fragments.ReportLocation"></activity>
+        <activity android:name=".fragments.ReportLocation" android:label="Location"></activity>
         <activity android:name=".fragments.ReportSubmitMenu"></activity>
         <activity android:name=".fragments.ReportImageFullScreen"></activity>
+        <activity android:name=".fragments.ReportConfirmation"></activity>
+        <activity android:name=".fragments.FindBinCollectionPropertyList"></activity>
     </application>
 
 </manifest>

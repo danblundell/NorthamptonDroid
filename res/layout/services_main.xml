@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/nbc_grey"
+    android:orientation="vertical"
+    android:padding="8dp" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/round_corners"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical" >
+
+        <!--
+        <LinearLayout
+            android:id="@+id/contactSelectLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="@dimen/baseline_half"
+            android:background="@drawable/round_corners_grey"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:minHeight="22dp"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:showDividers="end" >
+
+            <TextView
+                android:id="@+id/contactSubjectTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/contact_subject_title"
+                android:textColor="@color/actionBarText" />
+
+        </LinearLayout>
+        -->
+
+        <TextView
+            android:id="@+id/services_main_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="@dimen/baseline_half"
+            android:background="@drawable/title_border"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/baseline_full"
+            android:paddingBottom="@dimen/baseline_padding"
+            android:paddingRight="@dimen/baseline_padding"
+            android:paddingTop="@dimen/baseline_padding"
+            android:text="@string/contact_subject_title"
+            android:textSize="@dimen/text_size_main_title" />
+
+        <Button
+            android:id="@+id/services_main_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/nbc_button"
+            android:minHeight="48dp"
+            android:text="@string/next_button_text"
+            android:textColor="#FFFFFFFF"
+            android:textSize="@dimen/text_size_title"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+</LinearLayout>

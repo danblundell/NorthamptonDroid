@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/report_type_RelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/actionBarText"
+    android:orientation="vertical"
+    android:padding="@dimen/baseline" >
+    
+    <LinearLayout
+        android:id="@+id/report_progress_LinearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/actionBarText"
+        android:minHeight="@dimen/baseline_eight"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/baseline" >
+        
+        <ImageView
+            android:id="@+id/report_step_1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="@dimen/baseline"
+            android:layout_weight="1"
+            android:src="@drawable/progress_line_current" />
+        
+        <ImageView
+            android:id="@+id/report_step_2"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="@dimen/baseline"
+            android:layout_weight="1"
+            android:src="@drawable/progress_line" />
+        
+        <ImageView
+            android:id="@+id/report_step_3"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="@dimen/baseline"
+            android:layout_weight="1"
+            android:src="@drawable/progress_line" />
+        
+        <ImageView
+            android:id="@+id/report_step_4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:src="@drawable/progress_line" />
+        
+        </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/report_type_LinearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/report_progress_LinearLayout"
+        android:background="@color/actionBarText"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/reportTypeTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/baseline_eight"
+            android:paddingBottom="@dimen/baseline_eight"
+            android:text="@string/report_type_title"
+            android:textColor="@color/nbc_red_border"
+            android:textSize="@dimen/text_size_main_title" />
+
+        <TextView
+            android:id="@+id/reportTypeTitleDesc"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/baseline"
+            android:paddingBottom="@dimen/baseline_eight"
+            android:text="@string/report_type_title_desc"
+            android:textSize="@dimen/text_size_main_subtext" />
+
+    <Spinner
+        android:id="@+id/report_reasons_spinner"
+        style="@drawable/spinner_background_ab_nbc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" />
+    
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/report_reasons_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/nbc_button"
+        android:padding="10dp"
+        android:text="@string/next_button_text"
+        android:textColor="#FFFFFFFF"
+        android:textStyle="bold" />
+
+</RelativeLayout>

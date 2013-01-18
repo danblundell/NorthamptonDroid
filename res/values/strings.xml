@@ -2,7 +2,7 @@
 
     <string name="app_name">Northampton</string>
     <string name="menu_contact_us">Contact Us</string>
-    <string name="menu_services">Services</string>
+    <string name="menu_settings">Settings</string>
     <string name="title_section3">Section 3</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section1">Section 1</string>
@@ -17,21 +17,131 @@
     <string name="next_button_text">Next</string>
     <string name="google_maps_api_key">0zRpJoy9wFbhc3GU0nme3VMH1HTGLQTmOMNWzww</string>
     <string name="social_feed_url">http://selfserve.northampton.gov.uk/mynbc/socialFeed.xml</string>
-    <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+    <string name="data_source">myNBC</string>
+    <string name="report_main_title">Report It</string>
+    <string name="report_type_title">Report a problem</string>
+    <string name="report_type_title_desc">Select a problem type</string>
+    <string name="report_description">add a description</string>
+    <string name="report_photo_dialog_title">Add a photo of the problem</string>
+    <string-array name="report_photo_dialog_options">
+        <item>Use the Camera</item>
+        <item>Pick from Gallery</item>
     </string-array>
-        <string name="report_description">Describe the problem</string>
-        <string name="report_photo_dialog_title">Add a photo of the problem</string>
-        <string-array name="report_photo_dialog_options">
-            <item>Use the Camera</item>
-            <item>Pick from Gallery</item>
-        </string-array>
-        <string name="photo_album_name">Northampton</string>
+    <string name="report_url">CreateCall</string>
+    <string name="bin_collections_url">BinRoundFinder?mobileApp=true&amp;postcode=</string>
+    <string name="mycouncil_url">http://selfserve.northampton.gov.uk/mycouncil-test/</string>
+    <string name="report_type_step">Type</string>
+    <string name="report_details_title">Details</string>
+    <string name="report_details_title_desc">Add a few details</string>
+    <string name="report_image_addPhoto_description">Add a photo</string>
+    <string name="report_image_description">Supporting Photo</string>
+    <string name="report_location_step">Location</string>
+    <string name="report_details_step">Details</string>
+    <string name="report_confirmation_step">Done</string>
+    <string name="report_notifications_title">SEND ME A RECEIPT</string>
+    <string name="report_notifications_sms_toggle_label">SMS</string>
+    <string name="report_notifications_email_toggle_label">Email</string>
+    <string name="report_submit_button_text">Report It</string>
+
+    <string name="photo_album_name">Northampton</string>
+    <string name="contact_subject_title">Select a service</string>
+    <string name="contact_reason_title">Select a department</string>
+    <string name="contact_type_title">Select a reason</string>
+    <string name="contact_details_title">Enter your message</string>
+    <string name="contact_confirmation_title">Done</string>
+    <string name="contact_subject_step">Service</string>
+    <string name="contact_reason_step">Dept</string>
+    <string name="contact_type_step">Reason</string>
+    <string name="contact_details_step">Details</string>
+    <string name="contact_confirmation_step">Done</string>
+    <string name="contact_type">Contact Us</string>
+    <string name="contact_message_title">Contact us about</string>
+    <string name="contact_name">Name</string>
+    <string name="contact_email">Email</string>
+    <string name="contact_phone">Telephone</string>
+    <string name="contact_description">Your message</string>
+    <string name="contact_send_button">Send It</string>
+    <string name="contact_url">CreateContact</string>
+    <string name="findit_main_title">Find It</string>
+    <string name="services_main_title">Services</string>
+    <string name="postcode_dialog_title">Enter your Post Code</string>
+    <string-array name="postcode_digits">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+    <string-array name="postcode_letters">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+        <item>H</item>
+        <item>I</item>
+        <item>J</item>
+        <item>K</item>
+        <item>L</item>
+        <item>M</item>
+        <item>N</item>
+        <item>O</item>
+        <item>P</item>
+        <item>Q</item>
+        <item>R</item>
+        <item>S</item>
+        <item>T</item>
+        <item>U</item>
+        <item>V</item>
+        <item>W</item>
+        <item>X</item>
+        <item>Y</item>
+        <item>Z</item>
+    </string-array>
+    <string name="conf_details_title">Thank You</string>
+    <string name="conf_details_desc_contact_top">Your reference number is</string>
+    <string name="conf_details_desc_report_top">Your reference number is</string>
+    <string name="conf_details_desc_contact_bottom">We aim to respond to your enquiry by the</string>
+    <string name="conf_details_desc_report_bottom">We aim to resolve this problem by the</string>
+    <string name="conf_step1">Service</string>
+    <string name="conf_step2">Dept</string>
+    <string name="conf_step3">Reason</string>
+    <string name="conf_step4">Details</string>
+    <string name="conf_step5">Done</string>
+	<string name="settings_title">Settings</string>
+	<string name="settings_yourDetails_title">YOUR DETAILS</string>
+	<string name="settings_name">Name</string>
+	<string name="settings_email">Email</string>
+	<string name="settings_telephone">Telephone</string>
+	<string name="settings_postcode">Post Code</string>
+	<string name="settings_name_add">add your name</string>
+	<string name="settings_email_add">add your email address</string>
+	<string name="settings_telephone_add">add your telephone number</string>
+	<string name="settings_postcode_add">add your post code</string>
+	<string name="settings_name_update">update your name</string>
+	<string name="settings_email_update">update your email address</string>
+	<string name="settings_telephone_update">update your telephone number</string>
+	<string name="settings_postcode_update">update your post code</string>
+	<string name="findit_type_title">Find</string>
+	<string name="findit_type_title_desc">Select an option</string>
+	<string name="findit_bin_collection_day">Bin Collection Day</string>
+	<string name="findit_bin_collection_address_text">Select your address</string>
+	<string name="findit_bin_collection_find_text">Find my collection day</string>
+	<string name="findit_bin_collection_day_text">Your collection day is</string>
+	<string name="findit_bin_collection_bin_text">Your next collection will be</string>
+	<string name="findit_bin_collection_time_text">Remember to put out your bins by</string>
+	<string name="findit_bin_collection_recycling_text">We will collect all of your recycling every week.</string>
+	<string name="findit_bin_collection_wheelie_text">Your collections alternate between Black and Brown wheelie bins.</string>
+	<string name="findit_bin_collection_reminder_button_text">Set a Reminder</string>
+	<string-array name="findit_type_array">
+	    <item>@string/findit_bin_collection_day</item>
+	</string-array>
+	    <string name="report_confirmation_done_Button">Done</string>
 </resources>

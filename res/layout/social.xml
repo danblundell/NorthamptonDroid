@@ -1,16 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/nbc_grey"
     android:orientation="vertical" >
-    
-
 
     <ListView
         android:id="@id/android:list"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:drawSelectorOnTop="false" />
+        android:background="@color/actionBarText"
+        android:clipToPadding="false"
+        android:drawSelectorOnTop="false"
+        android:scrollbarStyle="outsideOverlay" />
 
     <!-- <ImageView
         android:id="@id/android:empty"
@@ -21,12 +23,12 @@
         android:scaleType="center" />-->
         
             <ProgressBar
-        android:id="@+id/socialProgressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:indeterminate="true" />
+                android:id="@+id/socialProgressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:indeterminate="true" />
 
 </LinearLayout>

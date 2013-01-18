@@ -1,0 +1,147 @@
+                    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/findit_bin_collection_confirmation_RelativeLayout"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="@color/actionBarText"
+              android:orientation="vertical"
+              android:padding="@dimen/baseline"
+              android:scrollbarStyle="outsideOverlay"
+              android:scrollbars="vertical" >
+
+              <LinearLayout
+                  android:id="@+id/findit_confProgresswrapper"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical" >
+
+                  <LinearLayout
+                      android:id="@+id/findit_bin_collection_progress_LinearLayout"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="@dimen/baseline"
+                      android:minHeight="@dimen/baseline_eight"
+                      android:orientation="horizontal" >
+
+                      <ImageView
+                          android:id="@+id/findit_step_1"
+                          android:layout_width="0dp"
+                          android:layout_height="fill_parent"
+                          android:layout_marginRight="@dimen/baseline"
+                          android:layout_weight="1"
+                          android:src="@drawable/progress_line_done" />
+
+                      <ImageView
+                          android:id="@+id/findit_step_2"
+                          android:layout_width="0dp"
+                          android:layout_height="fill_parent"
+                          android:layout_marginRight="@dimen/baseline"
+                          android:layout_weight="1"
+                          android:src="@drawable/progress_line_done" />
+
+                      <ImageView
+                          android:id="@+id/findit_step_3"
+                          android:layout_width="0dp"
+                          android:layout_height="fill_parent"
+                          android:layout_weight="1"
+                          android:src="@drawable/progress_line_current" />
+                  </LinearLayout>
+
+                  <RelativeLayout
+                      android:id="@+id/findit_confirmation_details_RelativeLayout"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:scrollbarStyle="outsideOverlay"
+                      android:scrollbars="vertical" >
+
+                      <TextView
+                          android:id="@+id/findit_details_title_TextView"
+                          android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_alignParentTop="true"
+                          android:layout_marginBottom="@dimen/baseline_eight"
+                          android:gravity="center_vertical"
+                          android:text="@string/findit_bin_collection_day"
+                          android:textColor="@color/nbc_red_border"
+                          android:textSize="@dimen/text_size_main_title" />
+
+                      <TextView
+                          android:id="@+id/findit_description_TextView"
+                          android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_below="@id/findit_details_title_TextView"
+                          android:layout_marginBottom="@dimen/baseline"
+                          android:gravity="center_vertical"
+                          android:text="@string/findit_bin_collection_day_text"
+                          android:textSize="@dimen/text_size_main_subtext" />
+
+                      <TextView
+                          android:id="@+id/findit_dynamic_top_TextView"
+                          android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_below="@id/findit_description_TextView"
+                          android:layout_marginBottom="@dimen/baseline"
+                          android:focusable="true"
+                          android:gravity="center_horizontal"
+                          android:minHeight="@dimen/baseline_full"
+                          android:paddingBottom="@dimen/baseline_padding"
+                          android:paddingRight="@dimen/baseline_padding"
+                          android:paddingTop="@dimen/baseline_padding"
+                          android:text="@string/conf_details_title"
+                          android:textColor="@color/nbc_red"
+                          android:textIsSelectable="true"
+                          android:textSize="@dimen/text_size_main_title" />
+
+                      <TextView
+                          android:id="@+id/findit_description_middle_TextView"
+                          android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_below="@id/findit_dynamic_top_TextView"
+                          android:gravity="center_vertical"
+                          android:paddingBottom="@dimen/baseline_padding"
+                          android:paddingRight="@dimen/baseline_padding"
+                          android:paddingTop="@dimen/baseline_padding"
+                          android:text="@string/findit_bin_collection_bin_text" />
+
+                      <TextView
+                          android:id="@+id/findit_dynamic_bottom_TextView"
+                          android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_below="@id/findit_description_middle_TextView"
+                          android:focusable="true"
+                          android:gravity="center_horizontal"
+                          android:minHeight="@dimen/baseline_full"
+                          android:paddingBottom="@dimen/baseline_padding"
+                          android:paddingRight="@dimen/baseline_padding"
+                          android:paddingTop="@dimen/baseline_padding"
+                          android:text="@string/conf_details_title"
+                          android:textColor="@color/nbc_red"
+                          android:textIsSelectable="true"
+                          android:textSize="@dimen/text_size_main_title" />
+
+                      <TextView
+                          android:id="@+id/findit_description_bottom_TextView"
+                          android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_below="@id/findit_dynamic_bottom_TextView"
+                          android:gravity="center_vertical"
+                          android:minHeight="@dimen/baseline_full"
+                          android:paddingBottom="@dimen/baseline_padding"
+                          android:paddingRight="@dimen/baseline_padding"
+                          android:paddingTop="@dimen/baseline_padding"
+                          android:text="@string/conf_details_title" />
+                  </RelativeLayout>
+              </LinearLayout>
+
+        <Button
+            android:id="@+id/finditDoneButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/nbc_button"
+            android:padding="10dip"
+            android:text="@string/report_confirmation_done_Button"
+            android:textColor="#FFFFFFFF"
+            android:textStyle="bold" />
+
+    </RelativeLayout>

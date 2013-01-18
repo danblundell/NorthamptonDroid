@@ -1,0 +1,46 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+    
+
+   <LinearLayout
+       android:id="@+id/linearMapLayout"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:background="@color/actionBarText"
+       android:gravity="bottom"
+       android:orientation="horizontal"
+       android:padding="@dimen/baseline_eight" >
+
+        <Button
+            android:id="@+id/googlemaps_select_location"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_weight="1"
+            android:background="@drawable/nbc_button"
+            android:padding="10dp"
+            android:text="@string/next_button_text"
+            android:textColor="#FFFFFFFF"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <com.google.android.maps.MapView
+        android:id="@+id/mapview"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/linearMapLayout"
+        android:apiKey="@string/google_maps_api_key"
+        android:clickable="true"
+        android:enabled="true" />
+    
+    <ImageView android:id="@+id/drag"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:src="@drawable/pin"
+    	android:visibility="gone" /> 
+</RelativeLayout>

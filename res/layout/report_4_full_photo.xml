@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/reportImageFullLayout" >
+	    <ImageView
+	        android:id="@+id/reportImageFullScreen"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:adjustViewBounds="false"
+	        android:clickable="false"
+	        android:contentDescription="Fullscreen Image"
+	        android:src="@drawable/pin" />    
+
+	<Button
+	    android:id="@+id/reportImageRemoveButton"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_margin="10dip"
+	    android:padding="10dip"
+	    android:text="Remove Photo"
+	    android:background="@drawable/nbc_button"
+        android:textColor="#FFFFFFFF" />
+
+</RelativeLayout>

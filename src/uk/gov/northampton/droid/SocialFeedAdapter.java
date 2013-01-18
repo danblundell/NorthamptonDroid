@@ -2,8 +2,6 @@ package uk.gov.northampton.droid;
 
 import java.util.ArrayList;
 
-import uk.gov.northampton.droid.lib.HttpRetriever;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -33,8 +31,18 @@ public class SocialFeedAdapter extends ArrayAdapter<SocialEntry> {
 		}
 
 		SocialEntry se = socialDataItems.get(position);
-
+//		if(position == 0){
+//			view.setBackgroundResource(R.drawable.round_corners_top);
+//		}
+//		else if(position == (socialDataItems.size() - 1)){
+//			view.setBackgroundResource(R.drawable.round_corners_bottom);
+//		}
+//		else{
+//			view.setBackgroundColor(context.getResources().getColor(R.color.actionBarText));
+//		}
+		
 		if(se != null){
+			
 
 			//message
 			TextView messageTextView = (TextView) view.findViewById(R.id.message_text_view);
@@ -46,7 +54,13 @@ public class SocialFeedAdapter extends ArrayAdapter<SocialEntry> {
 
 			//icon
 			ImageView thumbImageView = (ImageView) view.findViewById(R.id.social_thumb_icon);
-			thumbImageView.setBackgroundResource(R.drawable.ic_launcher);
+			if(se.getTypeDesc().compareToIgnoreCase("lovenorthampton") == 0){
+				thumbImageView.setImageResource(R.drawable.love_main);
+			} else{
+				thumbImageView.setImageResource(R.drawable.gold_crest_main);
+			}
+			
+			
 		}
 		return view;
 	}

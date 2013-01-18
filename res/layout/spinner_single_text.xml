@@ -1,0 +1,16 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/full_line_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:paddingBottom="@dimen/baseline"
+            android:paddingRight="@dimen/baseline"
+            android:paddingTop="@dimen/baseline"
+            android:singleLine="true"
+            android:textSize="@dimen/text_size_title" />
+	
+</LinearLayout>

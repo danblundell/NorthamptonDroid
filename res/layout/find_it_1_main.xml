@@ -1,0 +1,144 @@
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/actionBarText"
+    android:orientation="vertical"
+    android:padding="@dimen/baseline"
+    android:scrollbarStyle="outsideOverlay"
+    android:scrollbars="vertical" >
+	<ScrollView 
+    android:id="@+id/findit_main_ScrollView"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:scrollbarStyle="outsideOverlay" >
+    
+	    <LinearLayout
+        android:id="@+id/findit_main_LinearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/actionBarText"
+        android:orientation="vertical" >
+    <LinearLayout
+        android:id="@+id/findit_progress_LinearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/baseline"
+        android:background="@color/actionBarText"
+        android:minHeight="@dimen/baseline_eight"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/findit_step_1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="@dimen/baseline"
+            android:layout_weight="1"
+            android:src="@drawable/progress_line_current" />
+
+        <ImageView
+            android:id="@+id/findit_step_2"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="@dimen/baseline"
+            android:layout_weight="1"
+            android:src="@drawable/progress_line" />
+
+        <ImageView
+            android:id="@+id/findit_step_3"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:src="@drawable/progress_line" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/findit_type_LinearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/findit_progress_LinearLayout"
+        android:background="@color/actionBarText"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/finditTypeTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/baseline_eight"
+            android:paddingBottom="@dimen/baseline_eight"
+            android:text="@string/findit_type_title"
+            android:textColor="@color/nbc_red_border"
+            android:textSize="@dimen/text_size_main_title" />
+
+        <TextView
+            android:id="@+id/finditTypeTitleDesc"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/baseline"
+            android:paddingBottom="@dimen/baseline_eight"
+            android:text="@string/findit_type_title_desc"
+            android:textSize="@dimen/text_size_main_subtext" />
+
+        <Spinner
+            android:id="@+id/findit_reasons_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/baseline_full"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/findit_using_title_TextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/baseline"
+            android:paddingBottom="@dimen/baseline_eight"
+            android:text="For Post Code"
+            android:textSize="@dimen/text_size_main_subtext" />
+
+        <LinearLayout
+            android:id="@+id/findit_using_LinearLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/baseline"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/findit_using_detail_TextView"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="@dimen/baseline_eight"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="NN1 1DE"
+                android:textSize="@dimen/text_size_main_title" />
+
+            <Button
+                android:id="@+id/findit_using_set_detail_Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".25"
+                android:background="@drawable/round_corners_grey"
+                android:text="Edit"
+                android:textColor="@color/actionBarText" />
+        </LinearLayout>
+
+    </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+    <Button
+        android:id="@+id/findit_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/nbc_button"
+        android:padding="10dp"
+        android:text="@string/next_button_text"
+        android:textColor="#FFFFFFFF"
+        android:textStyle="bold" />
+
+</RelativeLayout>

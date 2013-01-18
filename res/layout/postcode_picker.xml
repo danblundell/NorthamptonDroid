@@ -1,0 +1,81 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:background="@color/actionBarText"
+    android:scrollbarStyle="outsideOverlay"
+    android:scrollbars="horizontal" >
+
+        <LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/actionBarText"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="8dp" >
+
+    <Spinner
+        android:id="@+id/postcode_1_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:minHeight="@dimen/baseline_full"
+        android:minWidth="@dimen/baseline_full" />
+
+    <Spinner
+        android:id="@+id/postcode_2_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:minHeight="@dimen/baseline_full"
+        android:minWidth="@dimen/baseline_full" />
+
+    <Spinner
+        android:id="@+id/postcode_3_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:minHeight="@dimen/baseline_full"
+        android:minWidth="@dimen/baseline_full" />
+
+    <TextView
+        android:id="@+id/postcode_4_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:minHeight="@dimen/baseline_full"
+        android:minWidth="@dimen/baseline_full" />
+
+    <Spinner
+        android:id="@+id/postcode_5_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:minHeight="@dimen/baseline_full"
+        android:minWidth="@dimen/baseline_full" />
+
+    <Spinner
+        android:id="@+id/postcode_6_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:minHeight="@dimen/baseline_full"
+        android:minWidth="@dimen/baseline_full" />
+
+    <Spinner
+        android:id="@+id/postcode_7_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:minHeight="@dimen/baseline_full"
+        android:minWidth="@dimen/baseline_full" />
+
+</LinearLayout>
+</ScrollView>
