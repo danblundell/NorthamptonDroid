@@ -28,6 +28,7 @@
         <item>Pick from Gallery</item>
     </string-array>
     <string name="report_url">CreateCall</string>
+    <string name="bin_collections_url">BinRoundFinder?mobileApp=true&amp;postcode=</string>
     <string name="mycouncil_url">http://selfserve.northampton.gov.uk/mycouncil-test/</string>
     <string name="report_type_step">Type</string>
     <string name="report_details_title">Details</string>

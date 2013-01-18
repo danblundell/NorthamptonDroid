@@ -140,4 +140,6 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
 		}
 		Log.i("FIND IT","New Post Code: " + postCode);
 	}
+	
+	
 }

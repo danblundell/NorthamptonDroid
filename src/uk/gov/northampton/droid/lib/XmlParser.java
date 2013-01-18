@@ -17,6 +17,8 @@ import uk.gov.northampton.droid.Confirmation;
 import uk.gov.northampton.droid.ConfirmationHandler;
 import uk.gov.northampton.droid.ContactReason;
 import uk.gov.northampton.droid.ContactReasonHandler;
+import uk.gov.northampton.droid.Property;
+import uk.gov.northampton.droid.PropertyHandler;
 import uk.gov.northampton.droid.ReportProblem;
 import uk.gov.northampton.droid.ReportProblemHandler;
 import uk.gov.northampton.droid.SocialEntry;
@@ -45,6 +47,25 @@ public class XmlParser {
 			xmlReader.parse(new InputSource(new StringReader(xml)));
 			Log.d("XML PARSE","PARSING");
 			return socialHandler.retrieveSocialFeed();
+		}catch(Exception e){
+			Log.d("XML PARSE","PARSING FAILED");
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public ArrayList<Property> parseBinCollectionsResponse(String xml){
+		try{
+			
+			XMLReader xmlReader = initializeReader();
+			PropertyHandler propertyHandler = new PropertyHandler();
+
+			//assign the handler
+			xmlReader.setContentHandler(propertyHandler);
+			//perform the sync parse
+			xmlReader.parse(new InputSource(new StringReader(xml)));
+			Log.d("XML PARSE","PARSING");
+			return propertyHandler.retrievePropertyList();
 		}catch(Exception e){
 			Log.d("XML PARSE","PARSING FAILED");
 			e.printStackTrace();

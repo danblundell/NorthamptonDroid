@@ -38,7 +38,7 @@ public class PostCodeDialogFragment extends DialogFragment {
             throw new ClassCastException(activity.toString()
                     + " must implement PostCodeDialogListener");
         }
-    }
+    } 
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
