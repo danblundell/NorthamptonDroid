@@ -71,7 +71,7 @@
                     android:id="@+id/report_desc_title_TextView"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/baseline_eight"
+                    android:layout_marginBottom="@dimen/baseline"
                     android:paddingBottom="@dimen/baseline_eight"
                     android:text="@string/report_details_title"
                     android:textColor="@color/nbc_red_border"
@@ -79,6 +79,7 @@
 
                 <TextView
                     android:id="@+id/report_details_title_desc_TextView"
+                    style="?android:attr/listSeparatorTextViewStyle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/baseline"
@@ -132,7 +133,7 @@
                             android:clickable="true"
                             android:contentDescription="@string/report_image_addPhoto_description"
                             android:scaleType="center"
-                            android:src="@drawable/ic_device_access_camera" />
+                            android:src="@drawable/ic_content_picture_dk" />
 
                         <ImageView
                             android:id="@+id/reportImagePreview"
@@ -149,10 +150,10 @@
 
                 <TextView
                     android:id="@+id/report_notifications_TextView"
+                    style="?android:attr/listSeparatorTextViewStyle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/baseline_eight"
-                    android:background="@drawable/sub_title_border"
                     android:paddingBottom="@dimen/baseline_eight"
                     android:paddingTop="@dimen/baseline_eight"
                     android:text="@string/report_notifications_title"
@@ -171,8 +172,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="3"
-                        android:text="@string/settings_email_add" />
+                        android:layout_weight="3" />
 
                     <ToggleButton
                         android:id="@+id/report_notifications_email_ToggleButton"
@@ -197,8 +197,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:gravity="center_vertical"
-                        android:text="@string/settings_telephone_add" />
+                        android:gravity="center_vertical" />
 
                     <ToggleButton
                         android:id="@+id/report_notifications_sms_ToggleButton"

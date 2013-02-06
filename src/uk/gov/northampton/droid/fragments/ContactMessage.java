@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 
 import uk.gov.northampton.droid.Confirmation;
 import uk.gov.northampton.droid.R;
@@ -20,6 +22,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -38,12 +41,15 @@ public class ContactMessage extends SherlockActivity {
 	private ContactReason selectedSubject;
 	private ContactReason selectedReason;
 	private ContactReason selectedType;
+	private TextView contactDesc;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.contact_2_message);
+		setSupportProgressBarIndeterminateVisibility(false);
 		ActionBar ab = getSupportActionBar();
 		ab.setTitle(getString(R.string.contact_type));
 		
@@ -62,6 +68,7 @@ public class ContactMessage extends SherlockActivity {
 		selectedType = (ContactReason) getIntent().getSerializableExtra("contactType");
 		
 		this.findAllViewsById();
+		this.updateUIFromExtras();
 		this.updateUIFromPreferences();
 		sendBtn.setOnClickListener(SendMessageListener);
 		
@@ -73,6 +80,7 @@ public class ContactMessage extends SherlockActivity {
 			Log.d("CONTACT","Sending Message!");
 			boolean send = validateForm();
 			if(send){
+				setSupportProgressBarIndeterminateVisibility(true);
 				SendMessageTask sm = new SendMessageTask();
 
 				sm.execute(
@@ -84,11 +92,19 @@ public class ContactMessage extends SherlockActivity {
 						email.getText().toString(),
 						phone.getText().toString()
 				);
+			}else{
+				Log.i("SUBMIT ERROR","Form isn't valid");
 			}
 		}
 	};
 	
+	private void updateUIFromExtras(){
+		String contentDescText = selectedSubject.geteDesc() + " > " + selectedReason.geteDesc() + " > " + selectedType.geteDesc();
+		contactDesc.setText(contentDescText);
+	}
+	
 	private void findAllViewsById(){
+		contactDesc = (TextView) findViewById(R.id.contact_details_title_desc_TextView);
 		name = (EditText) findViewById(R.id.contactNameEditText);
 		email = (EditText) findViewById(R.id.contactEmailEditText);
 		phone = (EditText) findViewById(R.id.contactPhoneEditText);
@@ -99,9 +115,9 @@ public class ContactMessage extends SherlockActivity {
 	private void updateUIFromPreferences(){
 		Context context = getApplicationContext();
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-		name.setText(sharedPrefs.getString(Settings.NBC_NAME, getString(R.string.contact_name)));
-		email.setText(sharedPrefs.getString(Settings.NBC_EMAIL, getString(R.string.contact_email)));
-		phone.setText(sharedPrefs.getString(Settings.NBC_TEL, getString(R.string.contact_phone)));
+		name.setText(sharedPrefs.getString(Settings.NBC_NAME, ""));
+		email.setText(sharedPrefs.getString(Settings.NBC_EMAIL, ""));
+		phone.setText(sharedPrefs.getString(Settings.NBC_TEL, ""));
 	}
 	
 	private class SendMessageTask extends AsyncTask<String, Integer, String>{
@@ -146,8 +162,8 @@ public class ContactMessage extends SherlockActivity {
 				Confirmation conf = cr.retrieveConfirmation(result);
 				Intent confIntent = new Intent(getApplicationContext(),ContactConfirmation.class);
 				confIntent.putExtra("result", conf);
+				setSupportProgressBarIndeterminateVisibility(false);
 				startActivity(confIntent);
-				//Toast.makeText(getApplicationContext(), "Case Ref: " + conf.getCallNumber(), Toast.LENGTH_LONG).show();
 			}
 			//otherwise, error.
 			if(!sendBtn.isClickable()){
@@ -194,5 +210,12 @@ public class ContactMessage extends SherlockActivity {
 		}
 		return false;
 	}
+	
+    @Override
+    public boolean onCreateOptionsMenu(Menu m){
+		MenuInflater inflater = getSupportMenuInflater();
+    	inflater.inflate(R.menu.contact_message_menu, m);
+    	return true;
+    }
 	
 }

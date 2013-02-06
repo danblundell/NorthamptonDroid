@@ -46,11 +46,11 @@ public class Find extends SherlockFragment implements OnItemSelectedListener {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.find_it_main, container, false);
+        View v = inflater.inflate(R.layout.find_it_1_main, container, false);
         findAllViewsById(v);
-        updateUIFromPreferences();
+        //updateUIFromPreferences();
         nextBtn.setOnClickListener(nextButtonClickListener);
-        editDetailBtn.setOnClickListener(editDetailButtonClickListener);
+        //editDetailBtn.setOnClickListener(editDetailButtonClickListener);
         ArrayAdapter<CharSequence> sa = ArrayAdapter.createFromResource(getActivity(), R.array.findit_type_array, R.layout.spinner_single_textview);
         sa.setDropDownViewResource(R.layout.spinner_single_textview_padded);
         spinner.setAdapter(sa);
@@ -61,43 +61,30 @@ public class Find extends SherlockFragment implements OnItemSelectedListener {
 		@Override
 		public void onClick(View v) {
 			Log.d("Find Fragment","Button Clicked!");
-			//showPostCodeOptions();
-			if(selectedItem >= 0){
-				RetrieveBinCollectionsTask rbct = new RetrieveBinCollectionsTask();
-				rbct.execute();
-			}
-		}
-	};
-	
-	private OnClickListener editDetailButtonClickListener = new OnClickListener(){
-		@Override
-		public void onClick(View v) {
-			Log.d("Edit PostCode","Button Clicked!");
-			showPostCodeOptions();
+			Intent i = new Intent(getActivity(), FindPostCode.class);
+			startActivity(i);
 		}
 	};
 	
 	private void findAllViewsById(View v){
 		spinner = (Spinner) v.findViewById(R.id.findit_reasons_spinner);
-		editDetailTextView = (TextView) v.findViewById(R.id.findit_using_detail_TextView);
-		editDetailBtn = (Button) v.findViewById(R.id.findit_using_set_detail_Button);
 		nextBtn = (Button) v.findViewById(R.id.findit_button);
 	}
 	
-	private void updateUIFromPreferences(){
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		String pcStr = sharedPrefs.getString(Settings.NBC_POST_CODE, getString(R.string.postcode_dialog_title));
-		editDetailTextView.setText(pcStr);
-		if(pcStr.equalsIgnoreCase(getString(R.string.postcode_dialog_title))){
-			editDetailBtn.setText("Add");
-		}
-		
-	}
+//	private void updateUIFromPreferences(){
+//		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+//		String pcStr = sharedPrefs.getString(Settings.NBC_POST_CODE, getString(R.string.postcode_dialog_title));
+//		editDetailTextView.setText(pcStr);
+//		if(pcStr.equalsIgnoreCase(getString(R.string.postcode_dialog_title))){
+//			editDetailBtn.setText("Add");
+//		}
+//		
+//	}
 	
-	private void showPostCodeOptions() {
-	    DialogFragment newFragment = new PostCodeDialogFragment();
-	    newFragment.show(getActivity().getSupportFragmentManager(), "postCode");
-	}
+//	private void showPostCodeOptions() {
+//	    DialogFragment newFragment = new PostCodeDialogFragment();
+//	    newFragment.show(getActivity().getSupportFragmentManager(), "postCode");
+//	}
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
@@ -110,27 +97,27 @@ public class Find extends SherlockFragment implements OnItemSelectedListener {
 		
 	}
 	
-	private class RetrieveBinCollectionsTask extends AsyncTask<String, Void, ArrayList<Property>>{
-
-		@Override
-		protected ArrayList<Property> doInBackground(String... params) {
-			Log.d("BIN FINDER", "Getting Bin Collections");
-			BinCollectionsRetriever bcr = new BinCollectionsRetriever();
-			String url = getString(R.string.mycouncil_url) + getString(R.string.bin_collections_url) + "NN48QZ";
-			return 	bcr.retrieveBinCollections(url);
-		}
-		
-		@Override
-		protected void onPostExecute(final ArrayList<Property> result){
-			//run intent to next activity
-			Log.i("BIN RESULTS","done");
-			if(result != null){
-				Intent i = new Intent(getActivity(), FindBinCollectionPropertyList.class);
-				i.putExtra(PROPERTIES_LIST, result);
-				startActivity(i);
-			}
-		}
-	}
+//	private class RetrieveBinCollectionsTask extends AsyncTask<String, Void, ArrayList<Property>>{
+//
+//		@Override
+//		protected ArrayList<Property> doInBackground(String... params) {
+//			Log.d("BIN FINDER", "Getting Bin Collections");
+//			BinCollectionsRetriever bcr = new BinCollectionsRetriever();
+//			String url = getString(R.string.mycouncil_url) + getString(R.string.bin_collections_url) + "NN48QZ";
+//			return 	bcr.retrieveBinCollections(url);
+//		}
+//		
+//		@Override
+//		protected void onPostExecute(final ArrayList<Property> result){
+//			//run intent to next activity
+//			Log.i("BIN RESULTS","done");
+//			if(result != null){
+//				Intent i = new Intent(getActivity(), FindBinCollectionPropertyList.class);
+//				i.putExtra(PROPERTIES_LIST, result);
+//				startActivity(i);
+//			}
+//		}
+//	}
 
 
 	

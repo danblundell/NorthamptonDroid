@@ -76,6 +76,7 @@
 
         <TextView
             android:id="@+id/conf_description_TextView"
+            style="?android:attr/listSeparatorTextViewStyle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/conf_details_title_TextView"
@@ -103,6 +104,7 @@
 
         <TextView
             android:id="@+id/conf_description_bottom_TextView"
+            style="?android:attr/listSeparatorTextViewStyle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/conf_case_ref_TextView"
