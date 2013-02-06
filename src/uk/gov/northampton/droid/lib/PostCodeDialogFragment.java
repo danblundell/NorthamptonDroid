@@ -144,6 +144,7 @@ public class PostCodeDialogFragment extends DialogFragment {
 		{
 		    sb.append(s);
 		}
+		sb.insert(3, " ");
 		return sb.toString();
 	}
 

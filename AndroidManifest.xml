@@ -37,6 +37,8 @@
         <activity android:name=".fragments.ReportImageFullScreen"></activity>
         <activity android:name=".fragments.ReportConfirmation"></activity>
         <activity android:name=".fragments.FindBinCollectionPropertyList"></activity>
+        <activity android:name=".fragments.FindPostCode"></activity>
+        <activity android:name=".fragments.FindBinCollectionResult"></activity>
     </application>
 
 </manifest>

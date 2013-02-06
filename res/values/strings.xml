@@ -20,8 +20,8 @@
     <string name="data_source">myNBC</string>
     <string name="report_main_title">Report It</string>
     <string name="report_type_title">Report a problem</string>
-    <string name="report_type_title_desc">Select a problem type</string>
-    <string name="report_description">add a description</string>
+    <string name="report_type_title_desc">type</string>
+    <string name="report_description">Description</string>
     <string name="report_photo_dialog_title">Add a photo of the problem</string>
     <string-array name="report_photo_dialog_options">
         <item>Use the Camera</item>
@@ -32,13 +32,13 @@
     <string name="mycouncil_url">http://selfserve.northampton.gov.uk/mycouncil-test/</string>
     <string name="report_type_step">Type</string>
     <string name="report_details_title">Details</string>
-    <string name="report_details_title_desc">Add a few details</string>
+    <string name="report_details_title_desc">details</string>
     <string name="report_image_addPhoto_description">Add a photo</string>
     <string name="report_image_description">Supporting Photo</string>
     <string name="report_location_step">Location</string>
     <string name="report_details_step">Details</string>
     <string name="report_confirmation_step">Done</string>
-    <string name="report_notifications_title">SEND ME A RECEIPT</string>
+    <string name="report_notifications_title">Receipt</string>
     <string name="report_notifications_sms_toggle_label">SMS</string>
     <string name="report_notifications_email_toggle_label">Email</string>
     <string name="report_submit_button_text">Report It</string>
@@ -129,10 +129,18 @@
 	<string name="settings_email_update">update your email address</string>
 	<string name="settings_telephone_update">update your telephone number</string>
 	<string name="settings_postcode_update">update your post code</string>
+	<string name="bin_collection_black">black</string>
+	<string name="bin_collection_black_out">Black Wheelie Bin</string>
+	<string name="bin_collection_brown">brown</string>
+	<string name="bin_collection_brown_out">Brown Wheelie Bin</string>
+	<string name="bin_collection_bags">bags</string>
+	<string name="bin_collection_bags_out">Black Bags</string>
 	<string name="findit_type_title">Find</string>
-	<string name="findit_type_title_desc">Select an option</string>
+	<string name="findit_type_title_desc">OPTION</string>
+	<string name="findit_postcode_title">Post Code</string>
+	<string name="findit_postcode_desc">confirm your post code</string>
 	<string name="findit_bin_collection_day">Bin Collection Day</string>
-	<string name="findit_bin_collection_address_text">Select your address</string>
+	<string name="findit_bin_collection_address_text">ADDRESS</string>
 	<string name="findit_bin_collection_find_text">Find my collection day</string>
 	<string name="findit_bin_collection_day_text">Your collection day is</string>
 	<string name="findit_bin_collection_bin_text">Your next collection will be</string>
@@ -143,5 +151,8 @@
 	<string-array name="findit_type_array">
 	    <item>@string/findit_bin_collection_day</item>
 	</string-array>
-	    <string name="report_confirmation_done_Button">Done</string>
+	<string name="report_confirmation_done_Button">Done</string>
+	<string name="contact_confirmation_done_Button">Done</string>
+	<string name="button_text_Done">Done</string>
+	<string name="button_text_Next">Next</string>
 </resources>

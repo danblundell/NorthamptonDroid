@@ -91,7 +91,7 @@
                     android:layout_marginBottom="@dimen/baseline_eight"
                     android:gravity="center_vertical"
                     android:paddingBottom="@dimen/baseline_padding"
-                    android:text="@string/contact_details_step"
+                    android:text="@string/contact_type"
                     android:textColor="@color/nbc_red_border"
                     android:textSize="@dimen/text_size_main_title" />
 
@@ -112,6 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/contact_details_title_desc_TextView"
                     android:layout_marginBottom="@dimen/baseline_eight"
+                    android:drawablePadding="100dp"
                     android:ems="10"
                     android:gravity="top"
                     android:hint="@string/contact_description"
@@ -131,13 +132,14 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/contactMessageEditText"
                     android:layout_marginBottom="@dimen/baseline_eight"
+                    android:drawableRight="@drawable/ic_social_person"
+                    android:ems="10"
                     android:gravity="center_vertical"
                     android:hint="@string/contact_name"
                     android:inputType="textPersonName"
                     android:minHeight="48dip"
                     android:padding="8dp"
-                    android:textSize="@dimen/text_size_title" >
-                </EditText>
+                    android:textSize="@dimen/text_size_title" />
 
                 <EditText
                     android:id="@+id/contactEmailEditText"
@@ -145,13 +147,14 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/contactNameEditText"
                     android:layout_marginBottom="@dimen/baseline_eight"
+                    android:drawableRight="@drawable/ic_content_email"
+                    android:ems="10"
                     android:gravity="center_vertical"
                     android:hint="@string/contact_email"
                     android:inputType="textEmailAddress"
                     android:minHeight="48dip"
                     android:padding="8dp"
-                    android:textSize="@dimen/text_size_title" >
-                </EditText>
+                    android:textSize="@dimen/text_size_title" />
 
                 <EditText
                     android:id="@+id/contactPhoneEditText"
@@ -159,13 +162,14 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/contactEmailEditText"
                     android:layout_marginBottom="@dimen/baseline"
+                    android:drawableRight="@drawable/ic_device_access_end_call"
+                    android:ems="10"
                     android:gravity="center_vertical"
                     android:hint="@string/contact_phone"
                     android:inputType="phone"
                     android:minHeight="48dip"
                     android:padding="8dp"
-                    android:textSize="@dimen/text_size_title" >
-                </EditText>
+                    android:textSize="@dimen/text_size_title" />
 
                 <Button
                     android:id="@+id/contactSubmitButton"
