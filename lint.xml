@@ -6,4 +6,7 @@
         <ignore path="src\uk\gov\northampton\droid\fragments\Contact3.java" />
         <ignore path="src\uk\gov\northampton\droid\fragments\ContactMessage.java" />
     </issue>
+    <issue id="SetJavaScriptEnabled">
+        <ignore path="src\uk\gov\northampton\droid\lib\CustomWebViewActivity.java" />
+    </issue>
 </lint>

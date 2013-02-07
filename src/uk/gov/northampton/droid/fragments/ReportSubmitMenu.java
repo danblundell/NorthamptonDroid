@@ -34,6 +34,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -309,14 +310,17 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 			if(v.isEnabled()){
 				v.setEnabled(false);
 			}
-			
+			Boolean image = false;
+			if(pThumbnailImage != null){
+				image = true;
+			}
 			pDesc = jobDesc.getText().toString();
 			ReportSubmitTask rst = new ReportSubmitTask();
 			rst.execute(
 					pDesc,
 					pEmail,
 					"",
-					"true",
+					image.toString(),
 					pLat,
 					pLng,
 					"Problem Location",
@@ -336,26 +340,35 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		@Override
 		protected String doInBackground(String... params) {
 			
-			//make http request
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-			pThumbnailImage.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object   
-			byte[] b = baos.toByteArray();
-			String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-			Log.i("ENCODED IMAGE", encodedImage);
 			Log.d("SUBMITTING REPORT","DO IN BG");
+			//set up the http request
 			ReportHttpSender rs = new ReportHttpSender();
 			rs.setDataSource(getString(R.string.data_source));
 			rs.setDesc(params[0]);
 			rs.setDeviceID("12345");
 			rs.setEmail(params[1]);
 			rs.setImage(params[2]);
-			rs.setImageData(b);
 			rs.setIncludesImage(params[3]);
 			rs.setLat(params[4]);
 			rs.setLng(params[5]);
 			rs.setLocation(params[6]);
 			rs.setPhone(params[7]);
 			rs.setProblemNumber(params[8]);
+			
+			//check 'image' parameter
+			Boolean image = Boolean.parseBoolean(params[2]);
+			
+			//if image is true and there is a thumbnail image to send, compress the image and attach to the request
+			if(pThumbnailImage != null && image){
+				//make http request
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+				pThumbnailImage.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object   
+				byte[] b = baos.toByteArray();
+				String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+				Log.i("ENCODED IMAGE", encodedImage);
+				rs.setImageData(b);
+			}
+			//make the http request
 			String result = rs.send(getString(R.string.mycouncil_url) + getString(R.string.report_url));
 			return result;
 		}
@@ -373,7 +386,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 				startActivity(confIntent);
 			}
 			else{
-				//error
+				Toast.makeText(getApplicationContext(), "There was an error sending this case", Toast.LENGTH_LONG).show();
 			}
 		}
 			

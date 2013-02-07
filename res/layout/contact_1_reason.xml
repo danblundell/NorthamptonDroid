@@ -67,22 +67,23 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/contact_progress_LinearLayout"
-        android:layout_marginBottom="@dimen/baseline_eight"
+        android:layout_marginBottom="@dimen/baseline"
         android:gravity="center_vertical"
         android:paddingBottom="@dimen/baseline_padding"
-        android:text="@string/contact_subject_title"
+        android:text="@string/contact_type"
         android:textColor="@color/nbc_red_border"
         android:textSize="@dimen/text_size_main_title" />
 
     <TextView
         android:id="@+id/contact_reasons_title_desc_TextView"
+        style="?android:attr/listSeparatorTextViewStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/contact_reasons_title_TextView"
         android:layout_marginBottom="@dimen/baseline"
         android:gravity="center_vertical"
         android:paddingBottom="@dimen/baseline_eight"
-        android:text="@string/conf_details_title"
+        android:text="@string/contact_subject_title"
         android:textSize="@dimen/text_size_main_subtext" />
 
     <Spinner

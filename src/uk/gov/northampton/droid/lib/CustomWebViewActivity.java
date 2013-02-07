@@ -1,54 +1,37 @@
 package uk.gov.northampton.droid.lib;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-
 import uk.gov.northampton.droid.R;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Window;
 
-
-public class CustomWebViewActivity extends SherlockActivity {
+public class CustomWebViewActivity extends SherlockFragmentActivity {
 
 	private WebView wv;
-	private ProgressBar pb;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
-		
-		getWindow().requestFeature(Window.FEATURE_PROGRESS);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.web_view);
-		
-		// Set up the action bar.
-        final ActionBar actionBar = getSupportActionBar();
-        final Activity activity = this;
-
+		setSupportProgressBarIndeterminateVisibility(true);
 		Intent intent = getIntent();
 		String url = intent.getStringExtra("url");
+		Log.d("URL",url);
 		wv = (WebView) findViewById(R.id.webview);
-		wv.setWebChromeClient(new WebChromeClient(){
-			@Override
-			public void onProgressChanged(WebView view, int progress) {
-			     // Activities and WebViews measure progress with different scales.
-			     // The progress meter will automatically disappear when we reach 100%
-				Log.d("Loading Web Page", "Progress - " + progress);
-			     activity.setProgress(progress * 100);
-			   }
-		});
+		Log.d("WV","Found web view");
+		
 		wv.setWebViewClient(new WebViewClientNoRedirect());
+		Log.d("WV","Set web view client");
 		wv.getSettings().setJavaScriptEnabled(true);
 		wv.getSettings().setDomStorageEnabled(true);
 		wv.loadUrl(url);
+		Log.d("URL","Loading URL");
 	}
 	
 	private class WebViewClientNoRedirect extends WebViewClient {
@@ -56,7 +39,15 @@ public class CustomWebViewActivity extends SherlockActivity {
 	    public boolean shouldOverrideUrlLoading(WebView view, String url) {
 	            return false;
 
-	    }		
+	    }
+	    
+	    @Override
+	    public void onPageFinished(WebView view, String url) {
+	    	setSupportProgressBarIndeterminateVisibility(false);
+	    	super.onPageFinished(view, url);
+	    	Log.d("WV","LOADED");
+	    }
+	    
 	}
 
 }
