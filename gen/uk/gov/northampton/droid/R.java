@@ -909,7 +909,7 @@ containing a value of this type.
         public static final int contactNameEditText=0x7f05003a;
         public static final int contactPhoneEditText=0x7f05003c;
         public static final int contactSubmitButton=0x7f05003d;
-        public static final int contactUs=0x7f0500bd;
+        public static final int contactUs=0x7f0500bc;
         public static final int contact_conf_case_ref_TextView=0x7f050042;
         public static final int contact_conf_description_TextView=0x7f050041;
         public static final int contact_conf_description_bottom_TextView=0x7f050043;
@@ -977,9 +977,9 @@ containing a value of this type.
         public static final int imageLayout=0x7f050089;
         public static final int linearMapLayout=0x7f05007d;
         public static final int listMode=0x7f050002;
-        public static final int main_busy=0x7f0500bb;
+        public static final int main_busy=0x7f0500ba;
         public static final int mapview=0x7f05007f;
-        public static final int menu_settings=0x7f0500ba;
+        public static final int menu_settings=0x7f0500b9;
         public static final int message_text_view=0x7f0500b3;
         public static final int nbc_setting_title=0x7f050011;
         public static final int nbc_setting_value=0x7f050010;
@@ -1028,10 +1028,10 @@ containing a value of this type.
         public static final int report_step_4=0x7f050077;
         public static final int report_type_LinearLayout=0x7f050078;
         public static final int report_type_RelativeLayout=0x7f050072;
-        public static final int sendContactMessage=0x7f0500bc;
+        public static final int sendContactMessage=0x7f0500bb;
         public static final int services_main_button=0x7f0500a0;
         public static final int services_main_title=0x7f05009f;
-        public static final int settings=0x7f0500be;
+        public static final int settings=0x7f0500bd;
         public static final int settings_email_LinearLayout=0x7f0500a6;
         public static final int settings_email_TextView=0x7f0500a7;
         public static final int settings_email_set_TextView=0x7f0500a8;
@@ -1058,8 +1058,7 @@ containing a value of this type.
         public static final int tabMode=0x7f050003;
         public static final int useLogo=0x7f050004;
         public static final int webViewLayout=0x7f0500b7;
-        public static final int webViewProgressBar=0x7f0500b8;
-        public static final int webview=0x7f0500b9;
+        public static final int webview=0x7f0500b8;
         public static final int wrap_content=0x7f050000;
     }
     public static final class integer {

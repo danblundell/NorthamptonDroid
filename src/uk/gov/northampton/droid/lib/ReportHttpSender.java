@@ -175,9 +175,10 @@ public class ReportHttpSender {
 		postRequest.addHeader("ProblemLocation",this.location);
 		postRequest.addHeader("ProblemEmail",this.email);
 		postRequest.addHeader("ProblemPhone",this.phone); 
-		
-		HttpEntity imageBytes = new ByteArrayEntity(this.imageData);
-		postRequest.setEntity(imageBytes);
+		if(this.imageData != null){
+			HttpEntity imageBytes = new ByteArrayEntity(this.imageData);
+			postRequest.setEntity(imageBytes);
+		}
 		
 		try{
 			Log.d("HTTPSENDER",postRequest.getAllHeaders()[0].toString());

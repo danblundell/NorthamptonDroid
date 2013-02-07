@@ -1,11 +1,17 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="fill_parent"
+    android:background="@color/actionBarText" >
+    
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/actionBarText" >
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/findit_bin_collection_confirmation_RelativeLayout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:background="@color/actionBarText"
         android:orientation="vertical"
         android:padding="@dimen/baseline"
@@ -70,7 +76,6 @@
                     android:id="@+id/findit_details_title_TextView"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
                     android:layout_marginBottom="@dimen/baseline"
                     android:gravity="center_vertical"
                     android:text="@string/findit_bin_collection_day"
@@ -179,12 +184,14 @@
             android:id="@+id/finditDoneButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/baseline"
             android:background="@drawable/nbc_button"
             android:padding="10dip"
             android:text="@string/report_confirmation_done_Button"
             android:textColor="#FFFFFFFF"
             android:textStyle="bold" />
-    </RelativeLayout>
+
+    </LinearLayout>
 
 </ScrollView>
+</RelativeLayout>

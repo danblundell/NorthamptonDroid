@@ -46,7 +46,7 @@ public class Contact2<CurrentActivity> extends SherlockActivity {
 		ImageView step2 = (ImageView) findViewById(R.id.contact_step_2);
 		step2.setImageResource(R.drawable.progress_line_current);
 		
-		TextView title = (TextView) findViewById(R.id.contact_reasons_title_TextView);
+		TextView title = (TextView) findViewById(R.id.contact_reasons_title_desc_TextView);
 		title.setText(getString(R.string.contact_reason_title));
 		
 		Button nextBtn = (Button) findViewById(R.id.contact_reasons1_button);

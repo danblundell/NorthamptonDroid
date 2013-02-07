@@ -44,10 +44,10 @@
     <string name="report_submit_button_text">Report It</string>
 
     <string name="photo_album_name">Northampton</string>
-    <string name="contact_subject_title">Select a service</string>
-    <string name="contact_reason_title">Select a department</string>
-    <string name="contact_type_title">Select a reason</string>
-    <string name="contact_details_title">Enter your message</string>
+    <string name="contact_subject_title">SERVICE</string>
+    <string name="contact_reason_title">DEPARTMENT</string>
+    <string name="contact_type_title">REASON</string>
+    <string name="contact_details_title">MESSAGE</string>
     <string name="contact_confirmation_title">Done</string>
     <string name="contact_subject_step">Service</string>
     <string name="contact_reason_step">Dept</string>
@@ -108,8 +108,8 @@
     <string name="conf_details_title">Thank You</string>
     <string name="conf_details_desc_contact_top">Your reference number is</string>
     <string name="conf_details_desc_report_top">Your reference number is</string>
-    <string name="conf_details_desc_contact_bottom">We aim to respond to your enquiry by the</string>
-    <string name="conf_details_desc_report_bottom">We aim to resolve this problem by the</string>
+    <string name="conf_details_desc_contact_bottom">We aim to respond to your enquiry by</string>
+    <string name="conf_details_desc_report_bottom">We aim to resolve this problem by</string>
     <string name="conf_step1">Service</string>
     <string name="conf_step2">Dept</string>
     <string name="conf_step3">Reason</string>
@@ -119,7 +119,7 @@
 	<string name="settings_yourDetails_title">YOUR DETAILS</string>
 	<string name="settings_name">Name</string>
 	<string name="settings_email">Email</string>
-	<string name="settings_telephone">Telephone</string>
+	<string name="settings_telephone">Phone</string>
 	<string name="settings_postcode">Post Code</string>
 	<string name="settings_name_add">add your name</string>
 	<string name="settings_email_add">add your email address</string>

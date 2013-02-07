@@ -4,25 +4,32 @@ import java.util.ArrayList;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
+import com.actionbarsherlock.view.Window;
 
 import uk.gov.northampton.droid.Confirmation;
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ContactReason;
 import uk.gov.northampton.droid.lib.ConfirmationRetriever;
 import uk.gov.northampton.droid.lib.ContactHttpSender;
+import uk.gov.northampton.droid.lib.EditTextDialogFragment;
+import uk.gov.northampton.droid.lib.EditTextDialogFragment.EditTextDialogListener;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,7 +38,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ContactMessage extends SherlockActivity {
+public class ContactMessage extends SherlockFragmentActivity implements  EditTextDialogListener{
 	
 	private EditText name;
 	private EditText email;
@@ -42,6 +49,8 @@ public class ContactMessage extends SherlockActivity {
 	private ContactReason selectedReason;
 	private ContactReason selectedType;
 	private TextView contactDesc;
+	private Context context;
+	private SharedPreferences sharedPrefs;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +61,7 @@ public class ContactMessage extends SherlockActivity {
 		setSupportProgressBarIndeterminateVisibility(false);
 		ActionBar ab = getSupportActionBar();
 		ab.setTitle(getString(R.string.contact_type));
-		
+		context = getApplicationContext();
 		ImageView step1 = (ImageView) findViewById(R.id.contact_step_1);
 		step1.setImageResource(R.drawable.progress_line_done);
 		ImageView step2 = (ImageView) findViewById(R.id.contact_step_2);
@@ -70,37 +79,63 @@ public class ContactMessage extends SherlockActivity {
 		this.findAllViewsById();
 		this.updateUIFromExtras();
 		this.updateUIFromPreferences();
-		sendBtn.setOnClickListener(SendMessageListener);
-		
+		this.setListeners();		
 	}
 	
-	private OnClickListener SendMessageListener = new OnClickListener(){
+	private OnClickListener sendMessageListener = new OnClickListener(){
 		public void onClick(View v){
-			// TODO Auto-generated method stub
-			Log.d("CONTACT","Sending Message!");
-			boolean send = validateForm();
-			if(send){
-				setSupportProgressBarIndeterminateVisibility(true);
-				SendMessageTask sm = new SendMessageTask();
+			sendMessage();
+		}
+	};
+	
+	private OnMenuItemClickListener sendMessageMenuItemListener = new OnMenuItemClickListener(){
+		
+		@Override
+		public boolean onMenuItemClick(MenuItem item) {
+			return sendMessage();
+		}
+	};
+	
+	private boolean sendMessage(){
+		boolean send = validateForm();
+		if(send){
+			setSupportProgressBarIndeterminateVisibility(true);
+			SendMessageTask sm = new SendMessageTask();
 
-				sm.execute(
-						selectedSubject.getiDesc(),
-						selectedReason.getiDesc(),
-						selectedType.getiDesc(),
-						name.getText().toString(),
-						message.getText().toString(),
-						email.getText().toString(),
-						phone.getText().toString()
-				);
-			}else{
-				Log.i("SUBMIT ERROR","Form isn't valid");
-			}
+			sm.execute(
+					selectedSubject.getiDesc(),
+					selectedReason.getiDesc(),
+					selectedType.getiDesc(),
+					name.getText().toString(),
+					message.getText().toString(),
+					email.getText().toString(),
+					phone.getText().toString()
+			);
+			return true;
+		}
+		return false;
+	}
+	
+	private OnClickListener updateUserDetailListener = new OnClickListener(){
+		public void onClick(View v){
+			EditText editTextView = (EditText) v.findViewById(v.getId());
+			String title = editTextView.getHint().toString();
+			//EditTextDialogFragment(Title for the dialog, prompt,view id to return to, edit text input type);
+			DialogFragment editTextFragment = new EditTextDialogFragment(title,v.getId(),editTextView.getInputType());
+			editTextFragment.show(getSupportFragmentManager(), "editText");
 		}
 	};
 	
 	private void updateUIFromExtras(){
-		String contentDescText = selectedSubject.geteDesc() + " > " + selectedReason.geteDesc() + " > " + selectedType.geteDesc();
+		String contentDescText = selectedType.geteDesc();
 		contactDesc.setText(contentDescText);
+	}
+	
+	private void setListeners(){
+		name.setOnClickListener(updateUserDetailListener);
+		phone.setOnClickListener(updateUserDetailListener);
+		email.setOnClickListener(updateUserDetailListener);
+		sendBtn.setOnClickListener(sendMessageListener);
 	}
 	
 	private void findAllViewsById(){
@@ -113,11 +148,20 @@ public class ContactMessage extends SherlockActivity {
 	}
 	
 	private void updateUIFromPreferences(){
-		Context context = getApplicationContext();
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-		name.setText(sharedPrefs.getString(Settings.NBC_NAME, ""));
-		email.setText(sharedPrefs.getString(Settings.NBC_EMAIL, ""));
-		phone.setText(sharedPrefs.getString(Settings.NBC_TEL, ""));
+		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+		String settingName  = sharedPrefs.getString(Settings.NBC_NAME, "");
+		String settingEmail = sharedPrefs.getString(Settings.NBC_EMAIL, "");
+		String settingPhone = sharedPrefs.getString(Settings.NBC_TEL, "");
+		
+		if(settingName.compareTo(getString(R.string.settings_name_add)) != 0){
+			name.setText(settingName);
+		}
+		if(settingEmail.compareTo(getString(R.string.settings_email_add)) != 0){
+			email.setText(settingEmail);
+		}
+		if(settingPhone.compareTo(getString(R.string.settings_telephone_add)) != 0){
+			phone.setText(settingPhone);
+		}
 	}
 	
 	private class SendMessageTask extends AsyncTask<String, Integer, String>{
@@ -181,7 +225,7 @@ public class ContactMessage extends SherlockActivity {
 
 	private boolean validateMessge() {
 		String m = message.getText().toString();
-		if(!m.isEmpty()){
+		if(m.length() > 0){
 			return true;
 		}
 		return false;
@@ -189,15 +233,12 @@ public class ContactMessage extends SherlockActivity {
 
 	private boolean validatePhone() {
 		String p  = phone.getText().toString();
-		if(!p.isEmpty()){
-			return true;
-		}
-		return false;
+		return true;
 	}
 
 	private boolean validateEmail() {
 		String e = email.getText().toString();
-		if(!e.isEmpty()){
+		if(e.length() > 0){
 			return true;
 		}
 		return false;
@@ -205,7 +246,7 @@ public class ContactMessage extends SherlockActivity {
 
 	private boolean validateName() {
 		String n = name.getText().toString();
-		if(!n.isEmpty()){
+		if(n.length() > 0){
 			return true;
 		}
 		return false;
@@ -215,7 +256,30 @@ public class ContactMessage extends SherlockActivity {
     public boolean onCreateOptionsMenu(Menu m){
 		MenuInflater inflater = getSupportMenuInflater();
     	inflater.inflate(R.menu.contact_message_menu, m);
+    	MenuItem sendMessage = m.findItem(R.id.sendContactMessage);
+    	sendMessage.setOnMenuItemClickListener(this.sendMessageMenuItemListener);
     	return true;
     }
+    
+    private void savePreferences() {
+		String namePref = name.getText().toString();
+		String emailPref = email.getText().toString();
+		String phonePref = phone.getText().toString();
+		
+		Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+		editor.putString(Settings.NBC_NAME, namePref);
+		editor.putString(Settings.NBC_EMAIL, emailPref);
+		editor.putString(Settings.NBC_TEL, phonePref);
+		editor.commit();
+	}
+
+	@Override
+	public void onFinishEditTextDialog(int opt, String string, int viewId) {
+		if(opt == Activity.RESULT_OK){
+			EditText vEditText = (EditText) this.findViewById(viewId);
+			vEditText.setText(string);
+			savePreferences();
+		}
+	}
 	
 }
