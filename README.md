@@ -13,7 +13,7 @@ To-Do
 		
 * Social
 	* Cache xml in Bundle &#10004;
-	* Add loading / progress information
+	* Add loading / progress information _urgent_
 		
 * Find
 	* Add Bin Collection options &#10004;
