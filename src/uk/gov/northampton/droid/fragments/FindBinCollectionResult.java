@@ -113,8 +113,8 @@ public class FindBinCollectionResult extends SherlockFragmentActivity {
 		@Override
 		public void onClick(View v) {
 			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 			startActivity(intent);
 		}
 

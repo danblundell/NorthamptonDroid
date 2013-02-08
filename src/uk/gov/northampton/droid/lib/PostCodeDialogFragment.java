@@ -2,14 +2,19 @@ package uk.gov.northampton.droid.lib;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import uk.gov.northampton.droid.R;
+import uk.gov.northampton.droid.fragments.Settings;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +24,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 public class PostCodeDialogFragment extends DialogFragment {
 	
 	public ArrayList<String> pc = new ArrayList<String>();
+	private SharedPreferences sharedPrefs;
 
 	public interface PostCodeDialogListener {
         public void onFinishPostCodeDialog(String postCode);
@@ -42,6 +48,11 @@ public class PostCodeDialogFragment extends DialogFragment {
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		
+		//get existing post code
+		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		String postCodePref = sharedPrefs.getString(Settings.NBC_POST_CODE, null);
+		
 		//get the postcode picker view
 		View v = getActivity().getLayoutInflater().inflate(R.layout.postcode_picker, null);
 		
@@ -63,28 +74,59 @@ public class PostCodeDialogFragment extends DialogFragment {
 		Spinner s5 = (Spinner) v.findViewById(R.id.postcode_6_spinner);
 		Spinner s6 = (Spinner) v.findViewById(R.id.postcode_7_spinner);
 		
+		//set adapters
 		s1.setAdapter(letters);
-		s1.setSelection(13);
-		s1.setEnabled(false);
 		s2.setAdapter(letters);
-		s2.setSelection(13);
-		s2.setEnabled(false);
 		s3.setAdapter(numbers);
-		s3.setSelection(1);
 		s4.setAdapter(numbers);
-		s4.setSelection(1);
 		s5.setAdapter(letters);
-		s5.setSelection(3);
 		s6.setAdapter(letters);
-		s6.setSelection(4);
 		
+		//disable first two fields
+		s1.setEnabled(false);
+		s2.setEnabled(false);
+		
+		if(postCodePref != null){
+			String[] az = getResources().getStringArray(R.array.postcode_letters);
+			String[] num = getResources().getStringArray(R.array.postcode_digits);
+			char[] ca = postCodePref.toCharArray();
+			
+			//set the 'NN'
+			s1.setSelection(13);
+			s2.setSelection(13);
+			
+			//3 and 4 should be numbers
+			int thirdChar = Arrays.asList(num).indexOf(String.valueOf(ca[2]));
+			int fourthChar = Arrays.asList(num).indexOf(String.valueOf(ca[4]));
+			s3.setSelection(thirdChar);
+			s4.setSelection(fourthChar);
+			
+			//5 and 6 are letters
+			int fifthChar = Arrays.asList(az).indexOf(String.valueOf(ca[5]));
+			int sixthChar = Arrays.asList(az).indexOf(String.valueOf(ca[6]));
+			s5.setSelection(fifthChar);
+			s6.setSelection(sixthChar);
+		}
+		else{
+			s1.setSelection(13);
+			s2.setSelection(13);
+			s3.setSelection(1);
+			s4.setSelection(1);
+			s5.setSelection(3);
+			s6.setSelection(4);
+		}
+		
+		//set first two characters of the postcode by default
 		pc.add("N");
 		pc.add("N");
+		
+		//set listeners
 		s3.setOnItemSelectedListener(new PostCodeSpinnerListener(2));
 		s4.setOnItemSelectedListener(new PostCodeSpinnerListener(3));
 		s5.setOnItemSelectedListener(new PostCodeSpinnerListener(4));
 		s6.setOnItemSelectedListener(new PostCodeSpinnerListener(5));
 		
+		//create the dialog
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(R.string.postcode_dialog_title);
 		builder.setView(v);
