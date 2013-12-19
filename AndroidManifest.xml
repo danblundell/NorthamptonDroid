@@ -32,6 +32,7 @@
         <activity android:name=".fragments.ContactConfirmation"></activity>
         <activity android:name=".fragments.Settings"></activity>
         <activity android:name=".lib.CustomWebViewActivity"></activity>
+        <activity android:name=".lib.SocialWebViewActivity"></activity>
         <activity android:name=".fragments.ReportLocation" android:label="Location"></activity>
         <activity android:name=".fragments.ReportSubmitMenu"></activity>
         <activity android:name=".fragments.ReportImageFullScreen"></activity>

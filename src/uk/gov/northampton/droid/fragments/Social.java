@@ -14,6 +14,7 @@ import uk.gov.northampton.droid.SocialEntry;
 import uk.gov.northampton.droid.SocialFeedAdapter;
 import uk.gov.northampton.droid.lib.CustomWebViewActivity;
 import uk.gov.northampton.droid.lib.SocialFeedRetriever;
+import uk.gov.northampton.droid.lib.SocialWebViewActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -77,7 +78,7 @@ public class Social extends SherlockListFragment {
 	 public void onListItemClick(ListView l, View v, int position, long id) {
 		SocialEntry current = (SocialEntry) getListView().getItemAtPosition(position);
 		String uriString = current.getUrl();
-		Intent seIntent = new Intent(l.getContext(), CustomWebViewActivity.class);
+		Intent seIntent = new Intent(l.getContext(), SocialWebViewActivity.class);
 		seIntent.putExtra("url", uriString);
 		startActivity(seIntent);
 	}
