@@ -2,6 +2,7 @@ package uk.gov.northampton.droid;
 
 import uk.gov.northampton.droid.fragments.*;
 import uk.gov.northampton.droid.lib.PostCodeDialogFragment.PostCodeDialogListener;
+import uk.gov.northampton.droid.lib.SocialWebViewActivity;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -87,7 +88,7 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
         @Override
         public Fragment getItem(int i) {
         	switch (i){
-        	case 0: return new Social();
+        	case 0: return new SocialWebViewActivity();
         	case 1: return new Report();
         	case 2: return new Find();
         	}

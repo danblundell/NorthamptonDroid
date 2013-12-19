@@ -17,6 +17,7 @@
     <string name="next_button_text">Next</string>
     <string name="google_maps_api_key">0zRpJoy9wFbhc3GU0nme3VMH1HTGLQTmOMNWzww</string>
     <string name="social_feed_url">http://selfserve.northampton.gov.uk/mynbc/socialFeed.xml</string>
+    <string name="social_base_url">http://twitter.com</string>
     <string name="data_source">myNBC</string>
     <string name="report_main_title">Report It</string>
     <string name="report_type_title">Report a problem</string>
