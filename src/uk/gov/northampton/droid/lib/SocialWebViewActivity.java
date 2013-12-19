@@ -4,6 +4,7 @@ import uk.gov.northampton.droid.R;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -42,14 +43,13 @@ public class SocialWebViewActivity extends SherlockFragment {
 	public void loadSocialWidget(View v) {
 		wv = (WebView) v.findViewById(R.id.webview);
 		wv.setWebViewClient(new WebViewClientNoRedirect());
-		Log.d("HEIGHT",""+v.getHeight());
 		
 		if(webViewBundle != null) {
 			wv.restoreState(webViewBundle);
 		}
 		else {
 			String wvContent = "<html><body>" +
-					"<a class=\"twitter-timeline\" href=\"https://twitter.com/NorthamptonBC/northampton-2\" data-widget-id=\"398493306922864640\" style=\"display:block;text-align:center; color:#A52449;\">" +
+					"<a class=\"twitter-timeline\" href=\"https://twitter.com/NorthamptonBC/northampton-2\" data-widget-id=\"398493306922864640\" style=\"display:block;text-align:center; color:#A52449;\" data-chrome=\"noheader nofooter transparent\" data-link-color=\"#A52449\">" +
 					"Tweets from @NorthamptonBC</a>" +
 					"<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\"://platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);}}(document,\"script\",\"twitter-wjs\");</script>" +
 					"</body></html>";
@@ -65,7 +65,14 @@ public class SocialWebViewActivity extends SherlockFragment {
 	private class WebViewClientNoRedirect extends WebViewClient {
 	    @Override
 	    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-	            return false;
+	    	return true;
+//	    	Log.d("URL",url);
+//	    	if (url != null && url.startsWith("http://") || url.startsWith("https://")) {
+//	            view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+//	            return true;
+//	        } else {
+//	            return false;
+//	        }
 	    }
 	    
 	    @Override
@@ -76,10 +83,18 @@ public class SocialWebViewActivity extends SherlockFragment {
 	    
 	}
 
+//	@Override
+//	public void onPause() {
+//		super.onPause();
+//		webViewBundle = new Bundle();
+//		wv.saveState(webViewBundle);
+//	}
+//
 	@Override
-	public void onPause() {
-		super.onPause();
-		webViewBundle = new Bundle();
+	public void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+		webViewBundle = outState;
 		wv.saveState(webViewBundle);
 	}
 	
