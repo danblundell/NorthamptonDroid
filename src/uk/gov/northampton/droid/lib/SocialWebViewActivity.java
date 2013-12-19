@@ -20,6 +20,7 @@ import com.actionbarsherlock.view.Window;
 public class SocialWebViewActivity extends SherlockFragment {
 
 	private WebView wv;
+	private Bundle webViewBundle;
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -39,18 +40,25 @@ public class SocialWebViewActivity extends SherlockFragment {
     }
 	
 	public void loadSocialWidget(View v) {
-		
 		wv = (WebView) v.findViewById(R.id.webview);
 		wv.setWebViewClient(new WebViewClientNoRedirect());
-		String wvContent = "<html><body>" +
-				"<a class=\"twitter-timeline\" href=\"https://twitter.com/NorthamptonBC/northampton-2\" data-widget-id=\"398493306922864640\" data0>" +
-				"Tweets from @NorthamptonBC/northampton-2</a>" +
-				"<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\"://platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);}}(document,\"script\",\"twitter-wjs\");</script>" +
-				"</body></html>";
+		Log.d("HEIGHT",""+v.getHeight());
 		
-		wv.getSettings().setJavaScriptEnabled(true);
-		wv.getSettings().setDomStorageEnabled(true);
-		wv.loadDataWithBaseURL(getString(R.string.social_base_url), wvContent, "text/html", null, null);
+		if(webViewBundle != null) {
+			wv.restoreState(webViewBundle);
+		}
+		else {
+			String wvContent = "<html><body>" +
+					"<a class=\"twitter-timeline\" href=\"https://twitter.com/NorthamptonBC/northampton-2\" data-widget-id=\"398493306922864640\" style=\"display:block;text-align:center; color:#A52449;\">" +
+					"Tweets from @NorthamptonBC</a>" +
+					"<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\"://platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);}}(document,\"script\",\"twitter-wjs\");</script>" +
+					"</body></html>";
+			
+			wv.getSettings().setJavaScriptEnabled(true);
+			wv.getSettings().setDomStorageEnabled(true);
+			wv.loadDataWithBaseURL(getString(R.string.social_base_url), wvContent, "text/html", null, null);
+		}
+		
 		
 	}
 	
@@ -67,5 +75,14 @@ public class SocialWebViewActivity extends SherlockFragment {
 	    }
 	    
 	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		webViewBundle = new Bundle();
+		wv.saveState(webViewBundle);
+	}
+	
+	
 
 }
