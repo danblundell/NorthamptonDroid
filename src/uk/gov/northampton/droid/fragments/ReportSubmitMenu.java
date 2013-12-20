@@ -130,6 +130,9 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		jobPhoneToggle = (ToggleButton) findViewById(R.id.report_notifications_sms_ToggleButton);
 	}
 	
+	/*
+	 * Get the contents of the intent and update the object properties
+	 */
 	private void updateFromIntent(){
 		Intent intent = getIntent();
 		
@@ -147,6 +150,9 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		pNumber = String.valueOf(rp.getpNum());
 	}
 
+	/*
+	 * Update the UI based of the object and app properties
+	 */
 	private void updateUI(){
 		updateFromIntent();
 		updateFromPreferences();
@@ -157,6 +163,9 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		
 	}
 	
+	/*
+	 * Get the app preferences and set the object properties
+	 */
 	private void updateFromPreferences(){
 		//get email and phone number from preferences
 		Context context = getApplicationContext();
@@ -223,8 +232,8 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	private void dispatchTakePictureIntent(int actionCode) {
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		try{
-		imageFile = createImageFile();
-		takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+			imageFile = createImageFile();
+			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
 		}catch(IOException e){
 			e.printStackTrace();
 		}
@@ -253,7 +262,8 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	    BitmapFactory.decodeFile(photoPath, bmOptions);
 	    int photoW = bmOptions.outWidth;
 	    int photoH = bmOptions.outHeight;
-	  
+	    Log.d("Photo W", ""+photoW);
+	    Log.d("Photo H", ""+photoH);
 	    int scaleFactor = 10;
 	    // Determine how much to scale down the image
 	    if(targetW > 0 && targetH >0){
@@ -342,7 +352,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		protected String doInBackground(String... params) {
 			
 			Log.d("SUBMITTING REPORT","DO IN BG");
-			//set up the http request
+			//set up the http request and set the attributes of the report object
 			ReportHttpSender rs = new ReportHttpSender();
 			rs.setDataSource(getString(R.string.data_source));
 			rs.setDesc(params[0]);
@@ -357,19 +367,18 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 			rs.setProblemNumber(params[8]);
 			
 			//check 'image' parameter
-			Boolean image = Boolean.parseBoolean(params[2]);
+			//Boolean image = Boolean.parseBoolean(params[2]);
 			
 			//if image is true and there is a thumbnail image to send, compress the image and attach to the request
 			if(pThumbnailImage != null){
-				//make http request
-				Log.d("THUMBNAIL", "Processing Thumbnail");
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-				pThumbnailImage.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object   
-				byte[] b = baos.toByteArray();
-				String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-				Log.i("ENCODED IMAGE", encodedImage);
-				rs.setImageData(b);
+				ByteArrayOutputStream baos = new ByteArrayOutputStream(); // set up an output object  
+				pThumbnailImage.compress(Bitmap.CompressFormat.JPEG, 100, baos); // compress the image   
+				byte[] b = baos.toByteArray(); // convert the output stream
+				//String encodedImage = Base64.encodeToString(b, Base64.DEFAULT); // encode the byte array to a string to attach to the http post request
+				rs.setImageData(b); // add the byte array to the request object
 			}
+			
+			
 			//make the http request
 			String result = rs.send(getString(R.string.mycouncil_url) + getString(R.string.report_url));
 			return result;
@@ -377,15 +386,14 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		
 		@Override
 		protected void onPostExecute(final String result){
-			Log.d("SUBMITTING REPORT","OPExecute");
-			setBusy(false);
-			if(result != null){
-				Log.d("REPORT PE",result);
-				ConfirmationRetriever cr = new ConfirmationRetriever();
-				Confirmation conf = cr.retrieveConfirmation(result);
-				Intent confIntent = new Intent(getApplicationContext(),ReportConfirmation.class);
-				confIntent.putExtra("result", conf);
-				startActivity(confIntent);
+			// the problem has been send to the server
+			setBusy(false); // stop the spinner 
+			if(result != null){ // if the result is successful
+				ConfirmationRetriever cr = new ConfirmationRetriever(); // set up an object to process the confirmation
+				Confirmation conf = cr.retrieveConfirmation(result); // process the XML result
+				Intent confIntent = new Intent(getApplicationContext(),ReportConfirmation.class); // set the new intent to the confirmation view
+				confIntent.putExtra("result", conf); // push the confirmation through to the new intent
+				startActivity(confIntent); // start the intent
 			}
 			else{
 				Toast.makeText(getApplicationContext(), "There was an error sending this case", Toast.LENGTH_LONG).show();
