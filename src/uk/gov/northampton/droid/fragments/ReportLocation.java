@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Window;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -16,6 +17,8 @@ import com.google.android.maps.OverlayItem;
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ReportProblem;
 import uk.gov.northampton.droid.lib.ReportLocationItemizedOverlay;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -34,20 +37,27 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
+import com.google.android.gms.maps.model.*;
+import com.google.android.gms.maps.SupportMapFragment;
+
 import android.widget.ZoomButtonsController;
 
-public class ReportLocation extends MapActivity{
+public class ReportLocation extends Activity{
 	
 	private GeoPoint p;
 	private MapController mController;
-	private MapView mView;
+	private GoogleMap mView;
 	private MyLocationOverlay mOverlay = null;
-	private GeoPoint mMarker = null;
+	private Marker mMarker = null;
 	private ReportProblem rp;
 	private LocationManager locationManager;
 	private LocationListener bestProviderListener;
 	private LocationListener bestAvailableProviderListener;
+	private OnMarkerDragListener mdl;
 
+	@SuppressLint("NewApi")
 	public void onCreate(Bundle savedInstanceState) {
 		
 		// TODO Auto-generated method stub
@@ -61,14 +71,32 @@ public class ReportLocation extends MapActivity{
 		double lng = -1.255285;
 		p = new GeoPoint((int) (lat * 1E6), (int) (lng * 1E6));
 
-		mView = (MapView) findViewById(R.id.mapview);
+		mView = ((MapFragment) getFragmentManager().findFragmentById(R.id.mapview)).getMap();
 		Button selectLocation = (Button) findViewById(R.id.googlemaps_select_location);
-		mView.setBuiltInZoomControls(true);
-		mController = mView.getController();
-		mController.setCenter(p);
-		mController.setZoom(14);
 
 		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		mdl = new OnMarkerDragListener() {
+
+			@Override
+			public void onMarkerDrag(Marker m) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onMarkerDragEnd(Marker m) {
+				// TODO Auto-generated method stub
+				Log.d("POSITION",m.getPosition().toString());
+			}
+
+			@Override
+			public void onMarkerDragStart(Marker m) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		};
+		mView.setOnMarkerDragListener(mdl);
 		bestProviderListener = new LocationListener(){
 
 			@Override
@@ -78,13 +106,27 @@ public class ReportLocation extends MapActivity{
 				if(l != null){
 					double lat = l.getLatitude();
 					double lng = l.getLongitude();
-					p = new GeoPoint((int) (lat * 1E6), (int) (lng * 1E6));
-					mController.animateTo(p);
-					mController.setZoom(18);
+					//p = new GeoPoint((int) (lat * 1E6), (int) (lng * 1E6));
+					LatLng mapCenter = new LatLng(lat,lng);
+					//mView.setMyLocationEnabled(true);
+					mView.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 18));
+					if(mMarker == null){
+						mMarker = mView.addMarker(new MarkerOptions()
+		                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin))
+		                .position(mapCenter)
+		                .flat(true).draggable(true).rotation(0));
+						mdl.onMarkerDragStart(mMarker);
+						
+					}
+					else {
+						mMarker.setPosition(mapCenter);
+					}
+					//mController.animateTo(p);
+					//mController.setZoom(18);
 					Drawable marker = getResources().getDrawable(R.drawable.pin);
 					marker.setBounds(0, 0, marker.getIntrinsicWidth(), marker.getIntrinsicHeight());
-					mView.getOverlays().clear();
-					mView.getOverlays().add(new SitesOverlay(marker));
+					//mView.getOverlays().clear();
+					//mView.getOverlays().add(new SitesOverlay(marker));
 				}
 			}
 
@@ -116,10 +158,10 @@ public class ReportLocation extends MapActivity{
 			@Override
 			public void onClick(View v) {
 				//Toast.makeText(ReportLocation.this, "Lat: " + (mMarker.getLatitudeE6() / 1E6) + " / " + "Lng: " + (mMarker.getLongitudeE6() / 1E6),Toast.LENGTH_LONG).show();
-				Intent submitMenuIntent = new Intent(mView.getContext(),ReportSubmitMenu.class);
+				Intent submitMenuIntent = new Intent(getApplicationContext(),ReportSubmitMenu.class);
 				if(mMarker != null){
-					submitMenuIntent.putExtra("lat", mMarker.getLatitudeE6() / 1E6);
-					submitMenuIntent.putExtra("lng", mMarker.getLongitudeE6() / 1E6);
+					submitMenuIntent.putExtra("lat", mMarker.getPosition().latitude);
+					submitMenuIntent.putExtra("lng", mMarker.getPosition().longitude);
 				}
 				submitMenuIntent.putExtra("type", rp);
 				startActivity(submitMenuIntent);
@@ -159,18 +201,13 @@ public class ReportLocation extends MapActivity{
 			locationManager.removeUpdates(bestProviderListener);
 		}
 	};
-
-	@Override
-	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
-	private GeoPoint getPoint(double lat, double lon) {
+	/*private GeoPoint getPoint(double lat, double lon) {
 	    return(new GeoPoint((int)(lat*1E6),(int)(lon*1E6)));
-	 }
+	 }*/
 	
-	private class SitesOverlay extends ItemizedOverlay<OverlayItem>{
+	
+	/*private class SitesOverlay extends ItemizedOverlay<OverlayItem>{
 		private List<OverlayItem> items = new ArrayList<OverlayItem>();
 		private Drawable marker = null;
 		private OverlayItem inDrag = null;
@@ -222,7 +259,7 @@ public class ReportLocation extends MapActivity{
 				for(OverlayItem item : items){
 					Point p = new Point(0,0);
 					
-					mView.getProjection().toPixels(item.getPoint(),p);
+					//mView.getProjection().toPixels(item.getPoint(),p);
 					
 					if(hitTest(item, marker, x-p.x, y-p.y)){
 						result = true;
@@ -268,6 +305,6 @@ public class ReportLocation extends MapActivity{
 			lp.setMargins(x-xDragImageOffset-xDragTouchOffset, y-yDragImageOffset-yDragTouchOffset, 0, 0);
 			dragImage.setLayoutParams(lp);
 		}
-	}
+	}*/
 	
 }

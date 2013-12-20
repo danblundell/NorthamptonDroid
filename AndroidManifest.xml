@@ -5,12 +5,16 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="15" />
+        android:targetSdkVersion="19" />
     	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 		<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+		<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 		<uses-permission android:name="android.permission.CAMERA" />
 		<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+		<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+		<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 		<uses-feature android:name="android.hardware.camera" android:required="false" />
+		<uses-feature android:glEsVersion="0x00020000" android:required="true"/>
 		
     <application
         android:icon="@drawable/northampton_crest"
@@ -41,6 +45,8 @@
         <activity android:name=".fragments.FindBinCollectionPropertyList"></activity>
         <activity android:name=".fragments.FindPostCode"></activity>
         <activity android:name=".fragments.FindBinCollectionResult"></activity>
+        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBPKqVTxq4AM62fwWY3fVNThkxLcOF7oVc" />
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
