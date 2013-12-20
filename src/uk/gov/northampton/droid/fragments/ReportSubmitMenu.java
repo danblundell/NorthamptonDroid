@@ -312,6 +312,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 			}
 			Boolean image = false;
 			if(pThumbnailImage != null){
+				Log.d("315", "There is an image");
 				image = true;
 			}
 			pDesc = jobDesc.getText().toString();
@@ -359,8 +360,9 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 			Boolean image = Boolean.parseBoolean(params[2]);
 			
 			//if image is true and there is a thumbnail image to send, compress the image and attach to the request
-			if(pThumbnailImage != null && image){
+			if(pThumbnailImage != null){
 				//make http request
+				Log.d("THUMBNAIL", "Processing Thumbnail");
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();  
 				pThumbnailImage.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object   
 				byte[] b = baos.toByteArray();
@@ -375,7 +377,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		
 		@Override
 		protected void onPostExecute(final String result){
-			Log.d("SUBMITTING REPORT","OPE");
+			Log.d("SUBMITTING REPORT","OPExecute");
 			setBusy(false);
 			if(result != null){
 				Log.d("REPORT PE",result);

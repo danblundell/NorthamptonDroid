@@ -177,13 +177,14 @@ public class ReportHttpSender {
 		postRequest.addHeader("ProblemPhone",this.phone); 
 		if(this.imageData != null){
 			HttpEntity imageBytes = new ByteArrayEntity(this.imageData);
+			Log.d("Image",this.imageData.toString());
 			postRequest.setEntity(imageBytes);
 		}
 		
 		try{
-			Log.d("HTTPSENDER",postRequest.getAllHeaders()[0].toString());
+			Log.d("HTTPSENDER",postRequest.getAllHeaders().toString());
 			HttpResponse getResponse = client.execute(postRequest);
-			Log.d("HTTPSENDER","HTTP Respose" + getResponse.toString());
+			Log.d("HTTPSENDER","HTTP Respose" + getResponse.getAllHeaders().toString());
 			
 			final int statusCode = getResponse.getStatusLine().getStatusCode();
 			if(statusCode != HttpStatus.SC_OK){
