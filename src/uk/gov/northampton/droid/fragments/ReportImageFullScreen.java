@@ -6,6 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,15 +30,15 @@ public class ReportImageFullScreen extends SherlockFragmentActivity {
 	private Bitmap photoBitmap;
 	private int imageViewW;
 	private int imageViewH;
+	OnPhotoRemovedListener photoRemovedListener;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
 		setContentView(R.layout.report_4_full_photo);
 		
-		ActionBar actionBar = getSupportActionBar();
+		//ActionBar actionBar = getSupportActionBar();
 
 		removePhoto = (Button) findViewById(R.id.reportImageRemoveButton);
 		fullPhoto = (ImageView) findViewById(R.id.reportImageFullScreen);
@@ -46,32 +49,35 @@ public class ReportImageFullScreen extends SherlockFragmentActivity {
 		if(currentPhotoPath != null){
 			ProcessImageFullScreenTask imageFS = new ProcessImageFullScreenTask();
 			imageFS.execute(currentPhotoPath);
-		}else{
-			Log.d("ImageFullScreen","File path empty");
-			Toast.makeText(this,"File path empty", Toast.LENGTH_LONG).show();
 		}
 		
 		removePhoto.setOnClickListener( new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				Log.d("Image Remove Button","Clicked!");
 				//remove photo and go back
+				Fragment fm = getSupportFragmentManager().findFragmentById(R.id.reportImageFullScreen);
+				
 			}
 		});	
+		
+		
 	}
+	// Container Activity must implement this interface
+    public interface OnPhotoRemovedListener {
+        public void onPhotoRemoved(String photoPath);
+    }
+    
+    
 
 	private Bitmap scalePic(int targetW, int targetH, String photoPath) {
-	    // Get the dimensions of the View
-	    //int targetW = fullPhoto.getWidth();
-	    //int targetH = fullPhoto.getHeight();
 	  
 	    // Get the dimensions of the bitmap
 	    BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-	    bmOptions.inJustDecodeBounds = true;
-	    BitmapFactory.decodeFile(photoPath, bmOptions);
-	    int photoW = bmOptions.outWidth;
-	    int photoH = bmOptions.outHeight;
+//	    bmOptions.inJustDecodeBounds = true;
+//	    BitmapFactory.decodeFile(photoPath, bmOptions);
+//	    int photoW = bmOptions.outWidth;
+//	    int photoH = bmOptions.outHeight;
 	  
 	    // Determine how much to scale down the image
 	    int scaleFactor = 12; //Math.min(photoW/targetW, photoH/targetH);
@@ -98,7 +104,6 @@ public class ReportImageFullScreen extends SherlockFragmentActivity {
 
 		@Override
 		protected void onPostExecute(final Bitmap image){
-				Toast.makeText(getBaseContext(),"Image height: " + image.getHeight(),Toast.LENGTH_LONG).show();
 				fullPhoto.setImageBitmap(image);
 		}
 

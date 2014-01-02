@@ -6,10 +6,12 @@ import uk.gov.northampton.droid.lib.SocialWebViewActivity;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -54,6 +56,24 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
             actionBar.addTab(actionBar.newTab()
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
+        }
+        
+        try { 
+        	// handle the image sharing intent from android os
+	        Intent intent = getIntent();
+	        
+	        if(intent.getType().indexOf("image/*") != -1) {
+	        	// if an image launched the app, set the current tab to report it
+	        	mViewPager.setCurrentItem(1, true);
+	        	
+	        	/*
+	        	 *  TODO send the photo path data to the fragment 
+	        	 *  so that the image can be prepopulated
+	        	 */
+	        	
+	        }
+        } catch(NullPointerException e) {
+        	e.printStackTrace();
         }
     }
     
@@ -141,6 +161,5 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
 		}
 		Log.i("FIND IT","New Post Code: " + postCode);
 	}
-	
 	
 }

@@ -31,6 +31,7 @@ public class FindPostCode extends SherlockFragmentActivity implements PostCodeDi
 	
 	private static final String PROPERTIES_LIST = "PROPERTIES_LIST";
 	private static final String COLLECTION_ADDRESS = "COLLECTION_ADDRESS";
+	private static final String POSTCODE = "POSTCODE";
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,13 @@ public class FindPostCode extends SherlockFragmentActivity implements PostCodeDi
 	private OnClickListener editPostCodeClickListener = new OnClickListener(){
 		@Override
 		public void onClick(View v) {
-			showPostCodeOptions();
+			if(postCodeEditText.getText().toString().length() > 0) {
+				showPostCodeOptions(postCodeEditText.getText().toString());
+			}
+			else {
+				showPostCodeOptions(null);
+			}
+			
 		}
 	};
 	
@@ -79,12 +86,19 @@ public class FindPostCode extends SherlockFragmentActivity implements PostCodeDi
 			postCodeEditText.setText(pcStr);
 		}
 		else{
-			showPostCodeOptions();
+			showPostCodeOptions(null);
 		}		
 	}
 	
-	private void showPostCodeOptions() {
+	private void showPostCodeOptions(String pc) {
 	    DialogFragment newFragment = new PostCodeDialogFragment();
+	    
+	    if(pc != null){
+	    	Bundle args = new Bundle();
+		    args.putString(POSTCODE, pc);
+		    newFragment.setArguments(args);
+	    }
+	    
 	    newFragment.show(getSupportFragmentManager(), "postCode");
 	}
 

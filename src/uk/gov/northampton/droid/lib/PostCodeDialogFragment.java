@@ -2,6 +2,7 @@ package uk.gov.northampton.droid.lib;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import uk.gov.northampton.droid.R;
 import android.app.Activity;
@@ -10,6 +11,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,7 +21,8 @@ import android.widget.AdapterView.OnItemSelectedListener;
 public class PostCodeDialogFragment extends DialogFragment {
 	
 	public ArrayList<String> pc = new ArrayList<String>();
-
+	private static final String POSTCODE = "POSTCODE";
+	
 	public interface PostCodeDialogListener {
         public void onFinishPostCodeDialog(String postCode);
     }
@@ -44,12 +47,38 @@ public class PostCodeDialogFragment extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		//get the postcode picker view
 		View v = getActivity().getLayoutInflater().inflate(R.layout.postcode_picker, null);
+		String bundlePostCode;
+		
+		// get the arguments passed from the activity
+		Bundle args = getArguments();
+		try {
+			bundlePostCode = args.getString(POSTCODE);
+			bundlePostCode = bundlePostCode.replaceAll(" ", "");
+		} catch(NullPointerException e) {
+			bundlePostCode = null;
+		}
 		
 		//set up two adapters
 		ArrayAdapter<CharSequence> numbers = ArrayAdapter.createFromResource(getActivity(),
 		        R.array.postcode_digits, R.layout.postcode_single_text_spinner_selected);
 		ArrayAdapter<CharSequence> letters = ArrayAdapter.createFromResource(getActivity(),
 		        R.array.postcode_letters, R.layout.postcode_single_text_spinner_selected);
+		
+		int s1selection = 13; // N
+		int s2selection = 13; // N
+		int s3selection = 1;  // 1
+		int s4selection = 1;  // 1
+		int s5selection = 3;  // D
+		int s6selection = 4;  // E
+		
+		if(bundlePostCode != null && bundlePostCode.length() == 6) {
+			s1selection = letters.getPosition(bundlePostCode.subSequence(0, 1));
+			s2selection = letters.getPosition(bundlePostCode.subSequence(1, 2));
+			s3selection = numbers.getPosition(bundlePostCode.subSequence(2, 3));
+			s4selection = numbers.getPosition(bundlePostCode.subSequence(3, 4));
+			s5selection = letters.getPosition(bundlePostCode.subSequence(4, 5));
+			s6selection = letters.getPosition(bundlePostCode.subSequence(5, 6));
+		}
 		
 		//set custom drop down views
 		letters.setDropDownViewResource(R.layout.postcode_single_text_spinner);
@@ -63,20 +92,21 @@ public class PostCodeDialogFragment extends DialogFragment {
 		Spinner s5 = (Spinner) v.findViewById(R.id.postcode_6_spinner);
 		Spinner s6 = (Spinner) v.findViewById(R.id.postcode_7_spinner);
 		
+		// set the values of each spinner
 		s1.setAdapter(letters);
-		s1.setSelection(13);
+		s1.setSelection(s1selection);
 		s1.setEnabled(false);
 		s2.setAdapter(letters);
-		s2.setSelection(13);
+		s2.setSelection(s2selection);
 		s2.setEnabled(false);
 		s3.setAdapter(numbers);
-		s3.setSelection(1);
+		s3.setSelection(s3selection);
 		s4.setAdapter(numbers);
-		s4.setSelection(1);
+		s4.setSelection(s4selection);
 		s5.setAdapter(letters);
-		s5.setSelection(3);
+		s5.setSelection(s5selection);
 		s6.setAdapter(letters);
-		s6.setSelection(4);
+		s6.setSelection(s6selection);
 		
 		pc.add("N");
 		pc.add("N");
