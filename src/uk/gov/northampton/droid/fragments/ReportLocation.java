@@ -71,7 +71,7 @@ public class ReportLocation extends Activity {
 		
 		// get the report problem from the intent
 		Intent intent = getIntent();
-		rp = (ReportProblem) intent.getExtras().getSerializable("type");
+		rp = (ReportProblem) intent.getExtras().getSerializable("problem");
 		
 		// set up the center point for the map
 		double lat = 51.751724;
@@ -179,10 +179,10 @@ public class ReportLocation extends Activity {
 				//Toast.makeText(ReportLocation.this, "Lat: " + (mMarker.getLatitudeE6() / 1E6) + " / " + "Lng: " + (mMarker.getLongitudeE6() / 1E6),Toast.LENGTH_LONG).show();
 				Intent submitMenuIntent = new Intent(getApplicationContext(),ReportSubmitMenu.class);
 				if(mMarker != null){
-					submitMenuIntent.putExtra("lat", mMarker.getPosition().latitude);
-					submitMenuIntent.putExtra("lng", mMarker.getPosition().longitude);
+					rp.setpLat(mMarker.getPosition().latitude);
+					rp.setpLng(mMarker.getPosition().longitude);
 				}
-				submitMenuIntent.putExtra("type", rp);
+				submitMenuIntent.putExtra("problem", rp);
 				startActivity(submitMenuIntent);
 			}
 			

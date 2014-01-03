@@ -23,7 +23,7 @@ public class ReportHttpSender {
 
 	private DefaultHttpClient client = new DefaultHttpClient();
 	private String dataSource;
-	private String includesImage;
+	private String includesImage = "false";
 	private String deviceID;
 	private String problemNumber;
 	private String lat;
@@ -32,26 +32,23 @@ public class ReportHttpSender {
 	private String location;
 	private String email;
 	private String phone;
-	private String image;
 	private byte[] imageData;
 	
 	public ReportHttpSender(){
 		super();
 	}
 	
-	public ReportHttpSender(String dataSource, String includesImage, String deviceID, String problemNumber, String lat, String lng, String desc, String location, String email, String phone, String image, byte[] imageData){
+	public ReportHttpSender(String dataSource, String deviceID, String problemNumber, double lat, double lng, String desc, String location, String email, String phone, byte[] imageData){
 		super();
 		this.dataSource = dataSource;
-		this.includesImage = includesImage;
 		this.deviceID = deviceID;
 		this.problemNumber = problemNumber;
-		this.lat = lat;
-		this.lng = lng;
+		this.lat = String.valueOf(lat);
+		this.lng = String.valueOf(lng);
 		this.desc = desc;
 		this.location = location;
 		this.email = email;
 		this.phone = phone;
-		this.image = image;
 		this.imageData = imageData;
 	}
 	
@@ -151,20 +148,21 @@ public class ReportHttpSender {
 		this.phone = phone;
 	}
 
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
 	public String send(String url){
 		HttpParams params = new BasicHttpParams();
 		int timeout = 60000;
 		HttpConnectionParams.setConnectionTimeout(params, timeout);
 		client.setParams(params);
 		HttpPost postRequest = new HttpPost(url);
+		
+		if(this.imageData != null){
+			HttpEntity imageBytes = new ByteArrayEntity(this.imageData);
+			Log.d("Image",this.imageData.toString());
+			this.setIncludesImage("true");
+			postRequest.setEntity(imageBytes);
+			
+		}
+		
 		postRequest.addHeader("dataSource",this.dataSource);
 		postRequest.addHeader("includesImage",this.includesImage);
 		postRequest.addHeader("DeviceID",this.deviceID);
@@ -175,11 +173,7 @@ public class ReportHttpSender {
 		postRequest.addHeader("ProblemLocation",this.location);
 		postRequest.addHeader("ProblemEmail",this.email);
 		postRequest.addHeader("ProblemPhone",this.phone); 
-		if(this.imageData != null){
-			HttpEntity imageBytes = new ByteArrayEntity(this.imageData);
-			Log.d("Image",this.imageData.toString());
-			postRequest.setEntity(imageBytes);
-		}
+		
 		
 		try{
 			Log.d("HTTPSENDER",postRequest.getAllHeaders().toString());

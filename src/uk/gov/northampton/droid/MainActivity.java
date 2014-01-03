@@ -8,12 +8,16 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.SyncStateContract.Constants;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -22,6 +26,7 @@ import android.util.Log;
 import android.view.Window;
 
 import com.actionbarsherlock.view.*;
+import com.google.android.gms.auth.GoogleAuthUtil;
 
 public class MainActivity extends SherlockFragmentActivity implements ActionBar.TabListener, PostCodeDialogListener {
 
@@ -58,10 +63,13 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
                             .setTabListener(this));
         }
         
+        getAccountDetails();
+        
+        
+        
         try { 
         	// handle the image sharing intent from android os
 	        Intent intent = getIntent();
-	        
 	        if(intent.getType().indexOf("image/*") != -1) {
 	        	// if an image launched the app, set the current tab to report it
 	        	mViewPager.setCurrentItem(1, true);
@@ -95,6 +103,31 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
     		startActivity(intent);
     	}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	/*
+	 * Get the users google account to save them 
+	 * putting in an email address
+	 */
+	public void getAccountDetails() {
+		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		String email = sharedPrefs.getString(Settings.NBC_EMAIL, null);
+		
+		if(email == null) {
+			AccountManager mAccountManager = AccountManager.get(this);
+		    Account[] accounts = mAccountManager.getAccountsByType(GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
+		    
+		    if (accounts.length > 0) {
+		        email = accounts[0].name;
+		        
+		        if(email.length() > 0) {
+			    	Editor editor = sharedPrefs.edit();
+				    editor.putString(Settings.NBC_EMAIL, email);
+				    editor.commit();
+			    }		        
+		    }
+		}
 	}
 
 

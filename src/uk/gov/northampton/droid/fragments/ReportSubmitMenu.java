@@ -35,6 +35,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -56,6 +58,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	private static final String JPEG_FILE_SUFFIX = ".jpeg";
 	private static final String REPORT_PHOTO_LOCATION = "REPORT_PHOTO_LOCATION";
 	
+	// Views
 	private View mView;
 	private TextView jobType;
 	private EditText jobDesc;
@@ -67,20 +70,19 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	private CheckBox jobPhoneCb;
 	private Button jobSubmit;
 	
-	
+	// Data
 	private Uri photoUri;
 	private File storageDir;
 	private File imageFile;
 	private String currentPhotoPath;
 	private ReportProblem rp;
 	private Bitmap pThumbnailImage;
-	private String pLat;
-	private String pLng;
-	private String pNumber;
 	private String pType;
 	private String pDesc;
 	private String pEmail;
 	private String pPhone;
+	private boolean emailNotification = false;
+	private boolean phoneNotification = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,14 +96,11 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		ab.setTitle(getString(R.string.report_type_title));
 		
 		findAllViewsById();
+		updateUI();
+		setEventListeners();
 		
 		//Set initial UI
 		jobPhoto.setVisibility(View.GONE);
-		addPhoto.setOnClickListener(AddPhotoListener);
-		jobPhoto.setOnClickListener(FullScreenImageListener);
-		jobSubmit.setOnClickListener(ReportButtonListener);
-
-		updateUI();
 		
 		if(savedInstanceState != null){
 			currentPhotoPath = savedInstanceState.getString(REPORT_PHOTO_LOCATION);
@@ -135,6 +134,14 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		jobPhoneCb = (CheckBox) findViewById(R.id.report_notifications_sms_Checkbox);
 	}
 	
+	private void setEventListeners() {
+		addPhoto.setOnClickListener(AddPhotoListener);
+		jobPhoto.setOnClickListener(FullScreenImageListener);
+		jobSubmit.setOnClickListener(ReportButtonListener);
+		jobEmailCb.setOnCheckedChangeListener(CheckBoxListener);
+		jobPhoneCb.setOnCheckedChangeListener(CheckBoxListener);
+	}
+	
 	/*
 	 * Get the contents of the intent and update the report object properties
 	 */
@@ -142,15 +149,15 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		Intent intent = getIntent();
 		
 		//get location
-		double lat = intent.getDoubleExtra("lat", 0);
-		double lng = intent.getDoubleExtra("lng", 0);
-		pLat = Double.toString(lat);
-		pLng = Double.toString(lng);
+//		double lat = intent.getDoubleExtra("lat", 0);
+//		double lng = intent.getDoubleExtra("lng", 0);
+//		pLat = Double.toString(lat);
+//		pLng = Double.toString(lng);
 
-		//get problem type
-		rp = (ReportProblem) intent.getSerializableExtra("type");
+		//get problem
+		rp = (ReportProblem) intent.getSerializableExtra("problem");
 		pType = rp.getpDesc();
-		pNumber = String.valueOf(rp.getpNum());
+		//pNumber = String.valueOf(rp.getpNum());
 	}
 	
 	/*
@@ -162,10 +169,6 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 		pEmail = sharedPrefs.getString(Settings.NBC_EMAIL, getString(R.string.settings_email_add));
 		pPhone = sharedPrefs.getString(Settings.NBC_TEL, getString(R.string.settings_telephone_add));
-		
-		// set click listener for preferences to be updated
-		//jobEmail.setOnClickListener(PreferenceUpdate);
-		//jobPhone.setOnClickListener(PreferenceUpdate);
 	}
 
 	/*
@@ -177,9 +180,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		
 		jobType.setText(pType);
 		jobEmail.setText(pEmail);
-		Log.d("Preference",pEmail);
 		jobPhone.setText(pPhone);
-		Log.d("Preference",pPhone);
 	}
 	
 	
@@ -196,14 +197,65 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	private OnClickListener FullScreenImageListener = new OnClickListener(){
 		@Override
 		public void onClick(View v) {
-//			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//			ReportImageFullScreen rifs = new ReportImageFullScreen();
-//			ft.add(R.id.report_details_RelativeLayout,rifs);
-//			ft.commit();
 			Intent removePhotoIntent = new Intent(getApplicationContext(),ReportImageFullScreen.class);
 			removePhotoIntent.putExtra("photo", currentPhotoPath);
 			startActivity(removePhotoIntent);
 		}
+	};
+	
+	private OnCheckedChangeListener CheckBoxListener = new OnCheckedChangeListener(){
+
+		@Override
+		public void onCheckedChanged(CompoundButton btn, boolean isChecked) {
+			
+			int id = btn.getId();
+			
+			if(isChecked) {
+				if(id == R.id.report_notifications_email_Checkbox) {
+					emailNotification = true;
+				}
+				if(id == R.id.report_notifications_sms_Checkbox) {
+					phoneNotification = true;
+				}
+			}
+			else {
+				if(id == R.id.report_notifications_email_Checkbox) {
+					emailNotification = false;
+				}
+				if(id == R.id.report_notifications_sms_Checkbox) {
+					phoneNotification = false;
+				}
+			}
+
+		}
+	};
+	
+	private OnClickListener ReportButtonListener = new OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			setBusy(true);
+			if(v.isEnabled()){
+				v.setEnabled(false);
+			}
+			Boolean image = false;
+			if(pThumbnailImage != null){
+				Log.d("315", "There is an image");
+				image = true;
+			}
+			rp.setpDetails(jobDesc.getText().toString());
+			ReportSubmitTask rst = new ReportSubmitTask();
+			rst.execute(
+					String.valueOf(rp.getpNum()),
+					String.valueOf(rp.getpLat()),
+					String.valueOf(rp.getpLng()),
+					rp.getpDesc(),
+					rp.getpLocation(),
+					pEmail,
+					pPhone 
+			);
+		}
+		
 	};
 	
 	private File getAlbumName() {
@@ -230,6 +282,10 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
         imageThumb.execute(currentPhotoPath);
 	}
 
+	/*
+	 * Dispatch a new intent based on the option from the dialog
+	 * @see uk.gov.northampton.droid.lib.PhotoChooserDialogFragment.PhotoChooserDialogListener#onFinishPhotoChooserDialog(int)
+	 */
 	@Override
 	public void onFinishPhotoChooserDialog(int option) {
 		Log.d("Finished Dialog","Option: " + option);
@@ -241,6 +297,9 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		}
 	}
 	
+	/*
+	 * Call to the device camera to take a photo
+	 */
 	private void dispatchTakePictureIntent(int actionCode) {
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		try{
@@ -253,6 +312,9 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		startActivityForResult(takePictureIntent, actionCode);
 	}
 	
+	/*
+	 * Call to the device gallery to select a photo
+	 */
 	private void dispatchChooseFromGalleryIntent(int actionCode){
 		//TODO go get an image from the gallery - run it through the same thumbnail compression and store the uri
 		Intent getImageIntent = new Intent(Intent.ACTION_PICK);
@@ -260,6 +322,10 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		startActivityForResult(getImageIntent, actionCode);
 	}
 	
+	/*
+	 * Handle the response from the dispatched camera / gallery intents
+	 * @see android.support.v4.app.FragmentActivity#onActivityResult(int, int, android.content.Intent)
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) { 
 		//Log.d("Activity Result", "Code: " + requestCode + " | resultCode: " + resultCode);
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {  
@@ -295,6 +361,9 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		return path;
 	}
 	
+	/*
+	 * Write the image file to the device
+	 */
 	private File createImageFile() throws IOException {
 	    // Create an image file name
 	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -304,6 +373,9 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	    return image;
 	}
 	
+	/*
+	 * Resize an image based on a target width or height
+	 */
 	private Bitmap scalePic(int targetW, int targetH, String photoPath) {
 	  
 	    // Get the dimensions of the bitmap
@@ -328,6 +400,9 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	    return BitmapFactory.decodeFile(photoPath, bmOptions);
 	}
 	
+	/*
+	 * Process the image off the UI thread for efficiency
+	 */
 	private class ProcessImageThumbnailTask extends AsyncTask<String, Void, Bitmap>{
 
 		@Override
@@ -349,50 +424,29 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 
 	}
 	
+	/*
+	 * Show the thumbnail image rather than the placeholder
+	 */
 	private void showThumbnail(Bitmap image){
 		if(image.getHeight() > 0){
 			addPhoto.setVisibility(View.GONE);
 			jobPhoto.setVisibility(View.VISIBLE);
 			jobPhoto.setImageBitmap(image);
-		}else{
-			//show error
 		}
 	}
 	
-	private OnClickListener ReportButtonListener = new OnClickListener(){
 
-		@Override
-		public void onClick(View v) {
-			setBusy(true);
-			if(v.isEnabled()){
-				v.setEnabled(false);
-			}
-			Boolean image = false;
-			if(pThumbnailImage != null){
-				Log.d("315", "There is an image");
-				image = true;
-			}
-			pDesc = jobDesc.getText().toString();
-			ReportSubmitTask rst = new ReportSubmitTask();
-			rst.execute(
-					pDesc,
-					pEmail,
-					"",
-					image.toString(),
-					pLat,
-					pLng,
-					"Problem Location",
-					pPhone,
-					pNumber
-			);
-		}
-		
-	};
-	
+	/*
+	 * Helper method to switch the progress bar on or off
+	 */
 	private void setBusy(Boolean b){
 		setSupportProgressBarIndeterminateVisibility(b);
 	}
 	
+	/*
+	 * Submits the problem to an HTTP Sender
+	 * off the UI thread for efficiency
+	 */
 	private class ReportSubmitTask extends AsyncTask<String, Void, String>{
 
 		@Override
@@ -402,16 +456,14 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 			//set up the http request and set the attributes of the report object
 			ReportHttpSender rs = new ReportHttpSender();
 			rs.setDataSource(getString(R.string.data_source));
-			rs.setDesc(params[0]);
 			rs.setDeviceID("12345");
-			rs.setEmail(params[1]);
-			rs.setImage(params[2]);
-			rs.setIncludesImage(params[3]);
-			rs.setLat(params[4]);
-			rs.setLng(params[5]);
-			rs.setLocation(params[6]);
-			rs.setPhone(params[7]);
-			rs.setProblemNumber(params[8]);
+			rs.setProblemNumber(params[0]);
+			rs.setLat(params[1]);
+			rs.setLng(params[2]);
+			rs.setDesc(params[3]);
+			rs.setLocation(params[4]);
+			rs.setEmail(params[5]);
+			rs.setPhone(params[6]); 
 			
 			//check 'image' parameter
 			//Boolean image = Boolean.parseBoolean(params[2]);

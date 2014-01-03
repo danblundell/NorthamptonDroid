@@ -84,7 +84,7 @@ public class Report extends SherlockFragment implements OnItemSelectedListener{
 		public void onClick(View v) {
 			if(rp != null){
 				Intent rptIntent = new Intent(v.getContext(),ReportLocation.class);
-				rptIntent.putExtra("type", rp);
+				rptIntent.putExtra("problem", rp);
 				startActivity(rptIntent);
 			}else{
 				//error
