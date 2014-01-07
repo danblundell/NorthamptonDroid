@@ -1,5 +1,13 @@
 package uk.gov.northampton.droid.fragments;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.lib.EditTextDialogFragment;
 import uk.gov.northampton.droid.lib.EditTextDialogFragment.EditTextDialogListener;
@@ -37,6 +45,7 @@ public class Settings extends SherlockFragmentActivity implements PostCodeDialog
 	private TextView phone;
 	private TextView postCode;
 
+	private static final String NBC_DEVICE_ID = "NBC_DEVICE_ID";
 	public static final String USER_PREFERENCE = "USER_PREFERENCE";
 	public static final String NBC_NAME = "NBC_NAME";
 	public static final String NBC_EMAIL = "NBC_EMAIL";
@@ -106,11 +115,13 @@ public class Settings extends SherlockFragmentActivity implements PostCodeDialog
 		String emailPref = sharedPrefs.getString(NBC_EMAIL, getString(R.string.settings_email_add));
 		String phonePref = sharedPrefs.getString(NBC_TEL, getString(R.string.settings_telephone_add));
 		String postCodePref = sharedPrefs.getString(NBC_POST_CODE, getString(R.string.settings_postcode_add));
+		String deviceId = sharedPrefs.getString(NBC_DEVICE_ID, "no device id");
 
 		Log.d("NAME PREF",namePref);
 		Log.d("EMAIL PREF",emailPref);
 		Log.d("PHONE PREF",phonePref);
 		Log.d("PC PREF",postCodePref);
+		Log.d("DEVICE ID",deviceId);
 
 		name.setText(namePref);
 		email.setText(emailPref);
@@ -169,6 +180,41 @@ public class Settings extends SherlockFragmentActivity implements PostCodeDialog
 		editor.putString(NBC_TEL, phonePref);
 		editor.putString(NBC_POST_CODE, postCodePref);
 		editor.commit();
+	}
+	
+	public static void saveStringPreference(Context context, String key, String val) {
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+		Editor editor = sp.edit();
+		editor.putString(key, val);
+		editor.commit();
+	}
+	
+	public static void createDeviceId(Context context, String accountId) {
+		Settings.saveStringPreference(context, NBC_DEVICE_ID, accountId);
+		
+//		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy",Locale.UK);
+//		Calendar cal = Calendar.getInstance();
+//		Date time = cal.getTime();
+//		String timeStr = sdf.format(time);
+//		String input = accountId + timeStr;
+//		MessageDigest md;
+//		try {
+//			md = MessageDigest.getInstance("MD5");
+//			byte[] hashed = md.digest(input.getBytes("UTF-8"));
+//			Log.d("DEVICE ID", "Saved Device ID: "+new String(hashed));
+//			
+//		} catch (NoSuchAlgorithmException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+	}
+
+	public static String getDeviceIdKey() {
+		return NBC_DEVICE_ID;
 	}
 
 	@Override

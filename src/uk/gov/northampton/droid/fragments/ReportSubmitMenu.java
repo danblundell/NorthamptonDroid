@@ -30,6 +30,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -51,7 +52,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Window;
 
-public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoChooserDialogFragment.PhotoChooserDialogListener, ReportImageFullScreen.OnPhotoRemovedListener {
+public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoChooserDialogFragment.PhotoChooserDialogListener, EditTextDialogListener {
 
 	private static final int CAMERA_REQUEST = 1987;
 	private static final int GALLERY_REQUEST = 1986;
@@ -71,6 +72,8 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	private TextView jobPhone;
 	private CheckBox jobEmailCb;
 	private CheckBox jobPhoneCb;
+	private ImageButton jobEmailAddBtn;
+	private ImageButton jobPhoneAddBtn;
 	private Button jobSubmit;
 	
 	// Data
@@ -135,14 +138,20 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		jobPhone = (TextView) findViewById(R.id.report_notifications_sms_TextView);
 		jobEmailCb = (CheckBox) findViewById(R.id.report_notifications_email_Checkbox);
 		jobPhoneCb = (CheckBox) findViewById(R.id.report_notifications_sms_Checkbox);
+		jobEmailAddBtn = (ImageButton) findViewById(R.id.report_notifications_email_Add);
+		jobPhoneAddBtn = (ImageButton) findViewById(R.id.report_notifications_sms_Add);
 	}
 	
 	private void setEventListeners() {
 		addPhoto.setOnClickListener(AddPhotoListener);
 		jobPhoto.setOnClickListener(FullScreenImageListener);
 		jobSubmit.setOnClickListener(ReportButtonListener);
+		jobEmail.setOnClickListener(UpdatePreferenceListener);
+		jobPhone.setOnClickListener(UpdatePreferenceListener);
 		jobEmailCb.setOnCheckedChangeListener(CheckBoxListener);
 		jobPhoneCb.setOnCheckedChangeListener(CheckBoxListener);
+		jobEmailAddBtn.setOnClickListener(AddPreferenceListener);
+		jobPhoneAddBtn.setOnClickListener(AddPreferenceListener);
 		jobDesc.setOnKeyListener(DescriptionTextListener);
 	}
 	
@@ -177,14 +186,81 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		updateFromPreferences();
 		
 		jobType.setText(pType);
+		
+		if(pPhone == getString(R.string.settings_telephone_add)) {
+			jobPhoneCb.setVisibility(View.GONE);
+			jobPhoneAddBtn.setVisibility(View.VISIBLE);
+			
+		}
+		if(pEmail == getString(R.string.settings_email_add)) {
+			jobEmailCb.setVisibility(View.GONE);
+			jobEmailAddBtn.setVisibility(View.VISIBLE);
+			
+		}
+		
 		jobEmail.setText(pEmail);
 		jobPhone.setText(pPhone);
+		
+		emailNotification = jobEmailCb.isChecked();
+		phoneNotification = jobPhoneCb.isChecked();
 	}
 	
 	
 	/*
 	 * Event Listeners
 	 */
+	private OnClickListener AddPreferenceListener = new OnClickListener(){
+		@Override
+		public void onClick(View v) {
+			
+			String titleText = "";
+			int returnViewId = R.id.report_notifications_email_TextView;
+			int inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
+			
+			if(v.getId() == R.id.report_notifications_email_Add) {
+				titleText = getString(R.string.settings_email_add);
+				returnViewId = R.id.report_notifications_email_TextView;
+				inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
+			}
+			if(v.getId() == R.id.report_notifications_sms_Add) {
+				titleText = getString(R.string.settings_telephone_add);
+				returnViewId = R.id.report_notifications_sms_TextView;
+				inputType = InputType.TYPE_CLASS_PHONE;
+			}
+			
+			Log.d("PREFERENCE LISTENER","ADD A NEW PREFERENCE");
+			
+			DialogFragment editTextFragment = new EditTextDialogFragment(titleText, returnViewId, inputType);
+			editTextFragment.show(getSupportFragmentManager(), "editText");
+		}
+	};
+	
+	private OnClickListener UpdatePreferenceListener = new OnClickListener(){
+		@Override
+		public void onClick(View v) {
+			
+			String titleText = "";
+			int returnViewId = R.id.report_notifications_email_TextView;
+			int inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
+			
+			if(v.getId() == R.id.report_notifications_email_TextView) {
+				titleText = getString(R.string.settings_email_update);
+				returnViewId = R.id.report_notifications_email_TextView;
+				inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
+			}
+			if(v.getId() == R.id.report_notifications_sms_TextView) {
+				titleText = getString(R.string.settings_telephone_update);
+				returnViewId = R.id.report_notifications_sms_TextView;
+				inputType = InputType.TYPE_CLASS_PHONE;
+			}
+			
+			Log.d("PREFERENCE LISTENER","UPDATING A PREFERENCE");
+			
+			DialogFragment editTextFragment = new EditTextDialogFragment(titleText, returnViewId, inputType);
+			editTextFragment.show(getSupportFragmentManager(), "editText");
+		}
+	};
+	
 	private OnClickListener AddPhotoListener = new OnClickListener(){
 		@Override
 		public void onClick(View v) {
@@ -547,9 +623,18 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	}
 
 	@Override
-	public void onPhotoRemoved(String photoPath) {
+	public void onFinishEditTextDialog(int option, String string, int viewId) {
 		// TODO Auto-generated method stub
-		Log.d("Photo Removed","PHOTO REMOVED");
+		if(option == Activity.RESULT_OK){
+			String saveTo = Settings.NBC_EMAIL;
+			
+			if(viewId == R.id.report_notifications_sms_Add || viewId == R.id.report_notifications_sms_TextView) {
+				saveTo = Settings.NBC_TEL;
+			}
+			
+			Settings.saveStringPreference(this, saveTo, string);
+			updateUI();
+		}
 	}
 	
 	

@@ -182,7 +182,21 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:paddingTop="@dimen/baseline"
-                       android:paddingBottom="@dimen/baseline" />
+                       	android:paddingBottom="@dimen/baseline"
+                       	android:checked="true" 
+                       	/>
+                    <ImageButton 
+                       android:id="@+id/report_notifications_email_Add"
+                       android:src="@drawable/ic_action_add_content"
+                       android:layout_alignParentRight="true"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:background="@null"
+                       android:paddingTop="@dimen/baseline"
+                       android:paddingBottom="@dimen/baseline"
+                       android:visibility="gone"
+                       android:contentDescription="@string/settings_email_add"
+                       />
 
                 </RelativeLayout>
 
@@ -208,7 +222,19 @@
                        android:layout_height="wrap_content"
                        android:layout_alignParentRight="true"
                        android:paddingTop="@dimen/baseline"
-                       android:paddingBottom="@dimen/baseline" />
+                       android:paddingBottom="@dimen/baseline"
+                       android:checked="true" />
+                   <ImageButton 
+                       android:id="@+id/report_notifications_sms_Add"
+                       android:src="@drawable/ic_action_add_content"
+                       android:layout_alignParentRight="true"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:background="@null"
+                       android:paddingTop="@dimen/baseline"
+                       android:paddingBottom="@dimen/baseline"
+                       android:contentDescription="@string/settings_telephone_add"
+                       android:visibility="gone" />
                 </RelativeLayout>
 
                 <Button

@@ -1,5 +1,12 @@
 package uk.gov.northampton.droid;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import uk.gov.northampton.droid.fragments.*;
 import uk.gov.northampton.droid.lib.PostCodeDialogFragment.PostCodeDialogListener;
 import uk.gov.northampton.droid.lib.SocialWebViewActivity;
@@ -11,6 +18,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -22,6 +30,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Window;
 
@@ -64,7 +73,8 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
         }
         
         getAccountDetails();
-        
+        setFirstRun();
+        getTelephoneNumber();
         
         
         try { 
@@ -127,6 +137,41 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
 				    editor.commit();
 			    }		        
 		    }
+		}
+	}
+	
+	public void getTelephoneNumber() {
+		Log.d("PHONE NUMBER", "GETTING PHONE NUMBER");
+		TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		String phoneNumber = tMgr.getLine1Number();
+		
+		
+		if(phoneNumber == null) {
+			Log.d("PHONE NUMBER", "NO NUMBER");
+			
+		}
+		else {
+			Log.d("PHONE NUMBER", phoneNumber);
+		}
+		Log.d("PHONE NUMBER", tMgr.getDeviceId());
+	};
+	
+	/*
+	 * Set the device id
+	 * TODO refactor device id setting
+	 */
+	public void setFirstRun() {
+		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		String deviceId = sharedPrefs.getString(Settings.getDeviceIdKey(), null);
+		String email = sharedPrefs.getString(Settings.NBC_EMAIL, null);
+		
+		if(deviceId == null) {
+			Log.d("DEVICE ID","NO DEVICE ID");
+			if(email != null) {
+				Log.d("DEVICE ID","EMAIL PRESENT");
+				Settings.createDeviceId(this, email);
+			}
 		}
 	}
 
