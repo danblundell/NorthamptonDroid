@@ -1634,6 +1634,8 @@ containing a value of this type.
         public static final int google_maps_api_key=0x7f070035;
         public static final int menu_contact_us=0x7f070028;
         public static final int menu_settings=0x7f070029;
+        /** <string name="mycouncil_url">http://172.17.61.189:8080/mycouncil/</string>
+         */
         public static final int mycouncil_url=0x7f070040;
         public static final int next_button_text=0x7f070034;
         public static final int photo_album_name=0x7f07004d;
@@ -1653,8 +1655,6 @@ containing a value of this type.
         public static final int report_notifications_title=0x7f070049;
         public static final int report_photo_dialog_title=0x7f07003d;
         public static final int report_submit_button_text=0x7f07004c;
-        /**  <string name="mycouncil_url">http://selfserve.northampton.gov.uk/mycouncil-test/</string>
-         */
         public static final int report_type_step=0x7f070041;
         public static final int report_type_title=0x7f07003a;
         public static final int report_type_title_desc=0x7f07003b;

@@ -1,66 +1,37 @@
 package uk.gov.northampton.droid.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Window;
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.ItemizedOverlay;
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
-import com.google.android.maps.MapView;
-import com.google.android.maps.MyLocationOverlay;
-import com.google.android.maps.OverlayItem;
-
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ReportProblem;
-import uk.gov.northampton.droid.lib.ReportLocationItemizedOverlay;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Point;
-import android.graphics.drawable.Drawable;
+
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.model.*;
-import com.google.android.gms.maps.SupportMapFragment;
-
-import android.widget.ZoomButtonsController;
 
 public class ReportLocation extends Activity {
 	
-	private GeoPoint p;
-	private MapController mController;
 	private GoogleMap mView;
-	LatLng mapCenter;
-	private MyLocationOverlay mOverlay = null;
+	private LatLng mapCenter;
 	private Marker mMarker = null;
-	private ReportProblem rp;
 	private LocationManager locationManager;
 	private LocationListener bestProviderListener;
 	private LocationListener bestAvailableProviderListener;
 	private OnMarkerDragListener mdl;
+	private OnMapClickListener mcl;
+	private ReportProblem rp;
 
 	@SuppressLint("NewApi")
 	public void onCreate(Bundle savedInstanceState) {
@@ -86,15 +57,17 @@ public class ReportLocation extends Activity {
 		UiSettings mapUi = mView.getUiSettings();
 		mapUi.setZoomControlsEnabled(false);
 		mapUi.setMyLocationButtonEnabled(true);
-
-		// get the location
-		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 		
+		
+		CameraUpdate update = CameraUpdateFactory.newLatLng(mapCenter);
+		mView.animateCamera(update, 250, null);
+
 		mdl = new OnMarkerDragListener() {
 
 			@Override
 			public void onMarkerDrag(Marker m) {
 				// TODO Auto-generated method stub
+
 			}
 
 			@Override
@@ -110,8 +83,22 @@ public class ReportLocation extends Activity {
 			
 		};
 		
+		mcl = new OnMapClickListener() {
+
+			@Override
+			public void onMapClick(LatLng newPosition) {
+				mMarker.setPosition(newPosition);
+				CameraUpdate update = CameraUpdateFactory.newLatLngZoom(newPosition, 16);
+				mView.animateCamera(update, 250, null);
+			}
+			
+		};
+		
+		mView.setOnMapClickListener(mcl);
 		mView.setOnMarkerDragListener(mdl);
 		
+		// get the location
+		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 		bestProviderListener = new LocationListener(){
 
 			@Override
@@ -130,7 +117,7 @@ public class ReportLocation extends Activity {
 						mMarker = mView.addMarker(new MarkerOptions()
 		                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin))
 		                .position(newLocation)
-		                .flat(true).draggable(true).rotation(0));
+		                .flat(true).draggable(true));
 						mdl.onMarkerDragStart(mMarker);
 						
 					}
@@ -139,7 +126,7 @@ public class ReportLocation extends Activity {
 					}
 					
 					// update the map view to center the new location
-					mView.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 18));
+					mView.animateCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 16));
 					
 					// stop any further location updates
 					unregisterAllListeners();
@@ -178,10 +165,12 @@ public class ReportLocation extends Activity {
 			public void onClick(View v) {
 				//Toast.makeText(ReportLocation.this, "Lat: " + (mMarker.getLatitudeE6() / 1E6) + " / " + "Lng: " + (mMarker.getLongitudeE6() / 1E6),Toast.LENGTH_LONG).show();
 				Intent submitMenuIntent = new Intent(getApplicationContext(),ReportSubmitMenu.class);
+				
 				if(mMarker != null){
 					rp.setpLat(mMarker.getPosition().latitude);
 					rp.setpLng(mMarker.getPosition().longitude);
 				}
+				
 				submitMenuIntent.putExtra("problem", rp);
 				startActivity(submitMenuIntent);
 			}

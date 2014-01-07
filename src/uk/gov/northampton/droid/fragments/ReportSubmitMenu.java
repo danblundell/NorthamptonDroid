@@ -31,8 +31,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -77,8 +80,8 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	private String currentPhotoPath;
 	private ReportProblem rp;
 	private Bitmap pThumbnailImage;
-	private String pType;
-	private String pDesc;
+	private String pType; // human description of the problem
+	private String pDetails; // description details
 	private String pEmail;
 	private String pPhone;
 	private boolean emailNotification = false;
@@ -140,6 +143,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		jobSubmit.setOnClickListener(ReportButtonListener);
 		jobEmailCb.setOnCheckedChangeListener(CheckBoxListener);
 		jobPhoneCb.setOnCheckedChangeListener(CheckBoxListener);
+		jobDesc.setOnKeyListener(DescriptionTextListener);
 	}
 	
 	/*
@@ -147,17 +151,11 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	 */
 	private void updateFromIntent(){
 		Intent intent = getIntent();
-		
-		//get location
-//		double lat = intent.getDoubleExtra("lat", 0);
-//		double lng = intent.getDoubleExtra("lng", 0);
-//		pLat = Double.toString(lat);
-//		pLng = Double.toString(lng);
 
 		//get problem
 		rp = (ReportProblem) intent.getSerializableExtra("problem");
 		pType = rp.getpDesc();
-		//pNumber = String.valueOf(rp.getpNum());
+
 	}
 	
 	/*
@@ -230,30 +228,70 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		}
 	};
 	
+	private OnKeyListener DescriptionTextListener = new OnKeyListener() {
+
+		@Override
+		public boolean onKey(View v, int keyCode, KeyEvent event) {
+			
+			EditText et = (EditText) v;
+			pDetails = et.getText().toString();
+			Log.d("KEY EVENT",pDetails);
+			rp.setpDetails(pDetails);
+
+			return false;
+		}
+		
+	};
+	
 	private OnClickListener ReportButtonListener = new OnClickListener(){
 
 		@Override
 		public void onClick(View v) {
+			// show activity as busy
 			setBusy(true);
+			
+			// disable the button to prevent multiple submissions
 			if(v.isEnabled()){
 				v.setEnabled(false);
 			}
-			Boolean image = false;
-			if(pThumbnailImage != null){
-				Log.d("315", "There is an image");
-				image = true;
-			}
-			rp.setpDetails(jobDesc.getText().toString());
+			
+			
+			pDetails = jobDesc.getText().toString();
+			rp.setpDetails(pDetails);
+			
 			ReportSubmitTask rst = new ReportSubmitTask();
-			rst.execute(
-					String.valueOf(rp.getpNum()),
-					String.valueOf(rp.getpLat()),
-					String.valueOf(rp.getpLng()),
-					rp.getpDesc(),
-					rp.getpLocation(),
-					pEmail,
-					pPhone 
-			);
+			
+			/*
+			 * TODO refactor this as it's a mess
+			 */
+			if(emailNotification == true && pEmail == getString(R.string.settings_email_add)) {
+				Toast.makeText(getBaseContext(), "Please enter an email address", Toast.LENGTH_SHORT).show();
+				setBusy(false);
+				v.setEnabled(true);
+			}
+			else if (phoneNotification == true && pPhone == getString(R.string.settings_telephone_add)) {
+				Toast.makeText(getBaseContext(), "Please enter an phone number", Toast.LENGTH_SHORT).show();
+				setBusy(false);
+				v.setEnabled(true);
+			}
+			else {
+				if(emailNotification == false){
+					pEmail = "";
+				}
+				if(phoneNotification == false){
+					pPhone = "";
+				}
+				
+				rst.execute(
+						String.valueOf(rp.getpNum()),
+						String.valueOf(rp.getpLat()),
+						String.valueOf(rp.getpLng()),
+						rp.getpDetails(),
+						rp.getpDetails(), // TODO this should be report location but needs defining elsewhere
+						pEmail,
+						pPhone 
+				);
+			}
 		}
 		
 	};

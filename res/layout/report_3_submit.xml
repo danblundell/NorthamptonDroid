@@ -172,13 +172,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:paddingTop="@dimen/baseline"
+                       android:paddingBottom="@dimen/baseline" />
 
                     <CheckBox
                         android:id="@+id/report_notifications_email_Checkbox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true" />
+                        android:layout_alignParentRight="true"
+                        android:paddingTop="@dimen/baseline"
+                       android:paddingBottom="@dimen/baseline" />
 
                 </RelativeLayout>
 
@@ -194,13 +198,17 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:gravity="center_vertical"
-                       android:maxLines="1" />
+                       android:maxLines="1"
+                       android:paddingTop="@dimen/baseline"
+                       android:paddingBottom="@dimen/baseline" />
 
                    <CheckBox
                        android:id="@+id/report_notifications_sms_Checkbox"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:layout_alignParentRight="true" />
+                       android:layout_alignParentRight="true"
+                       android:paddingTop="@dimen/baseline"
+                       android:paddingBottom="@dimen/baseline" />
                 </RelativeLayout>
 
                 <Button

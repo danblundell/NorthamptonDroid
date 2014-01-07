@@ -15,6 +15,7 @@ public class ReportProblem implements Serializable, Comparable<ReportProblem>{
 	private int pNum;
 	private double pLat;
 	private double pLng;
+	private String pDetails;
 	private String pLocation;
 	private String pAbsoluteImagePath;
 	
@@ -58,8 +59,6 @@ public class ReportProblem implements Serializable, Comparable<ReportProblem>{
 	public void setpDetails(String pDetails) {
 		this.pDetails = pDetails;
 	}
-
-	private String pDetails;
 
 	public String getpDesc() {
 		return pDesc;
