@@ -7,6 +7,7 @@ import uk.gov.northampton.droid.MainActivity;
 import uk.gov.northampton.droid.R;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract.Events;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,6 +47,18 @@ public class ReportConfirmation extends SherlockActivity {
 		callDueDate = (TextView) this.findViewById(R.id.conf_due_date_TextView);
 		doneButton = (Button) this.findViewById(R.id.reportDoneButton);
 	}
+	
+	private OnClickListener calendarButtonListener = new OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			// TODO set an event with a reminder
+			
+			//RRULE:FREQ=WEEKLY;INTERVAL=2;WKST=MO
+			
+		}
+		
+	};
 	
 	private OnClickListener doneButtonListener = new OnClickListener(){
 

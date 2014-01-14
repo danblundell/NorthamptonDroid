@@ -77,9 +77,6 @@ public class SocialWebViewActivity extends SherlockFragment {
 	    
 	}
 
-
-
-	
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		// TODO Auto-generated method stub
@@ -87,7 +84,5 @@ public class SocialWebViewActivity extends SherlockFragment {
 		webViewBundle = outState;
 		wv.saveState(webViewBundle);
 	}
-	
-	
 
 }

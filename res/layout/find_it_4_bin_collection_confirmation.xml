@@ -190,6 +190,17 @@
             android:text="@string/report_confirmation_done_Button"
             android:textColor="#FFFFFFFF"
             android:textStyle="bold" />
+        
+        <Button
+            android:id="@+id/finditReminderButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/baseline"
+            android:background="@drawable/nbc_button"
+            android:padding="10dip"
+            android:text="@string/findit_bin_collection_reminder_button_text"
+            android:textColor="#FFFFFFFF"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
