@@ -1620,6 +1620,11 @@ containing a value of this type.
         public static final int contact_type_title=0x7f070050;
         public static final int contact_url=0x7f07005f;
         public static final int data_source=0x7f070038;
+        public static final int event_rrule_fortnightly=0x7f070095;
+        public static final int event_rrule_weekly=0x7f070096;
+        public static final int event_title_bags=0x7f070094;
+        public static final int event_title_blackbin=0x7f070092;
+        public static final int event_title_brownbin=0x7f070093;
         public static final int findit_bin_collection_address_text=0x7f070086;
         public static final int findit_bin_collection_bin_text=0x7f070089;
         public static final int findit_bin_collection_day=0x7f070085;

@@ -51,6 +51,9 @@ public class Settings extends SherlockFragmentActivity implements PostCodeDialog
 	public static final String NBC_EMAIL = "NBC_EMAIL";
 	public static final String NBC_TEL = "NBC_TEL";
 	public static final String NBC_POST_CODE = "NBC_POST_CODE";
+	public static final String NBC_REFUSE_REMINDER = "NBC_REFUSE_REMINDER";
+	public static final String NBC_REFUSE_REMINDER_BLACK = "NBC_REFUSE_REMINDER_BLACK";
+	public static final String NBC_REFUSE_REMINDER_BROWN = "NBC_REFUSE_REMINDER_BROWN";
 
 	SharedPreferences sharedPrefs;
 

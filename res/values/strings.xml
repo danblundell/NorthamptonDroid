@@ -156,4 +156,9 @@
 	<string name="contact_confirmation_done_Button">Done</string>
 	<string name="button_text_Done">Done</string>
 	<string name="button_text_Next">Next</string>
+	<string name="event_title_blackbin">Black Bin Collection</string>
+	<string name="event_title_brownbin">Brown Bin Collection</string>
+	<string name="event_title_bags">Refuse and Recycling Collection</string>
+	<string name="event_rrule_fortnightly">FREQ=WEEKLY;INTERVAL=2;COUNT=26;WKST=MO</string>
+	<string name="event_rrule_weekly">FREQ=WEEKLY;COUNT=52;WKST=MO</string>
 </resources>

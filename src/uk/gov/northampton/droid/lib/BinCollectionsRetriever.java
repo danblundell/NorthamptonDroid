@@ -14,7 +14,6 @@ public class BinCollectionsRetriever {
 	public ArrayList<Property> retrieveBinCollections(String url) {
 		
 		String response = httpRetriever.retrieve(url);
-		Log.d(getClass().getSimpleName(), response);
 		return xmlParser.parseBinCollectionsResponse(response);
 	}
 	

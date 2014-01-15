@@ -15,6 +15,11 @@ public class CalendarEvent implements Serializable {
 	private String title;
 	private String description;
 	private String timezone;
+	private String rrule;
+	private String tag;
+	private int reminder;
+	private long eventId;
+	private boolean isUpdate = false;
 	private ContentValues content = new ContentValues();
 	
 	public CalendarEvent(long calID, long startMillis, long endMillis,
@@ -75,8 +80,55 @@ public class CalendarEvent implements Serializable {
 		content.put(Events.EVENT_TIMEZONE, timezone);
 		content.put(Events.DTSTART, startMillis);
 		content.put(Events.DTEND, endMillis);
+		content.put(Events.RRULE, rrule);
 		
 		return content;
+	}
+	
+	public String getRrule() {
+		return rrule;
+	}
+
+	public void setRrule(String rrule) {
+		this.rrule = rrule;
+	}
+
+	public void setTag(String tag) {
+		// TODO Auto-generated method stub
+		this.tag = tag;
+	}
+	public String getTag() {
+		// TODO Auto-generated method stub
+		return tag;
+	}
+
+	public void setReminderTime(int reminderMinutes) {
+		// TODO Auto-generated method stub
+		this.reminder = reminderMinutes;
+	}
+	
+	public int getReminderTime() {
+		// TODO Auto-generated method stub
+		return reminder;
+	}
+
+	public long getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(long eventId) {
+		if(eventId > 0) {
+			isUpdate(true);
+		}
+		this.eventId = eventId;
+	}
+
+	public boolean isUpdate() {
+		return isUpdate;
+	}
+
+	private void isUpdate(boolean isUpdate) {
+		this.isUpdate = isUpdate;
 	}
 	
 	
