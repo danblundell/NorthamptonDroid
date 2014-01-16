@@ -53,7 +53,11 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 	private TextView recyclingDetailsTextView;
 	
 	// Reminder functionality
+	private String accountId;
 	private long calId = 0;
+	private long eventIdBlack = 0;
+	private long eventIdBrown = 0;
+	private long eventIdBags = 0;
 	private static final int REMINDER_TOKEN = 2002;
 	private static final int GET_CALENDAR_TOKEN = 2003;
 	private static final String[] EVENT_PROJECTION = new String[] {Calendars._ID, Calendars.ACCOUNT_NAME, Calendars.CALENDAR_DISPLAY_NAME, Calendars.OWNER_ACCOUNT };
@@ -62,17 +66,30 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 	private static final int PROJECTION_DISPLAY_NAME_INDEX = 2;
 	private static final int PROJECTION_OWNER_ACCOUNT_INDEX = 3;
 	
-
+	private static final String DEBUG_KEY  = "REFUSE RESULT";
+	
+	private Context context;
+	private SharedPreferences sharedPrefs;
+	
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.find_it_4_bin_collection_confirmation);
 		findAllViewsById();
 		
+		context = getApplicationContext();
+		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+		
 		setListeners();
 		collectionAddress = (Property) getIntent().getSerializableExtra(COLLECTION_ADDRESS);
 		updateUIFromIntent();
-		getUserCalendarId();
+		
+		if(Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			updateFromPreferences();
+			checkForCalendar();
+			
+		}
+		
 	}
 
 	private void findAllViewsById(){
@@ -104,6 +121,42 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 			binTimeTextView.setText(binCollectionTime);
 		}
 		setRecyclingText(collectionAddress.getBinCollectionType());
+	}
+	
+	private void updateFromPreferences(){
+		// get email and phone number from preferences
+		// get any existing event id's
+		eventIdBlack = sharedPrefs.getLong(Settings.NBC_REFUSE_REMINDER_BLACK, 0);
+		eventIdBrown = sharedPrefs.getLong(Settings.NBC_REFUSE_REMINDER_BROWN, 0);
+		eventIdBags = sharedPrefs.getLong(Settings.NBC_REFUSE_REMINDER, 0);
+		calId = sharedPrefs.getLong(Settings.NBC_CAL_ID, 0);		
+		
+		Log.d(DEBUG_KEY, "Black: "+eventIdBlack);
+		Log.d(DEBUG_KEY, "Brown: "+eventIdBrown);
+		Log.d(DEBUG_KEY, "Bags: "+eventIdBags);
+	}
+	
+	private void checkForCalendar() {
+		Log.d(DEBUG_KEY, "Calendar ID: "+calId);
+		if(calId == 0) {
+			Log.d(DEBUG_KEY, "Getting Account ID");
+			accountId = sharedPrefs.getString(Settings.NBC_ACCOUNT_ID, null);
+			Log.d(DEBUG_KEY, "Account ID: "+accountId);
+			// search for a calendar for that account Id
+			if(accountId != null) {
+				Log.d(DEBUG_KEY, "Getting Calendar ID from account id");
+				getUserCalendarId(accountId, accountId);
+			}
+			else {
+				Log.d(DEBUG_KEY, "NO CAL ID or ACCOUNT ID - Hiding Reminder Button");
+				hideUIElement(reminderBtn.getId());
+			}
+		}
+	}
+	
+	private void hideUIElement(int id) {
+		View v = findViewById(id);
+		v.setVisibility(View.GONE);
 	}
 
 	private String getBinCollectionType(String s){
@@ -177,7 +230,7 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 	
 	
 	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	private void getUserCalendarId() {
+	private void getUserCalendarId(String accountId, String owner) {
 		ContentResolver cr = getContentResolver();
 		
 		
@@ -190,7 +243,7 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 					Calendars.OWNER_ACCOUNT + "=?))";
 			
 			// TODO need to get these arguments based on the device account
-			String[] selectionArgs = new String[] {"dantblundell@gmail.com","com.google","dantblundell@gmail.com"}; 
+			String[] selectionArgs = new String[] {accountId,getString(R.string.account_filter),owner}; 
 			
 			Object cookie = new Object();
 			uc.startQuery(GET_CALENDAR_TOKEN, cookie, uri, EVENT_PROJECTION, selection, selectionArgs, null);
@@ -214,10 +267,11 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 				Log.d("USERCALENDAR","QUERIED");
 				Log.d("COOKIE",cookie.toString());
 				String calName = "";
-				while(cursor.moveToNext()) {
+				if(cursor.moveToFirst()) {
 					calId = cursor.getLong(PROJECTION_ID_INDEX);
 					calName = cursor.getString(PROJECTION_DISPLAY_NAME_INDEX);
 					Log.d("CURSOR NAME", cursor.getString(PROJECTION_ACCOUNT_NAME_INDEX));
+					Settings.saveLongPreference(getApplicationContext(), Settings.NBC_CAL_ID, calId);
 				}
 				Log.d("CALENDAR","Cal name: " +calName);
 				Log.d("USERCALENDAR","LOOPED");
@@ -244,7 +298,7 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 
 		@Override
 		protected String doInBackground(CalendarEvent... params) {
-			String eventId = ""; // to store the event id
+			String eventId = "";
 			CalendarEvent ce = params[0];
 			
 			Calendar start = Calendar.getInstance();
@@ -255,12 +309,18 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 			ContentResolver cr = getContentResolver();
 			
 			if(ce.isUpdate()) {
+				// remove any reminders on the event
+				cv.put(Events.HAS_ALARM, false);
+				
+				Log.d(DEBUG_KEY, "UPDATING EVENT: " + String.valueOf(ce.getEventId()));
 				// update event
-				Uri updateUri = ContentUris.withAppendedId(Events.CONTENT_URI, Long.parseLong(eventId));
+				Uri updateUri = ContentUris.withAppendedId(Events.CONTENT_URI, ce.getEventId());
 				int rows = getContentResolver().update(updateUri, cv, null, null);
 				Log.i("EVENT UPDATE", "Rows updated: " + rows); 
+				eventId = String.valueOf(ce.getEventId());
 			}
 			else {
+				Log.d(DEBUG_KEY, "NEW EVENT");
 				// new event
 				Uri uri = cr.insert(Events.CONTENT_URI, cv); // inserts the event
 				Log.d("EVENT",cv.toString());
@@ -268,7 +328,6 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 			}
 			
 			long eventIdLong = Long.parseLong(eventId);
-			setReminder(eventIdLong, ce.getReminderTime(), Reminders.METHOD_DEFAULT);
 			
 			
 			if(ce.getTag() == getString(R.string.bin_collection_black)) {
@@ -281,6 +340,8 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 				saveEventId(Settings.NBC_REFUSE_REMINDER, eventIdLong);
 			}
 			
+			setReminder(eventIdLong, ce.getReminderTime(), Reminders.METHOD_DEFAULT);
+			
 			return eventId;
 		}
 		
@@ -291,7 +352,7 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 		}
 	}
 	
-	public void createRefuseEvent(Calendar eventTime, String tag, String title, String rrule, int reminderMinutes) {
+	public void createRefuseEvent(Calendar eventTime, String tag, String title, String rrule, int reminderMinutes, long existingEventId) {
 		
 		// set start and end times for the event
 		Calendar startTime = eventTime;
@@ -312,6 +373,10 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 		ce.setEndMillis(endMillis);
 		ce.setRrule(rrule);
 		ce.setReminderTime(reminderMinutes);
+		if(existingEventId > 0) {
+			ce.setEventId(existingEventId);
+			Log.d(DEBUG_KEY, "Existing event id added to calendarEvent object");
+		}
 		
 		RefuseReminderTask rrt = new RefuseReminderTask();
 		rrt.execute(ce);
@@ -323,6 +388,7 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 		Editor editor = sharedPrefs.edit();
 		editor.putLong(key, eventId);
 		editor.commit();
+		Log.d(DEBUG_KEY, "SAVING EVENT: " + key + " as " + eventId);
 	}
 	
 	public void showTimePickerDialog() {
@@ -332,6 +398,11 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 
 	@Override
 	public void onSetTimeDialog(int hourOfDay, int minute) {
+		Log.d(DEBUG_KEY, "TIME SET");
+		// updates the eventIds each time a new reminder is set
+		updateFromPreferences();
+		
+		// kick off the set the reminder event process
 		setReminderEvents(hourOfDay, minute);
 	}
 	
@@ -343,7 +414,6 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 		try {
 			Date collectionDate = sdf.parse(collectionAddress.getBinCollectionDate());
 			wk1.setTime(collectionDate);
-			Log.d("REMINDER EVENT WK1",""+wk1.getTimeInMillis());
 
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -368,18 +438,18 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 			// create the events
 			if(collectionAddress.getBinCollectionType().compareTo(getString(R.string.bin_collection_black)) == 0) {
 				// black bin collection
-				createRefuseEvent(wk1, collectionAddress.getBinCollectionType(), getString(R.string.event_title_blackbin), rrule, reminderMinutes);
-				createRefuseEvent(wk2, getString(R.string.bin_collection_brown), getString(R.string.event_title_brownbin), rrule, reminderMinutes);
+				createRefuseEvent(wk1, collectionAddress.getBinCollectionType(), getString(R.string.event_title_blackbin), rrule, reminderMinutes, eventIdBlack);
+				createRefuseEvent(wk2, getString(R.string.bin_collection_brown), getString(R.string.event_title_brownbin), rrule, reminderMinutes, eventIdBrown);
 			}
 			else {
 				// brown bin collection
-				createRefuseEvent(wk1, collectionAddress.getBinCollectionType(), getString(R.string.event_title_brownbin), rrule, reminderMinutes);
-				createRefuseEvent(wk2, getString(R.string.bin_collection_black), getString(R.string.event_title_blackbin), rrule, reminderMinutes);
+				createRefuseEvent(wk1, collectionAddress.getBinCollectionType(), getString(R.string.event_title_brownbin), rrule, reminderMinutes, eventIdBrown);
+				createRefuseEvent(wk2, getString(R.string.bin_collection_black), getString(R.string.event_title_blackbin), rrule, reminderMinutes, eventIdBlack);
 			}
 		} else {
 			// set bags events
 			String rrule = getString(R.string.event_rrule_weekly);
-			createRefuseEvent(wk1, getString(R.string.bin_collection_bags), getString(R.string.event_title_bags), rrule, reminderMinutes);
+			createRefuseEvent(wk1, getString(R.string.bin_collection_bags), getString(R.string.event_title_bags), rrule, reminderMinutes, eventIdBags);
 		}
 
 	}
@@ -402,9 +472,6 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 		reminderDate.set(Calendar.HOUR_OF_DAY, reminderHourOfDay);
 		reminderDate.set(Calendar.MINUTE, reminderMin);
 		
-		Log.d("REMINDER DATE",reminderDate.toString());
-		Log.d("COLLECTION DATE",collectionDate.toString());
-		
 		return (int) ((collectionDate.getTimeInMillis() - reminderDate.getTimeInMillis()) / (1000*60));
 
 	}
@@ -417,8 +484,6 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 		CalendarReminder reminder = new CalendarReminder(eventId, minutes, method);
 		ContentResolver cr = getContentResolver();
 		cr.insert(Reminders.CONTENT_URI, reminder.getContent());
-	}
-	
-	
+	}	
 
 }

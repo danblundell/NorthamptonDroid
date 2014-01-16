@@ -161,4 +161,5 @@
 	<string name="event_title_bags">Refuse and Recycling Collection</string>
 	<string name="event_rrule_fortnightly">FREQ=WEEKLY;INTERVAL=2;COUNT=26;WKST=MO</string>
 	<string name="event_rrule_weekly">FREQ=WEEKLY;COUNT=52;WKST=MO</string>
+	<string name="account_filter">com.google</string>
 </resources>

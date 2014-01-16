@@ -47,6 +47,8 @@ public class Settings extends SherlockFragmentActivity implements PostCodeDialog
 
 	private static final String NBC_DEVICE_ID = "NBC_DEVICE_ID";
 	public static final String USER_PREFERENCE = "USER_PREFERENCE";
+	public static final String NBC_ACCOUNT_ID = "NBC_ACCOUNT_ID";
+	public static final String NBC_CAL_ID = "NBC_CAL_ID";
 	public static final String NBC_NAME = "NBC_NAME";
 	public static final String NBC_EMAIL = "NBC_EMAIL";
 	public static final String NBC_TEL = "NBC_TEL";
@@ -189,6 +191,13 @@ public class Settings extends SherlockFragmentActivity implements PostCodeDialog
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		Editor editor = sp.edit();
 		editor.putString(key, val);
+		editor.commit();
+	}
+	
+	public static void saveLongPreference(Context context, String key, long val) {
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+		Editor editor = sp.edit();
+		editor.putLong(key, val);
 		editor.commit();
 	}
 	

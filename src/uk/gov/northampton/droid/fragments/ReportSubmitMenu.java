@@ -87,6 +87,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 	private String pDetails; // description details
 	private String pEmail;
 	private String pPhone;
+	private String pDeviceId;
 	private boolean emailNotification = false;
 	private boolean phoneNotification = false;
 	
@@ -176,6 +177,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 		pEmail = sharedPrefs.getString(Settings.NBC_EMAIL, getString(R.string.settings_email_add));
 		pPhone = sharedPrefs.getString(Settings.NBC_TEL, getString(R.string.settings_telephone_add));
+		pDeviceId = sharedPrefs.getString(Settings.getDeviceIdKey(), null);
 	}
 
 	/*
@@ -335,21 +337,36 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 			pDetails = jobDesc.getText().toString();
 			rp.setpDetails(pDetails);
 			
-			ReportSubmitTask rst = new ReportSubmitTask();
 			
 			/*
 			 * TODO refactor this as it's a mess
 			 */
-			if(emailNotification == true && pEmail == getString(R.string.settings_email_add)) {
+			
+			// if there isn't a device id get the user to enter an email address and save it
+			if(pDeviceId == null) {
+				if(pEmail == getString(R.string.settings_email_add) || pEmail.length() == 0){
+					Toast.makeText(getBaseContext(), "Please enter an email address", Toast.LENGTH_SHORT).show();
+					setBusy(false);
+					v.setEnabled(true);
+				}
+				else {
+					pDeviceId = pEmail;
+					Settings.saveStringPreference(getApplicationContext(), Settings.getDeviceIdKey(), pDeviceId);
+				}
+			}
+			// if they want a notification and there's no email address
+			else if(emailNotification == true && pEmail == getString(R.string.settings_email_add)) {
 				Toast.makeText(getBaseContext(), "Please enter an email address", Toast.LENGTH_SHORT).show();
 				setBusy(false);
 				v.setEnabled(true);
 			}
+			// if they want a text and there's no phone number
 			else if (phoneNotification == true && pPhone == getString(R.string.settings_telephone_add)) {
-				Toast.makeText(getBaseContext(), "Please enter an phone number", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getBaseContext(), "Please enter your phone number", Toast.LENGTH_SHORT).show();
 				setBusy(false);
 				v.setEnabled(true);
 			}
+			// otherwise process the report
 			else {
 				if(emailNotification == false){
 					pEmail = "";
@@ -357,8 +374,9 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 				if(phoneNotification == false){
 					pPhone = "";
 				}
-				
+				ReportSubmitTask rst = new ReportSubmitTask();
 				rst.execute(
+						pDeviceId,
 						String.valueOf(rp.getpNum()),
 						String.valueOf(rp.getpLat()),
 						String.valueOf(rp.getpLng()),
@@ -570,14 +588,14 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 			//set up the http request and set the attributes of the report object
 			ReportHttpSender rs = new ReportHttpSender();
 			rs.setDataSource(getString(R.string.data_source));
-			rs.setDeviceID("12345");
-			rs.setProblemNumber(params[0]);
-			rs.setLat(params[1]);
-			rs.setLng(params[2]);
-			rs.setDesc(params[3]);
-			rs.setLocation(params[4]);
-			rs.setEmail(params[5]);
-			rs.setPhone(params[6]); 
+			rs.setDeviceID(params[0]);
+			rs.setProblemNumber(params[1]);
+			rs.setLat(params[2]);
+			rs.setLng(params[3]);
+			rs.setDesc(params[4]);
+			rs.setLocation(params[5]);
+			rs.setEmail(params[6]);
+			rs.setPhone(params[7]); 
 			
 			//check 'image' parameter
 			//Boolean image = Boolean.parseBoolean(params[2]);

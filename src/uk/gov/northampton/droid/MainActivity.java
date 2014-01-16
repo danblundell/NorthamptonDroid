@@ -42,6 +42,8 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
     SharedPreferences sharedPrefs;
+    
+    private static final String DEBUG_KEY = "MAIN ACTIVITY";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,8 +75,6 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
         }
         
         getAccountDetails();
-        setFirstRun();
-        getTelephoneNumber();
         
         
         try { 
@@ -117,62 +117,90 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
 	
 	/*
 	 * Get the users google account to save them 
-	 * putting in an email address
+	 * putting in an email address and account id
 	 */
 	public void getAccountDetails() {
-		
+		// get helper objects
+		TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		String email = sharedPrefs.getString(Settings.NBC_EMAIL, null);
 		
-		if(email == null) {
+		String email = sharedPrefs.getString(Settings.NBC_EMAIL, null);
+		String accountId = sharedPrefs.getString(Settings.NBC_ACCOUNT_ID, null);
+		String deviceId = sharedPrefs.getString(Settings.getDeviceIdKey(), null);
+		String phoneNumber = sharedPrefs.getString(Settings.NBC_TEL, null);
+		
+		
+		// get and set the phone number
+		if(phoneNumber == null) {
+			phoneNumber = getTelephoneNumber(tMgr);
+			
+			if(phoneNumber != null) {
+				Log.d(DEBUG_KEY, "Phone number: " + phoneNumber);
+				Settings.saveStringPreference(getApplicationContext(), Settings.NBC_TEL, phoneNumber);
+			}
+			else {
+				Log.d(DEBUG_KEY, "Phone number not found");
+			}
+		}
+		
+		if(email == null || accountId == null) {
+			Log.d(DEBUG_KEY, "EMail or account ID is null");
 			AccountManager mAccountManager = AccountManager.get(this);
 		    Account[] accounts = mAccountManager.getAccountsByType(GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
 		    
 		    if (accounts.length > 0) {
 		        email = accounts[0].name;
-		        
+		        Log.d(DEBUG_KEY, "Account found: " + email);
 		        if(email.length() > 0) {
 			    	Editor editor = sharedPrefs.edit();
 				    editor.putString(Settings.NBC_EMAIL, email);
+				    editor.putString(Settings.NBC_ACCOUNT_ID, email);
 				    editor.commit();
 			    }		        
 		    }
+		    else {
+		    	Log.d(DEBUG_KEY, "Account not found");
+		    }
+		}
+		
+		// get the actual device id and set it
+		if(deviceId == null) {
+			deviceId = getDeviceId(tMgr);
+			if(deviceId != null) {
+				Log.d(DEBUG_KEY, "Device Id:" + deviceId);
+				setDeviceId(deviceId);
+			}
+			else if(email.length() > 0) {
+				Log.d(DEBUG_KEY, "Device Id not found, using email: " + email);
+				setDeviceId(email);
+			}
+			else {
+				// no device id set
+				Log.d(DEBUG_KEY, "No device id set");
+			}
 		}
 	}
 	
-	public void getTelephoneNumber() {
-		Log.d("PHONE NUMBER", "GETTING PHONE NUMBER");
-		TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-		String phoneNumber = tMgr.getLine1Number();
-		
-		
-		if(phoneNumber == null) {
-			Log.d("PHONE NUMBER", "NO NUMBER");
-			
+	private String getTelephoneNumber(TelephonyManager tMgr) {
+		String num = tMgr.getLine1Number();
+		if(num != null) {
+			if(num.length() > 0){
+				return num;
+			}
 		}
-		else {
-			Log.d("PHONE NUMBER", phoneNumber);
-		}
-		Log.d("PHONE NUMBER", tMgr.getDeviceId());
-	};
+		return null;
+	}
+	
+	private String getDeviceId(TelephonyManager tMgr) {
+		return tMgr.getDeviceId();
+	}
 	
 	/*
 	 * Set the device id
 	 * TODO refactor device id setting
 	 */
-	public void setFirstRun() {
-		
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		String deviceId = sharedPrefs.getString(Settings.getDeviceIdKey(), null);
-		String email = sharedPrefs.getString(Settings.NBC_EMAIL, null);
-		
-		if(deviceId == null) {
-			Log.d("DEVICE ID","NO DEVICE ID");
-			if(email != null) {
-				Log.d("DEVICE ID","EMAIL PRESENT");
-				Settings.createDeviceId(this, email);
-			}
-		}
+	private void setDeviceId(String id) {
+		Settings.createDeviceId(this, id);
 	}
 
 
