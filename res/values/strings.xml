@@ -14,7 +14,7 @@
     <string name="tab_contact">Contact</string>
     <string name="select_button_text">Select</string>
     <string name="next_button_text">Next</string>
-    <string name="google_maps_api_key">AIzaSyC-43mdYRzh9E4nE8rZvc4NYSXXfzszEMQ</string>
+    <string name="google_maps_api_key">AIzaSyAUfYTvumQhrRfnYRzSyaKF5KOFSeMfL9g</string>
     <string name="social_feed_url">http://selfserve.northampton.gov.uk/mynbc/socialFeed.xml</string>
     <string name="social_base_url">http://twitter.com</string>
     <string name="data_source">myNBC</string>
@@ -43,7 +43,9 @@
     <string name="report_notifications_sms_checkbox_label">SMS</string>
     <string name="report_notifications_email_checkbox_label">Email</string>
     <string name="report_submit_button_text">Report It</string>
-
+    <string name="report_submit_button_text_again">Try again</string>
+	<string name="report_submit_error">Your details didn\'t send, try again when you have a connection</string>
+	
     <string name="photo_album_name">Northampton</string>
     <string name="contact_subject_title">SERVICE</string>
     <string name="contact_reason_title">DEPARTMENT</string>
@@ -62,6 +64,8 @@
     <string name="contact_phone">Telephone</string>
     <string name="contact_description">Your message</string>
     <string name="contact_send_button">Send It</string>
+    <string name="contact_send_button_again">Try again</string>
+    <string name="contact_send_error">Your message didn\'t send, try again when you have a connection</string>
     <string name="contact_url">CreateContact</string>
     <string name="findit_main_title">Find It</string>
     <string name="services_main_title">Services</string>
@@ -162,4 +166,28 @@
 	<string name="event_rrule_fortnightly">FREQ=WEEKLY;INTERVAL=2;COUNT=26;WKST=MO</string>
 	<string name="event_rrule_weekly">FREQ=WEEKLY;COUNT=52;WKST=MO</string>
 	<string name="account_filter">com.google</string>
+	<string name="ga_event_ui">ui_event</string>
+	<string name="ga_event_transaction">transaction_event</string>
+	<string name="ga_event_category_social">Social</string>
+	<string name="ga_event_category_report">Report It</string>
+	<string name="ga_event_category_find">Find It</string>
+	<string name="ga_event_category_contact">Contact</string>
+	<string name="ga_event_report_step1">Step 1 Completed: Type Selected</string>
+	<string name="ga_event_report_step2">Step 2 Completed: Location</string>
+	<string name="ga_event_report_step3">Step 3 Completed: Submitted</string>
+	<string name="ga_event_report_step3b">Step 3 Failed: Submitting Failed</string>
+	<string name="ga_event_report_step4">Step 4 Completed: Done</string>
+	<string name="ga_event_report_photo_added">Photo Added</string>
+	<string name="ga_event_contact_step1">Step 1 Completed: Subject</string>
+	<string name="ga_event_contact_step2">Step 2 Completed: Reason</string>
+	<string name="ga_event_contact_step3">Step 3 Completed: Type</string>
+	<string name="ga_event_contact_step4">Step 4 Completed: Sending Message</string>
+	<string name="ga_event_contact_step5">Step 5 Complete: Message Sent</string>
+	<string name="ga_event_contact_step5b">Step 5 Failed: Message Failed</string>
+	<string name="ga_event_contact_step6">Step 6 Complete: Done</string>
+	<string name="ga_event_find_step1">Step 1 Completed: Type</string>
+	<string name="ga_event_find_step2">Step 2 Completed: Postcode</string>
+	<string name="ga_event_find_step2b">Step 2b Completed: Address Selected</string>
+	<string name="ga_event_find_step3">Step 3 Completed: Found It</string>
+	<string name="ga_event_find_reminder_set">Reminder Set</string>
 </resources>

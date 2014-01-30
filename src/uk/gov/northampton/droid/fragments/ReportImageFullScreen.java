@@ -6,30 +6,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.google.analytics.tracking.android.EasyTracker;
 
 public class ReportImageFullScreen extends SherlockFragmentActivity {
 
-	private static final int CAMERA_REQUEST = 1987;
-	private static final int THUMBNAIL_SIZE = 0;
-	private Button removePhoto;
+	//private Button removePhoto;
 	private ImageView fullPhoto;
 	private View fullPhotoContainer;
 	private String currentPhotoPath;
-	private Bitmap photoBitmap;
-	private int imageViewW;
-	private int imageViewH;
 	OnPhotoRemovedListener photoRemovedListener;
 	
 	@Override
@@ -37,10 +24,8 @@ public class ReportImageFullScreen extends SherlockFragmentActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.report_4_full_photo);
-		
-		//ActionBar actionBar = getSupportActionBar();
 
-		removePhoto = (Button) findViewById(R.id.reportImageRemoveButton);
+		//removePhoto = (Button) findViewById(R.id.reportImageRemoveButton);
 		fullPhoto = (ImageView) findViewById(R.id.reportImageFullScreen);
 		fullPhotoContainer = (View) findViewById(R.id.reportImageFullLayout);
 		
@@ -50,16 +35,6 @@ public class ReportImageFullScreen extends SherlockFragmentActivity {
 			ProcessImageFullScreenTask imageFS = new ProcessImageFullScreenTask();
 			imageFS.execute(currentPhotoPath);
 		}
-		
-		removePhoto.setOnClickListener( new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				//remove photo and go back
-				Fragment fm = getSupportFragmentManager().findFragmentById(R.id.reportImageFullScreen);
-				
-			}
-		});	
 		
 		
 	}
@@ -107,6 +82,20 @@ public class ReportImageFullScreen extends SherlockFragmentActivity {
 				fullPhoto.setImageBitmap(image);
 		}
 
+	}
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);
 	}
 }
 

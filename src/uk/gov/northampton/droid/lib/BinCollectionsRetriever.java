@@ -3,8 +3,6 @@ package uk.gov.northampton.droid.lib;
 import java.util.ArrayList;
 
 import uk.gov.northampton.droid.Property;
-import uk.gov.northampton.droid.SocialEntry;
-import android.util.Log;
 
 public class BinCollectionsRetriever {
 	

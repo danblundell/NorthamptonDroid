@@ -1,13 +1,5 @@
 package uk.gov.northampton.droid.fragments;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.lib.EditTextDialogFragment;
 import uk.gov.northampton.droid.lib.EditTextDialogFragment.EditTextDialogListener;
@@ -19,16 +11,14 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.google.analytics.tracking.android.EasyTracker;
 
 public class Settings extends SherlockFragmentActivity implements PostCodeDialogListener, EditTextDialogListener {
 
@@ -120,13 +110,6 @@ public class Settings extends SherlockFragmentActivity implements PostCodeDialog
 		String emailPref = sharedPrefs.getString(NBC_EMAIL, getString(R.string.settings_email_add));
 		String phonePref = sharedPrefs.getString(NBC_TEL, getString(R.string.settings_telephone_add));
 		String postCodePref = sharedPrefs.getString(NBC_POST_CODE, getString(R.string.settings_postcode_add));
-		String deviceId = sharedPrefs.getString(NBC_DEVICE_ID, "no device id");
-
-		Log.d("NAME PREF",namePref);
-		Log.d("EMAIL PREF",emailPref);
-		Log.d("PHONE PREF",phonePref);
-		Log.d("PC PREF",postCodePref);
-		Log.d("DEVICE ID",deviceId);
 
 		name.setText(namePref);
 		email.setText(emailPref);
@@ -142,7 +125,10 @@ public class Settings extends SherlockFragmentActivity implements PostCodeDialog
 			TextView value = (TextView) v.findViewWithTag(R.id.nbc_setting_value);
 			String titleText = title.getText().toString(); 
 			//EditTextDialogFragment(Title for the dialog, prompt,view id to return to, edit text input type);
-			DialogFragment editTextFragment = new EditTextDialogFragment(titleText,value.getId(),value.getInputType());
+			EditTextDialogFragment editTextFragment = new EditTextDialogFragment();
+			editTextFragment.setTitle(titleText);
+			editTextFragment.setViewId(value.getId());
+			editTextFragment.setInputType(value.getInputType());
 			editTextFragment.show(getSupportFragmentManager(), "editText");
 		}
 
@@ -246,5 +232,21 @@ public class Settings extends SherlockFragmentActivity implements PostCodeDialog
 		}
 
 	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		EasyTracker.getInstance(this).activityStart(this);
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);
+	}
+	
+	
 
 }

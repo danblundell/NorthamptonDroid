@@ -7,9 +7,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import android.net.Uri;
-import android.util.Log;
-
 public class ContactHttpSender {
 
 	private DefaultHttpClient client = new DefaultHttpClient();
@@ -52,13 +49,13 @@ public class ContactHttpSender {
 		postRequest.addHeader("details", details);
 		
 		try{
-			Log.d("HTTPSENDER",postRequest.toString());
+			
 			HttpResponse getResponse = client.execute(postRequest);
-			Log.d("HTTPSENDER","HTTP Respose" + getResponse.toString());
+			
 			
 			final int statusCode = getResponse.getStatusLine().getStatusCode();
 			if(statusCode != HttpStatus.SC_OK){
-				Log.w(getClass().getSimpleName(), "Error" + statusCode + " for Request " + url);
+				
 				return null;
 			}
 
@@ -70,7 +67,6 @@ public class ContactHttpSender {
 		}
 		catch(IOException e){
 			postRequest.abort();
-			Log.w(getClass().getSimpleName(), "Error for request " + url, e);
 		}
 		return null;
 	}

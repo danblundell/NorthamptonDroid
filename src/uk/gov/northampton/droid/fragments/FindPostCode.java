@@ -3,6 +3,8 @@ package uk.gov.northampton.droid.fragments;
 import java.util.ArrayList;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
 
 import uk.gov.northampton.droid.Property;
 import uk.gov.northampton.droid.R;
@@ -16,7 +18,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -50,6 +51,20 @@ public class FindPostCode extends SherlockFragmentActivity implements PostCodeDi
 		@Override
 		public void onClick(View v) {
 			if(postCodeEditText.getText().length() > 0){
+				// May return null if a EasyTracker has not yet been initialized with a
+				// property ID.
+				EasyTracker easyTracker = EasyTracker.getInstance(getApplicationContext());
+
+				if(easyTracker != null) {
+					easyTracker.send(MapBuilder
+							.createEvent(getString(R.string.ga_event_category_find),     // Event category (required)
+									getString(R.string.ga_event_transaction),  // Event action (required)
+									getString(R.string.ga_event_find_step2),   // Event label
+									null)            // Event value
+									.build()
+							); 
+				}
+				
 				setSupportProgressBarIndeterminateVisibility(true);
 				RetrieveBinCollectionsTask rbc = new RetrieveBinCollectionsTask();
 				rbc.execute();
@@ -117,7 +132,6 @@ public class FindPostCode extends SherlockFragmentActivity implements PostCodeDi
 
 		@Override
 		protected ArrayList<Property> doInBackground(String... params) {
-			Log.d("BIN FINDER", "Getting Bin Collections");
 			BinCollectionsRetriever bcr = new BinCollectionsRetriever();
 			String url = getString(R.string.mycouncil_url) + getString(R.string.bin_collections_url) + Uri.encode(postCodeEditText.getText().toString());
 			return 	bcr.retrieveBinCollections(url);
@@ -145,6 +159,18 @@ public class FindPostCode extends SherlockFragmentActivity implements PostCodeDi
 		}
 	}
 
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
+	}
 
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		EasyTracker.getInstance(this).activityStop(this);
+	}
 	
 }

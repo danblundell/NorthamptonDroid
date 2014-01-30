@@ -32,7 +32,6 @@ import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -40,6 +39,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
 
 public class FindBinCollectionResult extends SherlockFragmentActivity implements TimePickerDialogFragment.TimePickerTimeSetDialogListener {
 
@@ -131,24 +132,21 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 		eventIdBags = sharedPrefs.getLong(Settings.NBC_REFUSE_REMINDER, 0);
 		calId = sharedPrefs.getLong(Settings.NBC_CAL_ID, 0);		
 		
-		Log.d(DEBUG_KEY, "Black: "+eventIdBlack);
-		Log.d(DEBUG_KEY, "Brown: "+eventIdBrown);
-		Log.d(DEBUG_KEY, "Bags: "+eventIdBags);
 	}
 	
 	private void checkForCalendar() {
-		Log.d(DEBUG_KEY, "Calendar ID: "+calId);
+
 		if(calId == 0) {
-			Log.d(DEBUG_KEY, "Getting Account ID");
+
 			accountId = sharedPrefs.getString(Settings.NBC_ACCOUNT_ID, null);
-			Log.d(DEBUG_KEY, "Account ID: "+accountId);
+
 			// search for a calendar for that account Id
 			if(accountId != null) {
-				Log.d(DEBUG_KEY, "Getting Calendar ID from account id");
+
 				getUserCalendarId(accountId, accountId);
 			}
 			else {
-				Log.d(DEBUG_KEY, "NO CAL ID or ACCOUNT ID - Hiding Reminder Button");
+
 				hideUIElement(reminderBtn.getId());
 			}
 		}
@@ -207,6 +205,19 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 
 		@Override
 		public void onClick(View v) {
+			// May return null if a EasyTracker has not yet been initialized with a
+			// property ID.
+			EasyTracker easyTracker = EasyTracker.getInstance(getApplicationContext());
+
+			if(easyTracker != null) {
+				easyTracker.send(MapBuilder
+						.createEvent(getString(R.string.ga_event_category_find),     // Event category (required)
+								getString(R.string.ga_event_transaction),  // Event action (required)
+								getString(R.string.ga_event_find_step3),   // Event label
+								null)            // Event value
+								.build()
+						); 
+			}
 			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -218,7 +229,19 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 	private OnClickListener reminderButtonListener = new OnClickListener(){
 		@Override
 		public void onClick(View v) {
-			// launch dialog fragment to set time for the reminder
+			// May return null if a EasyTracker has not yet been initialized with a
+			// property ID.
+			EasyTracker easyTracker = EasyTracker.getInstance(getApplicationContext());
+
+			if(easyTracker != null) {
+				easyTracker.send(MapBuilder
+						.createEvent(getString(R.string.ga_event_category_find),     // Event category (required)
+								getString(R.string.ga_event_transaction),  // Event action (required)
+								getString(R.string.ga_event_find_reminder_set),   // Event label
+								null)            // Event value
+								.build()
+						); 
+			}
 			showTimePickerDialog();
 			
 		}
@@ -264,17 +287,15 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 			
 			if(token == GET_CALENDAR_TOKEN) {
 				// set cal id for the user
-				Log.d("USERCALENDAR","QUERIED");
-				Log.d("COOKIE",cookie.toString());
+				
 				String calName = "";
 				if(cursor.moveToFirst()) {
 					calId = cursor.getLong(PROJECTION_ID_INDEX);
 					calName = cursor.getString(PROJECTION_DISPLAY_NAME_INDEX);
-					Log.d("CURSOR NAME", cursor.getString(PROJECTION_ACCOUNT_NAME_INDEX));
+					
 					Settings.saveLongPreference(getApplicationContext(), Settings.NBC_CAL_ID, calId);
 				}
-				Log.d("CALENDAR","Cal name: " +calName);
-				Log.d("USERCALENDAR","LOOPED");
+				
 				cursor.close();
 			}
 		}
@@ -303,7 +324,7 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 			
 			Calendar start = Calendar.getInstance();
 			start.setTimeInMillis(ce.getStartMillis());
-			Log.d("TIME", start.getTime().toString());
+			
 			
 			ContentValues cv = ce.getContent(); // gets the config options for the event from the Calendar Event object
 			ContentResolver cr = getContentResolver();
@@ -312,18 +333,18 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 				// remove any reminders on the event
 				cv.put(Events.HAS_ALARM, false);
 				
-				Log.d(DEBUG_KEY, "UPDATING EVENT: " + String.valueOf(ce.getEventId()));
+				
 				// update event
 				Uri updateUri = ContentUris.withAppendedId(Events.CONTENT_URI, ce.getEventId());
 				int rows = getContentResolver().update(updateUri, cv, null, null);
-				Log.i("EVENT UPDATE", "Rows updated: " + rows); 
+				
 				eventId = String.valueOf(ce.getEventId());
 			}
 			else {
-				Log.d(DEBUG_KEY, "NEW EVENT");
+				
 				// new event
 				Uri uri = cr.insert(Events.CONTENT_URI, cv); // inserts the event
-				Log.d("EVENT",cv.toString());
+				
 				eventId = uri.getLastPathSegment(); // gets the event id
 			}
 			
@@ -375,7 +396,7 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 		ce.setReminderTime(reminderMinutes);
 		if(existingEventId > 0) {
 			ce.setEventId(existingEventId);
-			Log.d(DEBUG_KEY, "Existing event id added to calendarEvent object");
+			
 		}
 		
 		RefuseReminderTask rrt = new RefuseReminderTask();
@@ -388,7 +409,7 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 		Editor editor = sharedPrefs.edit();
 		editor.putLong(key, eventId);
 		editor.commit();
-		Log.d(DEBUG_KEY, "SAVING EVENT: " + key + " as " + eventId);
+		
 	}
 	
 	public void showTimePickerDialog() {
@@ -398,7 +419,7 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 
 	@Override
 	public void onSetTimeDialog(int hourOfDay, int minute) {
-		Log.d(DEBUG_KEY, "TIME SET");
+		
 		// updates the eventIds each time a new reminder is set
 		updateFromPreferences();
 		
@@ -421,7 +442,7 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 
 		// get the reminder period in minutes
 		int reminderMinutes = getReminderMinutes(wk1, hourOfDay, minute);
-		Log.d("REMINDER","REMINDER SET FOR "+reminderMinutes+" before 6:30");
+		
 		
 		// check if the collection is alternate or weekly
 		boolean alternate = hasAlternateCollections(collectionAddress.getBinCollectionType());
@@ -484,6 +505,20 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 		CalendarReminder reminder = new CalendarReminder(eventId, minutes, method);
 		ContentResolver cr = getContentResolver();
 		cr.insert(Reminders.CONTENT_URI, reminder.getContent());
-	}	
+	}
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		EasyTracker.getInstance(this).activityStop(this);
+	}
 
 }

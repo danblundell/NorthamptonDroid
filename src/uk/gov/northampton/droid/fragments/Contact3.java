@@ -1,28 +1,20 @@
 package uk.gov.northampton.droid.fragments;
 
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
-
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.google.analytics.tracking.android.EasyTracker;
 
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ContactReason;
 import uk.gov.northampton.droid.ContactReasonsAdapter;
-import uk.gov.northampton.droid.lib.ContactReasonsRetriever;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -81,8 +73,7 @@ public class Contact3 extends SherlockActivity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Log.d("Contact Reason Activity","Next Button Clicked!");
+
 				if(selectedType != null){
 					//start next activity
 					Intent contactIntent = new Intent(v.getContext(),ContactMessage.class);
@@ -97,5 +88,19 @@ public class Contact3 extends SherlockActivity {
 			}
 			
 		});
+	}
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);
 	}
 }

@@ -1,18 +1,8 @@
 package uk.gov.northampton.droid;
 
-import java.io.UnsupportedEncodingException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
-import android.util.Log;
 
 public class ConfirmationHandler extends DefaultHandler{
 
@@ -55,11 +45,6 @@ public class ConfirmationHandler extends DefaultHandler{
 		}
 
 		public Confirmation retrieveConfirmation() {
-			if(conf.isSuccess()){
-				Log.d("CONF PARSED","Confirmation Call Num: " + conf.getCallNumber());
-			}else{
-				Log.d("CONF FAILED","Confirmation Call Num: " + conf.isSuccess());
-			}
 			return conf;
 		}
 

@@ -16,7 +16,6 @@ public class ContactReason implements Serializable, Comparable<ContactReason>{
 		this.reasons = reasons;
 	}
 
-
 	public String geteDesc() {
 		return eDesc;
 	}

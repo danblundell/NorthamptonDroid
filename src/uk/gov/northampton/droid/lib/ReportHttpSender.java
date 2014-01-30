@@ -1,23 +1,15 @@
 package uk.gov.northampton.droid.lib;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
-
-import android.net.Uri;
-import android.util.Base64;
-import android.util.Log;
 
 public class ReportHttpSender {
 
@@ -157,7 +149,6 @@ public class ReportHttpSender {
 		
 		if(this.imageData != null){
 			HttpEntity imageBytes = new ByteArrayEntity(this.imageData);
-			Log.d("Image",this.imageData.toString());
 			this.setIncludesImage("true");
 			postRequest.setEntity(imageBytes);
 			
@@ -176,13 +167,10 @@ public class ReportHttpSender {
 		
 		
 		try{
-			Log.d("HTTPSENDER",postRequest.getAllHeaders().toString());
 			HttpResponse getResponse = client.execute(postRequest);
-			Log.d("HTTPSENDER","HTTP Respose" + getResponse.getAllHeaders().toString());
 			
 			final int statusCode = getResponse.getStatusLine().getStatusCode();
 			if(statusCode != HttpStatus.SC_OK){
-				Log.w(getClass().getSimpleName(), "Error" + statusCode + " for Request " + url);
 				return null;
 			}
 
@@ -194,7 +182,6 @@ public class ReportHttpSender {
 		}
 		catch(IOException e){
 			postRequest.abort();
-			Log.w(getClass().getSimpleName(), "Error for request " + url, e);
 		}
 		return null;
 	}

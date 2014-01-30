@@ -85,6 +85,7 @@
 
         <TextView
             android:id="@+id/contact_conf_description_TextView"
+            style="?android:attr/listSeparatorTextViewStyle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/contact_conf_details_title_TextView"
@@ -112,6 +113,7 @@
 
         <TextView
             android:id="@+id/contact_conf_description_bottom_TextView"
+            style="?android:attr/listSeparatorTextViewStyle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/contact_conf_case_ref_TextView"

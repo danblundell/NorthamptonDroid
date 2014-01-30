@@ -6,17 +6,16 @@ import java.util.Collections;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.google.analytics.tracking.android.EasyTracker;
 
 import uk.gov.northampton.droid.ContactReason;
 import uk.gov.northampton.droid.ContactReasonsAdapter;
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.lib.ContactReasonsRetriever;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -74,8 +73,7 @@ public class Contact extends SherlockActivity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Log.d("Contact Activity","Next Button Clicked!");
+
 				if(selectedSubject != null){
 					//start next activity
 					Intent contactIntent = new Intent(v.getContext(),Contact2.class);
@@ -111,4 +109,20 @@ public class Contact extends SherlockActivity {
 			spinner.setAdapter(mySpinnerAdapter);
 		}
 	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);
+	}
+	
+	
 }

@@ -6,7 +6,7 @@
     <uses-sdk
         android:minSdkVersion="10"
         android:targetSdkVersion="19" />
-    	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    	<uses-permission android:name="android.permission.INTERNET" />
 		<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 		<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 		<uses-permission android:name="android.permission.CAMERA" />
@@ -22,6 +22,7 @@
 		<uses-permission android:name="android.permission.WRITE_CALENDAR"/>
 		
     <application
+        android:allowBackup="true"
         android:icon="@drawable/northampton_crest"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -55,7 +56,7 @@
         <activity android:name=".fragments.FindBinCollectionPropertyList"></activity>
         <activity android:name=".fragments.FindPostCode"></activity>
         <activity android:name=".fragments.FindBinCollectionResult"></activity>
-        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBPKqVTxq4AM62fwWY3fVNThkxLcOF7oVc" />
+        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyAUfYTvumQhrRfnYRzSyaKF5KOFSeMfL9g" />
         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
     </application>
 

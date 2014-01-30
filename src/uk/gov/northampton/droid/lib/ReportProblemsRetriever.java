@@ -6,11 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import uk.gov.northampton.droid.ContactReason;
-import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ReportProblem;
-import android.content.res.Resources;
-import android.util.Log;
 
 public class ReportProblemsRetriever {
 	
@@ -30,7 +26,6 @@ public class ReportProblemsRetriever {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Log.d(getClass().getSimpleName(),"" + xml.length());
 		return xmlParser.parseProblemList(xml.toString());
 	}
 	

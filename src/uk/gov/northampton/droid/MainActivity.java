@@ -1,19 +1,11 @@
 package uk.gov.northampton.droid;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import uk.gov.northampton.droid.fragments.*;
 import uk.gov.northampton.droid.lib.PostCodeDialogFragment.PostCodeDialogListener;
 import uk.gov.northampton.droid.lib.SocialWebViewActivity;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
-import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import android.accounts.Account;
@@ -22,24 +14,36 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.SyncStateContract.Constants;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.Window;
 
 import com.actionbarsherlock.view.*;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.google.android.gms.auth.GoogleAuthUtil;
 
 public class MainActivity extends SherlockFragmentActivity implements ActionBar.TabListener, PostCodeDialogListener {
 
-    SectionsPagerAdapter mSectionsPagerAdapter;
+    @Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		EasyTracker.getInstance(this).activityStart(this);
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);
+	}
+
+	SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
     SharedPreferences sharedPrefs;
     
@@ -135,22 +139,16 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
 			phoneNumber = getTelephoneNumber(tMgr);
 			
 			if(phoneNumber != null) {
-				Log.d(DEBUG_KEY, "Phone number: " + phoneNumber);
 				Settings.saveStringPreference(getApplicationContext(), Settings.NBC_TEL, phoneNumber);
-			}
-			else {
-				Log.d(DEBUG_KEY, "Phone number not found");
 			}
 		}
 		
 		if(email == null || accountId == null) {
-			Log.d(DEBUG_KEY, "EMail or account ID is null");
 			AccountManager mAccountManager = AccountManager.get(this);
 		    Account[] accounts = mAccountManager.getAccountsByType(GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
 		    
 		    if (accounts.length > 0) {
 		        email = accounts[0].name;
-		        Log.d(DEBUG_KEY, "Account found: " + email);
 		        if(email.length() > 0) {
 			    	Editor editor = sharedPrefs.edit();
 				    editor.putString(Settings.NBC_EMAIL, email);
@@ -158,25 +156,16 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
 				    editor.commit();
 			    }		        
 		    }
-		    else {
-		    	Log.d(DEBUG_KEY, "Account not found");
-		    }
 		}
 		
 		// get the actual device id and set it
 		if(deviceId == null) {
 			deviceId = getDeviceId(tMgr);
 			if(deviceId != null) {
-				Log.d(DEBUG_KEY, "Device Id:" + deviceId);
 				setDeviceId(deviceId);
 			}
 			else if(email.length() > 0) {
-				Log.d(DEBUG_KEY, "Device Id not found, using email: " + email);
 				setDeviceId(email);
-			}
-			else {
-				// no device id set
-				Log.d(DEBUG_KEY, "No device id set");
 			}
 		}
 	}
@@ -265,7 +254,6 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
 			editor.putString(Settings.NBC_POST_CODE, postCode);
 			editor.commit();
 		}
-		Log.i("FIND IT","New Post Code: " + postCode);
 	}
 	
 }

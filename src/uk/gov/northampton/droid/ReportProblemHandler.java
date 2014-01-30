@@ -1,18 +1,9 @@
 package uk.gov.northampton.droid;
 
-import java.io.UnsupportedEncodingException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
-import android.util.Log;
 
 public class ReportProblemHandler extends DefaultHandler{
 
@@ -56,7 +47,6 @@ public class ReportProblemHandler extends DefaultHandler{
 		}
 
 		public ArrayList<ReportProblem> retrieveProblemReasons() {
-			Log.d("PL PARSED","Problem List: " + problemList.size());
 			return problemList;
 		}
 

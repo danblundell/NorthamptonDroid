@@ -1,19 +1,12 @@
 package uk.gov.northampton.droid.fragments;
 
-import java.util.ArrayList;
 import com.actionbarsherlock.app.SherlockFragment;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
 
-import uk.gov.northampton.droid.Property;
 import uk.gov.northampton.droid.R;
-import uk.gov.northampton.droid.lib.BinCollectionsRetriever;
-import uk.gov.northampton.droid.lib.PostCodeDialogFragment;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,8 +32,6 @@ public class Find extends SherlockFragment implements OnItemSelectedListener {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		Log.d("Find Activity","Created");
-		
 	}
 	
 	@Override
@@ -60,7 +51,20 @@ public class Find extends SherlockFragment implements OnItemSelectedListener {
 	private OnClickListener nextButtonClickListener = new OnClickListener(){
 		@Override
 		public void onClick(View v) {
-			Log.d("Find Fragment","Button Clicked!");
+			// May return null if a EasyTracker has not yet been initialized with a
+			// property ID.
+			EasyTracker easyTracker = EasyTracker.getInstance(getActivity().getApplicationContext());
+
+			if(easyTracker != null) {
+				easyTracker.send(MapBuilder
+						.createEvent(getString(R.string.ga_event_category_find),     // Event category (required)
+								getString(R.string.ga_event_transaction),  // Event action (required)
+								getString(R.string.ga_event_find_step1),   // Event label
+								null)            // Event value
+								.build()
+						); 
+			}
+			
 			Intent i = new Intent(getActivity(), FindPostCode.class);
 			startActivity(i);
 		}

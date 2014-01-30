@@ -2,23 +2,19 @@ package uk.gov.northampton.droid.fragments;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.app.SherlockFragment;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
 
 import uk.gov.northampton.droid.Confirmation;
 import uk.gov.northampton.droid.MainActivity;
 import uk.gov.northampton.droid.R;
-import uk.gov.northampton.droid.lib.PostCodeDialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ContactConfirmation extends SherlockActivity {
 	
@@ -26,6 +22,7 @@ public class ContactConfirmation extends SherlockActivity {
 	private TextView callDescription;
 	private TextView callDueDate;
 	private Button doneButton;
+	private Context context;
 	
 	
 	@Override
@@ -35,8 +32,7 @@ public class ContactConfirmation extends SherlockActivity {
 		setContentView(R.layout.contact_3_confirmation);
 		ActionBar ab = getSupportActionBar();
 		ab.setTitle(R.string.conf_details_title);
-		
-		Log.d("Confirmation Activity","Created");
+		context = getApplicationContext();
 		
 		findAllViewsById();
 		doneButton.setOnClickListener(doneButtonListener);
@@ -60,6 +56,20 @@ public class ContactConfirmation extends SherlockActivity {
 
 		@Override
 		public void onClick(View v) {
+			// May return null if a EasyTracker has not yet been initialized with a
+			// property ID.
+			EasyTracker easyTracker = EasyTracker.getInstance(context);
+
+			if(easyTracker != null) {
+				easyTracker.send(MapBuilder
+						.createEvent(getString(R.string.ga_event_category_contact),     // Event category (required)
+								getString(R.string.ga_event_transaction),  // Event action (required)
+								getString(R.string.ga_event_contact_step6),   // Event label
+								null)            // Event value
+								.build()
+						); 
+			}
+			
 			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -67,4 +77,18 @@ public class ContactConfirmation extends SherlockActivity {
 		}
 		
 	};
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		EasyTracker.getInstance(this).activityStop(this);
+	}
 }

@@ -2,27 +2,20 @@ package uk.gov.northampton.droid.fragments;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
 
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ReportProblem;
 import uk.gov.northampton.droid.ReportProblemAdapter;
 import uk.gov.northampton.droid.fragments.ReportLocation;
 import uk.gov.northampton.droid.lib.ReportProblemsRetriever;
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,6 +33,7 @@ public class Report extends SherlockFragment implements OnItemSelectedListener{
 	private ReportProblem rp;
 	private Spinner spinner;
 	private Button selectBtn;
+	private Context context;
 	
 	private int selectedProblem = 0;
 	
@@ -48,6 +42,7 @@ public class Report extends SherlockFragment implements OnItemSelectedListener{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
+		context = getActivity().getApplicationContext();
 	}
 	
 	public void getProblemList(){
@@ -83,6 +78,19 @@ public class Report extends SherlockFragment implements OnItemSelectedListener{
 		@Override
 		public void onClick(View v) {
 			if(rp != null){
+				// May return null if a EasyTracker has not yet been initialized with a
+				// property ID.
+				EasyTracker easyTracker = EasyTracker.getInstance(context);
+
+				if(easyTracker != null) {
+					easyTracker.send(MapBuilder
+							.createEvent(getString(R.string.ga_event_category_report),     // Event category (required)
+									getString(R.string.ga_event_transaction),  // Event action (required)
+									getString(R.string.ga_event_report_step1),   // Event label
+									null)            // Event value
+									.build()
+							); 
+				}
 				Intent rptIntent = new Intent(v.getContext(),ReportLocation.class);
 				rptIntent.putExtra("problem", rp);
 				startActivity(rptIntent);
@@ -124,5 +132,6 @@ public class Report extends SherlockFragment implements OnItemSelectedListener{
 		SpinnerAdapter mySpinnerAdapter = new ReportProblemAdapter(reportProblemList, getActivity());
 		spinner.setAdapter(mySpinnerAdapter);
 		spinner.setOnItemSelectedListener(this);
-	}	
+	}
+	
 }

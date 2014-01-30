@@ -3,7 +3,6 @@ package uk.gov.northampton.droid;
 import java.io.Serializable;
 
 import android.content.ContentValues;
-import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
 
 public class CalendarReminder implements Serializable {

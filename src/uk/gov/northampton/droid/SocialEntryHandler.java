@@ -6,13 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
-import android.util.Log;
 
 public class SocialEntryHandler extends DefaultHandler{
 
@@ -123,7 +119,7 @@ public class SocialEntryHandler extends DefaultHandler{
 				}
 				
 			} catch (ParseException e) {
-				Log.d("date parsed", "failed");
+				
 			}
 			
 			return diff;	

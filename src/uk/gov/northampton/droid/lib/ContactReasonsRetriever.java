@@ -7,9 +7,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import uk.gov.northampton.droid.ContactReason;
-import uk.gov.northampton.droid.R;
-import android.content.res.Resources;
-import android.util.Log;
 
 public class ContactReasonsRetriever {
 	
@@ -29,7 +26,6 @@ public class ContactReasonsRetriever {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Log.d(getClass().getSimpleName(),"" + xml.length());
 		return xmlParser.parseContactReasons(xml.toString());
 	}
 	

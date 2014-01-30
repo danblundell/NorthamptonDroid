@@ -11,8 +11,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import android.util.Log;
-
 import uk.gov.northampton.droid.Confirmation;
 import uk.gov.northampton.droid.ConfirmationHandler;
 import uk.gov.northampton.droid.ContactReason;
@@ -45,10 +43,8 @@ public class XmlParser {
 			xmlReader.setContentHandler(socialHandler);
 			//perform the sync parse
 			xmlReader.parse(new InputSource(new StringReader(xml)));
-			Log.d("XML PARSE","PARSING");
 			return socialHandler.retrieveSocialFeed();
 		}catch(Exception e){
-			Log.d("XML PARSE","PARSING FAILED");
 			e.printStackTrace();
 			return null;
 		}
@@ -64,10 +60,8 @@ public class XmlParser {
 			xmlReader.setContentHandler(propertyHandler);
 			//perform the sync parse
 			xmlReader.parse(new InputSource(new StringReader(xml)));
-			Log.d("XML PARSE","PARSING");
 			return propertyHandler.retrievePropertyList();
 		}catch(Exception e){
-			Log.d("XML PARSE","PARSING FAILED");
 			e.printStackTrace();
 			return null;
 		}
@@ -83,10 +77,8 @@ public class XmlParser {
 			xmlReader.setContentHandler(contactReasonHandler);
 			//perform the sync parse
 			xmlReader.parse(new InputSource(new StringReader(xml)));
-			Log.d("XML PARSE","PARSING");
 			return contactReasonHandler.retrieveContactReasons();
 		}catch(Exception e){
-			Log.d("XML PARSE","PARSING FAILED");
 			e.printStackTrace();
 			return null;
 		}
@@ -102,10 +94,8 @@ public class XmlParser {
 			xmlReader.setContentHandler(reportProblemHandler);
 			//perform the sync parse
 			xmlReader.parse(new InputSource(new StringReader(xml)));
-			Log.d("XML PARSE","PARSING");
 			return reportProblemHandler.retrieveProblemReasons();
 		}catch(Exception e){
-			Log.d("XML PARSE","PARSING FAILED");
 			e.printStackTrace();
 			return null;
 		}
@@ -121,10 +111,8 @@ public class XmlParser {
 			xmlReader.setContentHandler(confirmationHandler);
 			//perform the sync parse
 			xmlReader.parse(new InputSource(new StringReader(xml)));
-			Log.d("XML PARSE","PARSING");
 			return confirmationHandler.retrieveConfirmation();
 		}catch(Exception e){
-			Log.d("XML PARSE","PARSING FAILED");
 			e.printStackTrace();
 			return null;
 		}

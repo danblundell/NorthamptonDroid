@@ -7,7 +7,6 @@ import uk.gov.northampton.droid.PropertyAdapter;
 import uk.gov.northampton.droid.R;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -17,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
 
 public class FindBinCollectionPropertyList extends SherlockFragmentActivity {
 
@@ -48,6 +49,20 @@ public class FindBinCollectionPropertyList extends SherlockFragmentActivity {
 
 		@Override
 		public void onClick(View v) {
+			// May return null if a EasyTracker has not yet been initialized with a
+			// property ID.
+			EasyTracker easyTracker = EasyTracker.getInstance(getApplicationContext());
+
+			if(easyTracker != null) {
+				easyTracker.send(MapBuilder
+						.createEvent(getString(R.string.ga_event_category_find),     // Event category (required)
+								getString(R.string.ga_event_transaction),  // Event action (required)
+								getString(R.string.ga_event_find_step2b),   // Event label
+								null)            // Event value
+								.build()
+						); 
+			}
+			
 			Intent i = new Intent(getApplicationContext(),FindBinCollectionResult.class);
 			i.putExtra(COLLECTION_ADDRESS, selectedProperty);
 			startActivity(i);
@@ -67,7 +82,6 @@ public class FindBinCollectionPropertyList extends SherlockFragmentActivity {
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View item, int pos, long id) {
 			selectedProperty = (Property) propertiesSpinner.getItemAtPosition(pos);
-			Log.i("NEW PROP SELECTED",selectedProperty.getAddress());
 		}
 
 		@Override
@@ -76,4 +90,18 @@ public class FindBinCollectionPropertyList extends SherlockFragmentActivity {
 		}
 		
 	};
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		EasyTracker.getInstance(this).activityStop(this);
+	}
 }

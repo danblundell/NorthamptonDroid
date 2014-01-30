@@ -1,9 +1,6 @@
 package uk.gov.northampton.droid;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
-import com.google.android.gms.maps.model.LatLng;
 
 public class ReportProblem implements Serializable, Comparable<ReportProblem>{
 	/**

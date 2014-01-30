@@ -2,13 +2,15 @@ package uk.gov.northampton.droid.fragments;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
+
 import uk.gov.northampton.droid.Confirmation;
 import uk.gov.northampton.droid.MainActivity;
 import uk.gov.northampton.droid.R;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.CalendarContract.Events;
-import android.util.Log;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -29,7 +31,6 @@ public class ReportConfirmation extends SherlockActivity {
 		ActionBar ab = getSupportActionBar();
 		ab.setTitle(R.string.conf_details_title);
 		
-		Log.d("Confirmation Activity","Created");
 		
 		findAllViewsById();
 		
@@ -48,22 +49,25 @@ public class ReportConfirmation extends SherlockActivity {
 		doneButton = (Button) this.findViewById(R.id.reportDoneButton);
 	}
 	
-	private OnClickListener calendarButtonListener = new OnClickListener(){
-
-		@Override
-		public void onClick(View v) {
-			// TODO set an event with a reminder
-			
-			//RRULE:FREQ=WEEKLY;INTERVAL=2;WKST=MO
-			
-		}
-		
-	};
-	
 	private OnClickListener doneButtonListener = new OnClickListener(){
 
 		@Override
 		public void onClick(View v) {
+			
+			// May return null if a EasyTracker has not yet been initialized with a
+			// property ID.
+			EasyTracker easyTracker = EasyTracker.getInstance(getApplicationContext());
+			
+			if(easyTracker != null) {
+				easyTracker.send(MapBuilder
+						.createEvent(getString(R.string.ga_event_category_report),     // Event category (required)
+								getString(R.string.ga_event_transaction),  // Event action (required)
+								getString(R.string.ga_event_report_step4),   // Event label
+								null)            // Event value
+								.build()
+						); 
+			}
+			
 			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -71,4 +75,18 @@ public class ReportConfirmation extends SherlockActivity {
 		}
 		
 	};
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);
+	}
 }

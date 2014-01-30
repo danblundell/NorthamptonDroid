@@ -2,20 +2,11 @@ package uk.gov.northampton.droid;
 
 import java.util.ArrayList;
 
-import com.actionbarsherlock.app.SherlockActivity;
-
-import uk.gov.northampton.droid.lib.HttpRetriever;
-
 import android.app.Activity;
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
