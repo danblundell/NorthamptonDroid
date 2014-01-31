@@ -66,6 +66,10 @@
     <string name="contact_send_button">Send It</string>
     <string name="contact_send_button_again">Try again</string>
     <string name="contact_send_error">Your message didn\'t send, try again when you have a connection</string>
+    <string name="contact_error_message">Enter a message</string>
+    <string name="contact_error_name">Enter your name</string>
+    <string name="contact_error_email">Check your email address</string>
+    <string name="contact_error_phone">Check your phone number</string>
     <string name="contact_url">CreateContact</string>
     <string name="findit_main_title">Find It</string>
     <string name="services_main_title">Services</string>

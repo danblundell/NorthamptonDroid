@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/addReminder"
+        android:title="@string/findit_bin_collection_reminder_button_text"
+        android:icon="@drawable/ic_action_new_event"
+        android:showAsAction="always" />
+</menu>

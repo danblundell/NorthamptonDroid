@@ -1,5 +1,7 @@
 package uk.gov.northampton.droid.fragments;
 
+import java.lang.reflect.Method;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -17,6 +19,7 @@ import uk.gov.northampton.droid.lib.ConfirmationRetriever;
 import uk.gov.northampton.droid.lib.ContactHttpSender;
 import uk.gov.northampton.droid.lib.EditTextDialogFragment;
 import uk.gov.northampton.droid.lib.EditTextDialogFragment.EditTextDialogListener;
+import uk.gov.northampton.droid.lib.PostCodeDialogFragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -34,7 +37,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ContactMessage extends SherlockFragmentActivity implements  EditTextDialogListener{
+public class ContactMessage extends SherlockFragmentActivity implements  EditTextDialogListener, PostCodeDialogFragment.PostCodeDialogListener {
 
 	private EditText name;
 	private EditText email;
@@ -47,7 +50,9 @@ public class ContactMessage extends SherlockFragmentActivity implements  EditTex
 	private TextView contactDesc;
 	private Context context;
 	private SharedPreferences sharedPrefs;
-
+	private String pDeviceId;
+	private String pPostCode;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -109,19 +114,34 @@ public class ContactMessage extends SherlockFragmentActivity implements  EditTex
 	private boolean sendMessage(){
 		boolean send = validateForm();
 		if(send){
+			
+			if(pDeviceId == null) {
+				pDeviceId = email.getText().toString();
+			}
+			if(pPostCode != null) {
 			setSupportProgressBarIndeterminateVisibility(true);
 			SendMessageTask sm = new SendMessageTask();
 
 			sm.execute(
+					pDeviceId,
+					email.getText().toString(),
+					phone.getText().toString(),
 					selectedSubject.getiDesc(),
 					selectedReason.getiDesc(),
 					selectedType.getiDesc(),
+					pPostCode,
 					name.getText().toString(),
-					message.getText().toString(),
-					email.getText().toString(),
-					phone.getText().toString()
+					message.getText().toString()
 					);
 			return true;
+			} else {
+				// post code fragment
+				PostCodeDialogFragment pcdf = new PostCodeDialogFragment();
+				Bundle bundle = new Bundle();
+				bundle.putString("callback", "sendMessage");
+				pcdf.setArguments(bundle);
+				pcdf.show(getSupportFragmentManager(), "pcdf");
+			}
 		}
 		return false;
 	}
@@ -165,6 +185,8 @@ public class ContactMessage extends SherlockFragmentActivity implements  EditTex
 		String settingName  = sharedPrefs.getString(Settings.NBC_NAME, "");
 		String settingEmail = sharedPrefs.getString(Settings.NBC_EMAIL, "");
 		String settingPhone = sharedPrefs.getString(Settings.NBC_TEL, "");
+		pDeviceId = sharedPrefs.getString(Settings.getDeviceIdKey(), null);
+		pPostCode = sharedPrefs.getString(Settings.NBC_POST_CODE, null);
 
 		if(settingName.compareTo(getString(R.string.settings_name_add)) != 0){
 			name.setText(settingName);
@@ -190,15 +212,15 @@ public class ContactMessage extends SherlockFragmentActivity implements  EditTex
 			//get httpsender and send data
 			ContactHttpSender chs = new ContactHttpSender(
 					getString(R.string.data_source),
-					"12345",
-					params[5],
-					params[6],
-					params[0],
-					params[1],
-					params[2],
-					"NN1 1DE",
-					params[3],
-					params[4]
+					params[0], // device id
+					params[1], // email
+					params[2], // phone
+					params[3], //subject
+					params[4],// reason
+					params[5],// type
+					params[6], // postcode
+					params[7], // name
+					params[8] // message
 					);
 			String result = chs.send(getString(R.string.mycouncil_url) + getString(R.string.contact_url));
 			//String result = "Done";
@@ -260,7 +282,7 @@ public class ContactMessage extends SherlockFragmentActivity implements  EditTex
 	}
 
 	private boolean validateForm(){
-		if(validateName() && validateEmail() && validatePhone() && validateMessge()){
+		if(validateName() && validateEmail() && validateMessge()){
 			return true;
 		}
 		return false;
@@ -271,19 +293,26 @@ public class ContactMessage extends SherlockFragmentActivity implements  EditTex
 		if(m.length() > 0){
 			return true;
 		}
+		Toast.makeText(getApplicationContext(), getString(R.string.contact_error_message), Toast.LENGTH_SHORT).show();
 		return false;
 	}
 
-	private boolean validatePhone() {
-		String p  = phone.getText().toString();
-		return true;
-	}
+//	private boolean validatePhone() {
+//		String p  = phone.getText().toString();
+//		if(p.length() == 0) {
+//			return true;
+//		}
+//		Toast.makeText(getApplicationContext(), getString(R.string.contact_error_phone), Toast.LENGTH_SHORT).show();
+//		return true;
+//	}
 
 	private boolean validateEmail() {
 		String e = email.getText().toString();
-		if(e.length() > 0){
+		
+		if(e.length() > 0 && android.util.Patterns.EMAIL_ADDRESS.matcher(e).matches()){
 			return true;
 		}
+		Toast.makeText(getApplicationContext(), getString(R.string.contact_error_email), Toast.LENGTH_SHORT).show();
 		return false;
 	}
 
@@ -292,6 +321,7 @@ public class ContactMessage extends SherlockFragmentActivity implements  EditTex
 		if(n.length() > 0){
 			return true;
 		}
+		Toast.makeText(getApplicationContext(), getString(R.string.contact_error_name), Toast.LENGTH_SHORT).show();
 		return false;
 	}
 
@@ -310,9 +340,15 @@ public class ContactMessage extends SherlockFragmentActivity implements  EditTex
 		String phonePref = phone.getText().toString();
 
 		Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-		editor.putString(Settings.NBC_NAME, namePref);
-		editor.putString(Settings.NBC_EMAIL, emailPref);
-		editor.putString(Settings.NBC_TEL, phonePref);
+		if(namePref.length() > 0) {
+			editor.putString(Settings.NBC_NAME, namePref);
+		}
+		if(emailPref.length() > 0) {
+			editor.putString(Settings.NBC_EMAIL, emailPref);
+		}
+		if(phonePref.length() > 0) {
+			editor.putString(Settings.NBC_TEL, phonePref);
+		}
 		editor.commit();
 	}
 
@@ -337,6 +373,13 @@ public class ContactMessage extends SherlockFragmentActivity implements  EditTex
 		// TODO Auto-generated method stub
 		super.onStart();
 		EasyTracker.getInstance(this).activityStart(this);
+	}
+
+	@Override
+	public void onFinishPostCodeDialog(String postCode) {
+		Settings.saveStringPreference(getApplicationContext(), Settings.NBC_POST_CODE, postCode);
+		pPostCode = postCode;
+		sendMessage();
 	}
 
 

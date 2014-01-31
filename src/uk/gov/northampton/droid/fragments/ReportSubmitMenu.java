@@ -141,7 +141,8 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 
 	private void setEventListeners() {
 		addPhoto.setOnClickListener(AddPhotoListener);
-		jobPhoto.setOnClickListener(FullScreenImageListener);
+		jobPhoto.setOnClickListener(AddPhotoListener);
+		//jobPhoto.setOnClickListener(FullScreenImageListener);
 		jobSubmit.setOnClickListener(ReportButtonListener);
 		jobEmail.setOnClickListener(UpdatePreferenceListener);
 		jobPhone.setOnClickListener(UpdatePreferenceListener);
@@ -186,14 +187,23 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		jobType.setText(pType);
 
 		if(pPhone == getString(R.string.settings_telephone_add)) {
-			jobPhoneCb.setVisibility(View.GONE);
-			jobPhoneAddBtn.setVisibility(View.VISIBLE);
-
+			jobPhoneCb.setChecked(false); // set the checkbox to false
+			jobPhoneCb.setVisibility(View.GONE); // hide the checkbox
+			jobPhoneAddBtn.setVisibility(View.VISIBLE); // show the add button
+		} else {
+			jobPhoneAddBtn.setVisibility(View.GONE); // hide the add button
+			jobPhoneCb.setVisibility(View.VISIBLE); // show the checkbox
+			jobPhoneCb.setChecked(true); // set the checkbox to true
 		}
 		if(pEmail == getString(R.string.settings_email_add)) {
-			jobEmailCb.setVisibility(View.GONE);
-			jobEmailAddBtn.setVisibility(View.VISIBLE);
-
+			jobEmailCb.setChecked(false); // set the checkbox to false
+			jobEmailCb.setVisibility(View.GONE); // hide the checkbox
+			jobEmailAddBtn.setVisibility(View.VISIBLE); // show the add button
+		} else {
+			jobEmailAddBtn.setVisibility(View.GONE); // hide the add button
+			jobEmailCb.setVisibility(View.VISIBLE); // show the checkbox
+			jobEmailCb.setChecked(true); // set the checkbox to true
+			
 		}
 
 		jobEmail.setText(pEmail);
@@ -268,14 +278,14 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 		}
 	};
 
-	private OnClickListener FullScreenImageListener = new OnClickListener(){
-		@Override
-		public void onClick(View v) {
-			Intent removePhotoIntent = new Intent(getApplicationContext(),ReportImageFullScreen.class);
-			removePhotoIntent.putExtra("photo", currentPhotoPath);
-			startActivity(removePhotoIntent);
-		}
-	};
+//	private OnClickListener FullScreenImageListener = new OnClickListener(){
+//		@Override
+//		public void onClick(View v) {
+//			Intent removePhotoIntent = new Intent(getApplicationContext(),ReportImageFullScreen.class);
+//			removePhotoIntent.putExtra("photo", currentPhotoPath);
+//			startActivity(removePhotoIntent);
+//		}
+//	};
 
 	private OnCheckedChangeListener CheckBoxListener = new OnCheckedChangeListener(){
 

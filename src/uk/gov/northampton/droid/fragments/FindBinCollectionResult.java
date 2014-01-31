@@ -38,7 +38,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 
@@ -47,7 +51,7 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 	private static final String COLLECTION_ADDRESS = "COLLECTION_ADDRESS";
 	private Property collectionAddress;
 	private Button doneBtn;
-	private Button reminderBtn;
+	private MenuItem addReminderMenuItem;
 	private TextView binTypeTextView;
 	private TextView binDayTextView;
 	private TextView binTimeTextView;
@@ -77,7 +81,7 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 		super.onCreate(bundle);
 		setContentView(R.layout.find_it_4_bin_collection_confirmation);
 		findAllViewsById();
-		
+		ActionBar ab = getSupportActionBar();
 		context = getApplicationContext();
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 		
@@ -92,6 +96,37 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 		}
 		
 	}
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu m){
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			MenuInflater inflater = getSupportMenuInflater();
+    		inflater.inflate(R.menu.findit_confirmation, m);
+    		addReminderMenuItem = m.findItem(R.id.addReminder);
+		}
+    	return true;
+    }
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+    	if(item.getItemId() == R.id.addReminder) {
+			// May return null if a EasyTracker has not yet been initialized with a
+			// property ID.
+			EasyTracker easyTracker = EasyTracker.getInstance(getApplicationContext());
+
+			if(easyTracker != null) {
+				easyTracker.send(MapBuilder
+						.createEvent(getString(R.string.ga_event_category_find),     // Event category (required)
+								getString(R.string.ga_event_transaction),  // Event action (required)
+								getString(R.string.ga_event_find_reminder_set),   // Event label
+								null)            // Event value
+								.build()
+						); 
+			}
+			showTimePickerDialog();
+    	}
+		return super.onOptionsItemSelected(item);
+	}
 
 	private void findAllViewsById(){
 		binDayTextView = (TextView) findViewById(R.id.findit_dynamic_top_TextView);
@@ -99,16 +134,13 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 		binTimeTextView = (TextView) findViewById(R.id.findit_dynamic_collection_time_TextView);
 		recyclingDetailsTextView = (TextView) findViewById(R.id.findit_collection_reminder_TextView);
 		doneBtn = (Button) findViewById(R.id.finditDoneButton);
-		if(Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			reminderBtn = (Button) findViewById(R.id.finditReminderButton);
-		}
+//		if(Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+//			reminderBtn = (Button) findViewById(R.id.finditReminderButton);
+//		}
 	}
 
 	private void setListeners(){
 		doneBtn.setOnClickListener(doneButtonListener);
-		if(Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			reminderBtn.setOnClickListener(reminderButtonListener);
-		}
 	}
 
 	private void updateUIFromIntent(){
@@ -146,8 +178,7 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 				getUserCalendarId(accountId, accountId);
 			}
 			else {
-
-				hideUIElement(reminderBtn.getId());
+				hideMenuItem(addReminderMenuItem);
 			}
 		}
 	}
@@ -155,6 +186,19 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 	private void hideUIElement(int id) {
 		View v = findViewById(id);
 		v.setVisibility(View.GONE);
+	}
+	
+	private void showUIElement(int id) {
+		View v = findViewById(id);
+		v.setVisibility(View.VISIBLE);
+	}
+	
+	private void hideMenuItem(MenuItem mi) {
+		mi.setVisible(false);
+	}
+	
+	private void showMenuItem(MenuItem mi) {
+		mi.setVisible(true);
 	}
 
 	private String getBinCollectionType(String s){
@@ -226,26 +270,26 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 
 	};
 	
-	private OnClickListener reminderButtonListener = new OnClickListener(){
-		@Override
-		public void onClick(View v) {
-			// May return null if a EasyTracker has not yet been initialized with a
-			// property ID.
-			EasyTracker easyTracker = EasyTracker.getInstance(getApplicationContext());
-
-			if(easyTracker != null) {
-				easyTracker.send(MapBuilder
-						.createEvent(getString(R.string.ga_event_category_find),     // Event category (required)
-								getString(R.string.ga_event_transaction),  // Event action (required)
-								getString(R.string.ga_event_find_reminder_set),   // Event label
-								null)            // Event value
-								.build()
-						); 
-			}
-			showTimePickerDialog();
-			
-		}
-	};
+//	private OnClickListener reminderButtonListener = new OnClickListener(){
+//		@Override
+//		public void onClick(View v) {
+//			// May return null if a EasyTracker has not yet been initialized with a
+//			// property ID.
+//			EasyTracker easyTracker = EasyTracker.getInstance(getApplicationContext());
+//
+//			if(easyTracker != null) {
+//				easyTracker.send(MapBuilder
+//						.createEvent(getString(R.string.ga_event_category_find),     // Event category (required)
+//								getString(R.string.ga_event_transaction),  // Event action (required)
+//								getString(R.string.ga_event_find_reminder_set),   // Event label
+//								null)            // Event value
+//								.build()
+//						); 
+//			}
+//			showTimePickerDialog();
+//			
+//		}
+//	};
 	
 	private boolean hasAlternateCollections(String s){
 		return (s.compareTo(getString(R.string.bin_collection_black)) == 0 || s.compareTo(getString(R.string.bin_collection_brown)) == 0) ? true : false;
@@ -368,7 +412,7 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 		
 		protected void onPostExecute(final String result){
 			if(result != null) {
-				Toast.makeText(getApplicationContext(), "Created Event ID" + result, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "Reminder Set", Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
