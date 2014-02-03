@@ -5,7 +5,6 @@
     android:orientation="vertical"
     >
     
-
    <LinearLayout
        android:id="@+id/linearMapLayout"
        android:layout_width="fill_parent"
@@ -13,14 +12,13 @@
        android:layout_alignParentBottom="true"
        android:background="@color/actionBarText"
        android:gravity="bottom"
-       android:orientation="horizontal"
-       android:padding="@dimen/baseline_eight" >
-       
+       android:orientation="horizontal" >
+    
        <fragment
            android:id="@+id/mapview"
-           android:name="com.google.android.gms.maps.MapFragment"
+           android:name="com.google.android.gms.maps.SupportMapFragment"
            android:layout_width="match_parent"
-           android:layout_height="wrap_content"
+           android:layout_height="fill_parent"
            android:layout_gravity="top" />
 
     </LinearLayout>
@@ -37,5 +35,24 @@
        android:textStyle="bold"
        android:layout_margin="@dimen/baseline"
        android:layout_marginTop="0dip"  />
+   
+   <!-- <LinearLayout android:id="@+id/linearAddressLayout"
+       android:background="@color/actionBarText"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentTop="true"
+       android:gravity="center"
+       android:orientation="horizontal"
+       android:padding="@dimen/baseline_eight"
+       android:layout_margin="@dimen/baseline_eight" >
+
+       <EditText
+           android:id="@+id/addressEditText"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center_vertical"
+           android:inputType="textPostalAddress" />
+       
+   </LinearLayout> -->
 
 </RelativeLayout>

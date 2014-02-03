@@ -388,7 +388,7 @@ public class ReportSubmitMenu extends SherlockFragmentActivity implements PhotoC
 						String.valueOf(rp.getpLat()),
 						String.valueOf(rp.getpLng()),
 						rp.getpDetails(),
-						rp.getpDetails(), // TODO this should be report location but needs defining elsewhere
+						rp.getpLocation(),
 						pEmail,
 						pPhone 
 						);

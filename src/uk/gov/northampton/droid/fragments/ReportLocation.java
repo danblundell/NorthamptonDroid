@@ -1,20 +1,30 @@
 package uk.gov.northampton.droid.fragments;
 
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ReportProblem;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.google.android.gms.common.ConnectionResult;
@@ -26,7 +36,7 @@ import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.model.*;
 
-public class ReportLocation extends FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
+public class ReportLocation extends SherlockFragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
 
 	private GoogleMap mView;
 	private LatLng mapCenter;
@@ -36,11 +46,12 @@ public class ReportLocation extends FragmentActivity implements GooglePlayServic
 	private LocationClient mLocationClient;
 	private Location mCurrentLocation; 
 	private Button selectLocation;
+	private String addressString;
+	private GetAddressTask addressTask;
 	private static final String LAST_KNOWN_LOCATION = "LAST_KNOWN_LOCATION";
 
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
-	@SuppressLint("NewApi")
 	public void onCreate(Bundle savedInstanceState) {
 
 		// TODO Auto-generated method stub
@@ -55,19 +66,20 @@ public class ReportLocation extends FragmentActivity implements GooglePlayServic
 
 		// if a lat/lng has been saved, use that
 		if(savedInstanceState != null && savedInstanceState.containsKey(LAST_KNOWN_LOCATION)) {
+
 			mapCenter = savedInstanceState.getParcelable(LAST_KNOWN_LOCATION);
 		}
 		else {
-			// set up a temporary center point for the map
+			// set up the center point for the map
 			double lat = 51.751724;
 			double lng = -1.255285;
 			mapCenter = new LatLng(lat,lng);
-			
+
 			// if google services are available, connect to them to get a location
 			if(servicesAvailable()) {
 				mLocationClient.connect(); // this calls the 'onConnected' listener
 			}
-			
+
 		}
 
 		findViewsById();
@@ -88,13 +100,15 @@ public class ReportLocation extends FragmentActivity implements GooglePlayServic
 
 		addListeners();
 	}
-	
+
 	private void getLastKnownLocation() {
-		
 		mCurrentLocation = mLocationClient.getLastLocation();
 
 		if(mCurrentLocation != null) {
 			LatLng newLocation = new LatLng(mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude());
+			
+			getAddress(newLocation);
+			
 			if(mMarker == null){
 				// create the marker if there isn't one
 				mMarker = mView.addMarker(new MarkerOptions()
@@ -115,7 +129,8 @@ public class ReportLocation extends FragmentActivity implements GooglePlayServic
 
 	private void findViewsById() {
 		// find the ui components
-		mView = ((MapFragment) getFragmentManager().findFragmentById(R.id.mapview)).getMap();
+		mView = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapview)).getMap();
+		//addressEditText = (EditText) findViewById(R.id.addressEditText);
 		selectLocation = (Button) findViewById(R.id.googlemaps_select_location);
 	}
 
@@ -152,14 +167,16 @@ public class ReportLocation extends FragmentActivity implements GooglePlayServic
 		public void onMarkerDragEnd(Marker m) {
 			CameraUpdate update = CameraUpdateFactory.newLatLng(m.getPosition());
 			mView.animateCamera(update, 250, null);
+
+			// run address search
+			getAddress(m.getPosition());
 		}
 
 		@Override
 		public void onMarkerDragStart(Marker m) {
 			// TODO Auto-generated method stub
 		}
-
-	};
+	};	
 
 	// when the map is clicked, do stuff
 	private OnMapClickListener mcl = new OnMapClickListener() {
@@ -169,6 +186,9 @@ public class ReportLocation extends FragmentActivity implements GooglePlayServic
 			mMarker.setPosition(newPosition);
 			CameraUpdate update = CameraUpdateFactory.newLatLngZoom(newPosition, 16);
 			mView.animateCamera(update, 250, null);
+
+			// run address search
+			getAddress(newPosition);
 		}
 
 	};
@@ -197,6 +217,7 @@ public class ReportLocation extends FragmentActivity implements GooglePlayServic
 			if(mMarker != null){
 				rp.setpLat(mMarker.getPosition().latitude);
 				rp.setpLng(mMarker.getPosition().longitude);
+				rp.setpLocation(addressString);
 			}
 
 			submitMenuIntent.putExtra("problem", rp);
@@ -375,5 +396,116 @@ public class ReportLocation extends FragmentActivity implements GooglePlayServic
 			mLocationClient.connect();
 		}
 	}
+	
+	private void setAddressText(String address) {
+		addressString = address;
+		//addressEditText.setVisibility(View.VISIBLE);
+		//addressEditText.setText(getString(R.string.report_location_address_near) + " " + address);
+		
+	}
+	
+	
 
+	private class GetAddressTask extends AsyncTask<LatLng, Void, String> {
+
+
+		@Override
+		protected void onPostExecute(String address) {
+			setAddressText(address);
+			setBusy(false);
+			super.onPostExecute(address);
+		}
+
+		Context mContext;
+		public GetAddressTask(Context context) {
+			super();
+			mContext = context;
+		}
+
+		/**
+		 * Get a Geocoder instance, get the latitude and longitude
+		 * look up the address, and return it
+		 *
+		 * @params params One or more Location objects
+		 * @return A string containing the address of the current
+		 * location, or an empty string if no address can be found,
+		 * or an error message
+		 */
+		@Override
+		protected String doInBackground(LatLng... params) {
+
+			Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
+
+			// Get the current location from the input parameter list
+			//Convert LatLng to Location
+			LatLng point = params[0];
+
+			Location loc = new Location("Location");
+			loc.setLatitude(point.latitude);
+			loc.setLongitude(point.longitude);
+			loc.setTime(new Date().getTime()); //Set time as current Date
+
+
+			// Create a list to contain the result address
+			List<Address> addresses = null;
+			String addressText = "";
+
+			try {
+				/*
+				 * Return 1 address.
+				 */
+				addresses = geocoder.getFromLocation(loc.getLatitude(),
+						loc.getLongitude(), 1);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			} catch (IllegalArgumentException e2) {
+				// Error message to post in the log
+				String errorString = "Illegal arguments " +
+						Double.toString(loc.getLatitude()) +
+						" , " +
+						Double.toString(loc.getLongitude()) +
+						" passed to address service";
+				e2.printStackTrace();
+			}
+			// If the reverse geocode returned an address
+			if (addresses != null && addresses.size() > 0) {
+
+				// Get the address
+				Address address = addresses.get(0);
+				/*
+				 * Format the first line of address (if available),
+				 * city, and country name.
+				 */
+
+				addressText = String.format("%s, %s, %s",
+						address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "", 
+								address.getLocality(),
+								address.getCountryName());
+
+			}
+			return addressText;
+		}
+	}
+
+	public void getAddress(LatLng l) {
+		// Ensure that a Geocoder services is available
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD && Geocoder.isPresent()) {
+			setBusy(true);
+			if(addressTask != null) {
+				addressTask.cancel(true);
+			}
+
+			addressTask = (GetAddressTask) new GetAddressTask(this).execute(l);
+
+		}
+	} 
+	
+	/*
+	 * Helper method to switch the progress bar on or off
+	 */
+	private void setBusy(Boolean b){
+		setSupportProgressBarIndeterminateVisibility(b);
+	}
 }
+
+

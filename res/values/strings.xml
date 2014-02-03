@@ -37,6 +37,7 @@
     <string name="report_image_addPhoto_description">Add a photo</string>
     <string name="report_image_description">Supporting Photo</string>
     <string name="report_location_step">Location</string>
+    <string name="report_location_address_near">near</string>
     <string name="report_details_step">Details</string>
     <string name="report_confirmation_step">Done</string>
     <string name="report_notifications_title">Receipt</string>
