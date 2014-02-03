@@ -2,10 +2,32 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:background="@color/actionBarText" >
+    
+    <LinearLayout
+        android:id="@+id/findit_collection_buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="@dimen/baseline" >
+
+        <Button
+            android:id="@+id/finditDoneButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nbc_button"
+            android:padding="10dip"
+            android:text="@string/report_confirmation_done_Button"
+            android:textColor="#FFFFFFFF"
+            android:textStyle="bold"
+            android:layout_marginLeft="1dip" />
+    </LinearLayout>
 
     <ScrollView
+        android:id="@+id/findit_confirmation_ScrollView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/findit_collection_buttons"
         android:background="@color/actionBarText"
         android:fadingEdgeLength="@dimen/baseline_full"
         android:fillViewport="false" >
@@ -18,8 +40,7 @@
             android:orientation="vertical"
             android:padding="@dimen/baseline"
             android:scrollbarStyle="outsideOverlay"
-            android:scrollbars="vertical"
-            android:layout_marginBottom="@dimen/baseline" >
+            android:scrollbars="vertical" >
 
             <LinearLayout
                 android:id="@+id/findit_confProgresswrapper"
@@ -185,24 +206,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/findit_collection_buttons"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:padding="@dimen/baseline" >
 
-        <Button
-            android:id="@+id/finditDoneButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/nbc_button"
-            android:padding="10dip"
-            android:text="@string/report_confirmation_done_Button"
-            android:textColor="#FFFFFFFF"
-            android:textStyle="bold"
-            android:layout_marginLeft="1dip" />
-    </LinearLayout>
 
 </RelativeLayout>
