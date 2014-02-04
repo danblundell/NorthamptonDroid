@@ -366,8 +366,8 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 			String eventId = "";
 			CalendarEvent ce = params[0];
 			
-			Calendar start = Calendar.getInstance();
-			start.setTimeInMillis(ce.getStartMillis());
+			//Calendar start = Calendar.getInstance();
+			//start.setTimeInMillis(ce.getStartMillis());
 			
 			
 			ContentValues cv = ce.getContent(); // gets the config options for the event from the Calendar Event object
@@ -426,16 +426,17 @@ public class FindBinCollectionResult extends SherlockFragmentActivity implements
 		endTime.set(Calendar.HOUR,endTime.get(Calendar.HOUR)+1);
 		
 		long startMillis = startTime.getTimeInMillis();
-		long endMillis = endTime.getTimeInMillis();
+		//long endMillis = endTime.getTimeInMillis();
 		
 		CalendarEvent ce = new CalendarEvent();
 		ce.setCalID(calId);
 		ce.setTitle(title);
 		ce.setTag(tag);
+		ce.setDuration("PT1H");
 		ce.setDescription("Event description text");
 		ce.setTimezone(TimeZone.getDefault().getDisplayName());
 		ce.setStartMillis(startMillis);
-		ce.setEndMillis(endMillis);
+		//ce.setEndMillis(endMillis);
 		ce.setRrule(rrule);
 		ce.setReminderTime(reminderMinutes);
 		if(existingEventId > 0) {
