@@ -1496,7 +1496,7 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f070021;
-        public static final int account_filter=0x7f0700a1;
+        public static final int account_filter=0x7f0700a2;
         public static final int app_name=0x7f070028;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
@@ -1528,8 +1528,8 @@ containing a value of this type.
         public static final int bin_collection_brown=0x7f070087;
         public static final int bin_collection_brown_out=0x7f070088;
         public static final int bin_collections_url=0x7f070040;
-        public static final int button_text_Done=0x7f07009a;
-        public static final int button_text_Next=0x7f07009b;
+        public static final int button_text_Done=0x7f07009b;
+        public static final int button_text_Next=0x7f07009c;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -1611,7 +1611,7 @@ containing a value of this type.
         public static final int conf_step3=0x7f070074;
         public static final int conf_step4=0x7f070075;
         public static final int conf_step5=0x7f070076;
-        public static final int contact_confirmation_done_Button=0x7f070099;
+        public static final int contact_confirmation_done_Button=0x7f07009a;
         public static final int contact_confirmation_step=0x7f07005b;
         public static final int contact_confirmation_title=0x7f070056;
         public static final int contact_description=0x7f070061;
@@ -1637,11 +1637,11 @@ containing a value of this type.
         public static final int contact_type_title=0x7f070054;
         public static final int contact_url=0x7f070069;
         public static final int data_source=0x7f070039;
-        public static final int event_rrule_fortnightly=0x7f07009f;
-        public static final int event_rrule_weekly=0x7f0700a0;
-        public static final int event_title_bags=0x7f07009e;
-        public static final int event_title_blackbin=0x7f07009c;
-        public static final int event_title_brownbin=0x7f07009d;
+        public static final int event_rrule_fortnightly=0x7f0700a0;
+        public static final int event_rrule_weekly=0x7f0700a1;
+        public static final int event_title_bags=0x7f07009f;
+        public static final int event_title_blackbin=0x7f07009d;
+        public static final int event_title_brownbin=0x7f07009e;
         public static final int findit_bin_collection_address_text=0x7f070090;
         public static final int findit_bin_collection_bin_text=0x7f070093;
         public static final int findit_bin_collection_day=0x7f07008f;
@@ -1649,6 +1649,7 @@ containing a value of this type.
         public static final int findit_bin_collection_find_text=0x7f070091;
         public static final int findit_bin_collection_recycling_text=0x7f070095;
         public static final int findit_bin_collection_reminder_button_text=0x7f070097;
+        public static final int findit_bin_collection_reminder_set=0x7f070098;
         public static final int findit_bin_collection_time_text=0x7f070094;
         public static final int findit_bin_collection_wheelie_text=0x7f070096;
         public static final int findit_main_title=0x7f07006a;
@@ -1656,30 +1657,30 @@ containing a value of this type.
         public static final int findit_postcode_title=0x7f07008d;
         public static final int findit_type_title=0x7f07008b;
         public static final int findit_type_title_desc=0x7f07008c;
-        public static final int ga_event_category_contact=0x7f0700a7;
-        public static final int ga_event_category_find=0x7f0700a6;
-        public static final int ga_event_category_report=0x7f0700a5;
-        public static final int ga_event_category_social=0x7f0700a4;
-        public static final int ga_event_contact_step1=0x7f0700ae;
-        public static final int ga_event_contact_step2=0x7f0700af;
-        public static final int ga_event_contact_step3=0x7f0700b0;
-        public static final int ga_event_contact_step4=0x7f0700b1;
-        public static final int ga_event_contact_step5=0x7f0700b2;
-        public static final int ga_event_contact_step5b=0x7f0700b3;
-        public static final int ga_event_contact_step6=0x7f0700b4;
-        public static final int ga_event_find_reminder_set=0x7f0700b9;
-        public static final int ga_event_find_step1=0x7f0700b5;
-        public static final int ga_event_find_step2=0x7f0700b6;
-        public static final int ga_event_find_step2b=0x7f0700b7;
-        public static final int ga_event_find_step3=0x7f0700b8;
-        public static final int ga_event_report_photo_added=0x7f0700ad;
-        public static final int ga_event_report_step1=0x7f0700a8;
-        public static final int ga_event_report_step2=0x7f0700a9;
-        public static final int ga_event_report_step3=0x7f0700aa;
-        public static final int ga_event_report_step3b=0x7f0700ab;
-        public static final int ga_event_report_step4=0x7f0700ac;
-        public static final int ga_event_transaction=0x7f0700a3;
-        public static final int ga_event_ui=0x7f0700a2;
+        public static final int ga_event_category_contact=0x7f0700a8;
+        public static final int ga_event_category_find=0x7f0700a7;
+        public static final int ga_event_category_report=0x7f0700a6;
+        public static final int ga_event_category_social=0x7f0700a5;
+        public static final int ga_event_contact_step1=0x7f0700af;
+        public static final int ga_event_contact_step2=0x7f0700b0;
+        public static final int ga_event_contact_step3=0x7f0700b1;
+        public static final int ga_event_contact_step4=0x7f0700b2;
+        public static final int ga_event_contact_step5=0x7f0700b3;
+        public static final int ga_event_contact_step5b=0x7f0700b4;
+        public static final int ga_event_contact_step6=0x7f0700b5;
+        public static final int ga_event_find_reminder_set=0x7f0700ba;
+        public static final int ga_event_find_step1=0x7f0700b6;
+        public static final int ga_event_find_step2=0x7f0700b7;
+        public static final int ga_event_find_step2b=0x7f0700b8;
+        public static final int ga_event_find_step3=0x7f0700b9;
+        public static final int ga_event_report_photo_added=0x7f0700ae;
+        public static final int ga_event_report_step1=0x7f0700a9;
+        public static final int ga_event_report_step2=0x7f0700aa;
+        public static final int ga_event_report_step3=0x7f0700ab;
+        public static final int ga_event_report_step3b=0x7f0700ac;
+        public static final int ga_event_report_step4=0x7f0700ad;
+        public static final int ga_event_transaction=0x7f0700a4;
+        public static final int ga_event_ui=0x7f0700a3;
         /** Replace placeholder ID with your tracking ID
          */
         public static final int ga_trackingId=0x7f070027;
@@ -1692,7 +1693,7 @@ containing a value of this type.
         public static final int next_button_text=0x7f070035;
         public static final int photo_album_name=0x7f070051;
         public static final int postcode_dialog_title=0x7f07006c;
-        public static final int report_confirmation_done_Button=0x7f070098;
+        public static final int report_confirmation_done_Button=0x7f070099;
         public static final int report_confirmation_step=0x7f07004a;
         public static final int report_description=0x7f07003d;
         public static final int report_details_step=0x7f070049;

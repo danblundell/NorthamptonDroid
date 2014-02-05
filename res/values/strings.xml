@@ -158,6 +158,7 @@
 	<string name="findit_bin_collection_recycling_text">We will collect all of your recycling every week.</string>
 	<string name="findit_bin_collection_wheelie_text">Your collections alternate between Black and Brown wheelie bins.</string>
 	<string name="findit_bin_collection_reminder_button_text">Set a Reminder</string>
+	<string name="findit_bin_collection_reminder_set">Reminder Set</string>
 	<string-array name="findit_type_array">
 	    <item>@string/findit_bin_collection_day</item>
 	</string-array>

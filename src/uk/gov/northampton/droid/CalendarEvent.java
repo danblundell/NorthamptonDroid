@@ -21,7 +21,9 @@ public class CalendarEvent implements Serializable {
 	private int reminder;
 	private long eventId;
 	private boolean isUpdate = false;
+	private int hasAlarm = 0;
 	private ContentValues content = new ContentValues();
+	
 	
 	public CalendarEvent(long calID, long startMillis, long endMillis,
 			String title, String description, String timezone, String duration) {
@@ -82,6 +84,7 @@ public class CalendarEvent implements Serializable {
 		content.put(Events.EVENT_TIMEZONE, timezone);
 		content.put(Events.DTSTART, startMillis);
 		content.put(Events.DURATION, duration);
+		content.put(Events.HAS_ALARM, 0);
 		//content.put(Events.DTEND, endMillis);
 		content.put(Events.RRULE, rrule);
 		
@@ -138,6 +141,10 @@ public class CalendarEvent implements Serializable {
 	public void setDuration(String dur) {
 		// TODO Auto-generated method stub
 		this.duration = dur;
+	}
+
+	public void setAlarm(int i) {
+		this.hasAlarm = i;
 	}
 	
 	
