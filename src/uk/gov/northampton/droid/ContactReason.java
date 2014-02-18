@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ContactReason implements Serializable, Comparable<ContactReason>{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public String eDesc;
 	public String iDesc;
 	public ArrayList<ContactReason> reasons;

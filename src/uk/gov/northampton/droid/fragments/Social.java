@@ -78,7 +78,7 @@ public class Social extends SherlockListFragment {
 		@Override
 		protected ArrayList<SocialEntry> doInBackground(String... params) {
 			String url = getString(R.string.social_feed_url);
-			return 	sfr.retrieveSocialFeed(url);
+			return 	sfr.retrieveSocialFeed(url, getActivity().getApplicationContext());
 		}
 		
 		@Override

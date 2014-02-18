@@ -19,7 +19,6 @@ import android.widget.TextView;
 public class ContactConfirmation extends SherlockActivity {
 	
 	private TextView callNumber;
-	private TextView callDescription;
 	private TextView callDueDate;
 	private Button doneButton;
 	private Context context;
@@ -47,7 +46,6 @@ public class ContactConfirmation extends SherlockActivity {
 	
 	private void findAllViewsById(){
 		callNumber = (TextView) this.findViewById(R.id.contact_conf_case_ref_TextView);
-		callDescription = (TextView) this.findViewById(R.id.contact_conf_description_TextView);
 		callDueDate = (TextView) this.findViewById(R.id.contact_conf_due_date_TextView);
 		doneButton = (Button) this.findViewById(R.id.contact_done_button);
 	}

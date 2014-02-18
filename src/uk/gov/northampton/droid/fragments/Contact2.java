@@ -8,7 +8,6 @@ import com.google.analytics.tracking.android.EasyTracker;
 import uk.gov.northampton.droid.R;
 import uk.gov.northampton.droid.ContactReason;
 import uk.gov.northampton.droid.ContactReasonsAdapter;
-import uk.gov.northampton.droid.lib.ContactReasonsRetriever;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +21,6 @@ import android.widget.TextView;
 
 public class Contact2<CurrentActivity> extends SherlockActivity {
 	
-	private ContactReasonsRetriever crr = new ContactReasonsRetriever();
 	private Spinner spinner;
 	private ContactReason selectedSubject;
 	private ContactReason selectedReason;

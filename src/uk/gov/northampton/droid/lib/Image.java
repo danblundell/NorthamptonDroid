@@ -4,7 +4,11 @@ import java.io.Serializable;
 
 public class Image implements Serializable{
     
-    public static final String SIZE_ORIGINAL = "original";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static final String SIZE_ORIGINAL = "original";
     public static final String SIZE_MID = "mid";
     public static final String SIZE_COVER = "cover";
     public static final String SIZE_THUMB = "thumb";

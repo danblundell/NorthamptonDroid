@@ -6,22 +6,37 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 public class HttpRetriever {
 
-	private DefaultHttpClient client = new DefaultHttpClient();
+	private CustomHttpClient client;
 
-	public String retrieve(String url){
+	public String retrieve(String url, Context context){
+		HttpParams httpParameters = new BasicHttpParams();
+        // Set the timeout in milliseconds until a connection is established.
+        int timeoutConnection = 10000;
+        HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+        // Set the default socket timeout (SO_TIMEOUT) 
+        // in milliseconds which is the timeout for waiting for data.
+        int timeoutSocket = 10000;
+        HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+        
+        client = new CustomHttpClient(httpParameters, context);
+        
 		HttpGet getRequest = new HttpGet(url);
+		
 		try{
 			HttpResponse getResponse = client.execute(getRequest);
-			
 			final int statusCode = getResponse.getStatusLine().getStatusCode();
+	
 			if(statusCode != HttpStatus.SC_OK){
 				return null;
 			}
@@ -33,6 +48,7 @@ public class HttpRetriever {
 			}
 		}
 		catch(IOException e){
+			e.printStackTrace();
 			getRequest.abort();
 		}
 		return null;

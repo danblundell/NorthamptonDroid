@@ -22,11 +22,9 @@ public class Find extends SherlockFragment implements OnItemSelectedListener {
 	
 	private Button nextBtn;
 	private Spinner spinner;
-	private Button editDetailBtn;
-	private TextView editDetailTextView;
 	private int selectedItem;
 	
-	private static final String PROPERTIES_LIST = "PROPERTIES_LIST";
+	//private static final String PROPERTIES_LIST = "PROPERTIES_LIST";
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -75,20 +73,6 @@ public class Find extends SherlockFragment implements OnItemSelectedListener {
 		nextBtn = (Button) v.findViewById(R.id.findit_button);
 	}
 	
-//	private void updateUIFromPreferences(){
-//		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-//		String pcStr = sharedPrefs.getString(Settings.NBC_POST_CODE, getString(R.string.postcode_dialog_title));
-//		editDetailTextView.setText(pcStr);
-//		if(pcStr.equalsIgnoreCase(getString(R.string.postcode_dialog_title))){
-//			editDetailBtn.setText("Add");
-//		}
-//		
-//	}
-	
-//	private void showPostCodeOptions() {
-//	    DialogFragment newFragment = new PostCodeDialogFragment();
-//	    newFragment.show(getActivity().getSupportFragmentManager(), "postCode");
-//	}
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
@@ -100,29 +84,5 @@ public class Find extends SherlockFragment implements OnItemSelectedListener {
 		// TODO Auto-generated method stub
 		
 	}
-	
-//	private class RetrieveBinCollectionsTask extends AsyncTask<String, Void, ArrayList<Property>>{
-//
-//		@Override
-//		protected ArrayList<Property> doInBackground(String... params) {
-//			Log.d("BIN FINDER", "Getting Bin Collections");
-//			BinCollectionsRetriever bcr = new BinCollectionsRetriever();
-//			String url = getString(R.string.mycouncil_url) + getString(R.string.bin_collections_url) + "NN48QZ";
-//			return 	bcr.retrieveBinCollections(url);
-//		}
-//		
-//		@Override
-//		protected void onPostExecute(final ArrayList<Property> result){
-//			//run intent to next activity
-//			Log.i("BIN RESULTS","done");
-//			if(result != null){
-//				Intent i = new Intent(getActivity(), FindBinCollectionPropertyList.class);
-//				i.putExtra(PROPERTIES_LIST, result);
-//				startActivity(i);
-//			}
-//		}
-//	}
-
-
 	
 }

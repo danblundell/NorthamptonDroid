@@ -26,27 +26,27 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class FindPostCode extends SherlockFragmentActivity implements PostCodeDialogFragment.PostCodeDialogListener {
-	
+
 	private Button nextBtn;
 	private EditText postCodeEditText;
-	
+
 	private static final String PROPERTIES_LIST = "PROPERTIES_LIST";
 	private static final String COLLECTION_ADDRESS = "COLLECTION_ADDRESS";
 	private static final String POSTCODE = "POSTCODE";
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		super.onCreate(savedInstanceState);
 		setSupportProgressBarIndeterminateVisibility(false);
 		setContentView(R.layout.find_it_2_postcode);
-        findAllViewsById();
-        updateUIFromPreferences();
-        nextBtn.setOnClickListener(nextButtonClickListener);
-        postCodeEditText.setOnClickListener(editPostCodeClickListener);
-		
+		findAllViewsById();
+		updateUIFromPreferences();
+		nextBtn.setOnClickListener(nextButtonClickListener);
+		postCodeEditText.setOnClickListener(editPostCodeClickListener);
+
 	}
-	
+
 	private OnClickListener nextButtonClickListener = new OnClickListener(){
 		@Override
 		public void onClick(View v) {
@@ -64,7 +64,7 @@ public class FindPostCode extends SherlockFragmentActivity implements PostCodeDi
 									.build()
 							); 
 				}
-				
+
 				setSupportProgressBarIndeterminateVisibility(true);
 				RetrieveBinCollectionsTask rbc = new RetrieveBinCollectionsTask();
 				rbc.execute();
@@ -72,10 +72,10 @@ public class FindPostCode extends SherlockFragmentActivity implements PostCodeDi
 			else{
 				Toast.makeText(getApplicationContext(), "Please enter a Post Code", Toast.LENGTH_SHORT).show();
 			}
-			
+
 		}
 	};
-	
+
 	private OnClickListener editPostCodeClickListener = new OnClickListener(){
 		@Override
 		public void onClick(View v) {
@@ -85,15 +85,15 @@ public class FindPostCode extends SherlockFragmentActivity implements PostCodeDi
 			else {
 				showPostCodeOptions(null);
 			}
-			
+
 		}
 	};
-	
+
 	private void findAllViewsById(){
 		postCodeEditText = (EditText) findViewById(R.id.findit_post_code_preview_EditText);
 		nextBtn = (Button) findViewById(R.id.findit_button);
 	}
-	
+
 	private void updateUIFromPreferences(){
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String pcStr = sharedPrefs.getString(Settings.NBC_POST_CODE, "");
@@ -104,17 +104,17 @@ public class FindPostCode extends SherlockFragmentActivity implements PostCodeDi
 			showPostCodeOptions(null);
 		}		
 	}
-	
+
 	private void showPostCodeOptions(String pc) {
-	    DialogFragment newFragment = new PostCodeDialogFragment();
-	    
-	    if(pc != null){
-	    	Bundle args = new Bundle();
-		    args.putString(POSTCODE, pc);
-		    newFragment.setArguments(args);
-	    }
-	    
-	    newFragment.show(getSupportFragmentManager(), "postCode");
+		DialogFragment newFragment = new PostCodeDialogFragment();
+
+		if(pc != null){
+			Bundle args = new Bundle();
+			args.putString(POSTCODE, pc);
+			newFragment.setArguments(args);
+		}
+
+		newFragment.show(getSupportFragmentManager(), "postCode");
 	}
 
 	@Override
@@ -127,33 +127,37 @@ public class FindPostCode extends SherlockFragmentActivity implements PostCodeDi
 			updateUIFromPreferences();
 		}
 	}
-	
+
 	private class RetrieveBinCollectionsTask extends AsyncTask<String, Void, ArrayList<Property>>{
 
 		@Override
 		protected ArrayList<Property> doInBackground(String... params) {
 			BinCollectionsRetriever bcr = new BinCollectionsRetriever();
 			String url = getString(R.string.mycouncil_url) + getString(R.string.bin_collections_url) + Uri.encode(postCodeEditText.getText().toString());
-			return 	bcr.retrieveBinCollections(url);
+			return 	bcr.retrieveBinCollections(url, getApplicationContext());
 		}
-		
+
 		@Override
 		protected void onPostExecute(final ArrayList<Property> result){
 			//run intent to next activity
 			setSupportProgressBarIndeterminateVisibility(false);
-			if(result.size() > 0){
-				if(result.size() > 1){
-					Intent i = new Intent(getApplicationContext(),FindBinCollectionPropertyList.class);
-					i.putExtra(PROPERTIES_LIST, result);
-					startActivity(i);
+			try {
+				if(result.size() > 0){
+					if(result.size() > 1){
+						Intent i = new Intent(getApplicationContext(),FindBinCollectionPropertyList.class);
+						i.putExtra(PROPERTIES_LIST, result);
+						startActivity(i);
+					}
+					else{
+						Intent i = new Intent(getApplicationContext(),FindBinCollectionResult.class);
+						i.putExtra(COLLECTION_ADDRESS, (Property) result.get(0));
+						startActivity(i);
+					}
 				}
 				else{
-					Intent i = new Intent(getApplicationContext(),FindBinCollectionResult.class);
-					i.putExtra(COLLECTION_ADDRESS, (Property) result.get(0));
-					startActivity(i);
+					Toast.makeText(getApplicationContext(), "Please check your Post Code", Toast.LENGTH_SHORT).show();
 				}
-			}
-			else{
+			} catch (NullPointerException e) {
 				Toast.makeText(getApplicationContext(), "Please check your Post Code", Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -172,5 +176,5 @@ public class FindPostCode extends SherlockFragmentActivity implements PostCodeDi
 		super.onStart();
 		EasyTracker.getInstance(this).activityStop(this);
 	}
-	
+
 }

@@ -46,8 +46,6 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
 	SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
     SharedPreferences sharedPrefs;
-    
-    private static final String DEBUG_KEY = "MAIN ACTIVITY";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
